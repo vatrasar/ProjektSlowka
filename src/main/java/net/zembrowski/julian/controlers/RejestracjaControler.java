@@ -2,6 +2,8 @@ package net.zembrowski.julian.controlers;
 
 
 import net.zembrowski.julian.domain.Uzytkownik;
+import net.zembrowski.julian.repository.RoleRepository;
+import net.zembrowski.julian.services.RoleServices;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,12 +17,15 @@ public class RejestracjaControler {
     @Autowired
     UzytkownikService uzytkownicy;
 
+    @Autowired
+    RoleServices role;
 
 
     @RequestMapping(value ="/rejestruj",method = RequestMethod.POST)
     public String dojajUzytkownikarejestruj(Uzytkownik nowyUzytkownik)
     {
         uzytkownicy.addUzytkownik(nowyUzytkownik);
+        role.persistRole(nowyUzytkownik.getLogin(),"user");
         return "redirect:/hello";
     }
 

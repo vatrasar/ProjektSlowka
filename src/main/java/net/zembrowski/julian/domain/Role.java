@@ -1,4 +1,4 @@
-package net.zembrowski.julian.config;
+package net.zembrowski.julian.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

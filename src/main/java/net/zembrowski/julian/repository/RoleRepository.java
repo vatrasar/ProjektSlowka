@@ -1,6 +1,6 @@
 package net.zembrowski.julian.repository;
 
-import net.zembrowski.julian.config.Role;
+import net.zembrowski.julian.domain.Role;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +19,4 @@ public class RoleRepository {
         em.persist(role);
     }
 
-    public List<Role> getAll() {
-        return em.createQuery("from Role", Role.class).getResultList();
-    }
 }
