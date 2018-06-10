@@ -27,7 +27,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rejestrujPoBledzie").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().defaultSuccessUrl("/hello");
+                .formLogin().defaultSuccessUrl("/pokarzMenu");
     }
 
     @SuppressWarnings("deprecation")
