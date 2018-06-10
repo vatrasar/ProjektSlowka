@@ -10,19 +10,22 @@
 
 </head>
 <body>
-<h1 style="text-align: center">REJESTRACJA</h1>
+<h1 style="text-align: center">REJESTRACJA POWTORZENIA</h1>
 <div class="container">
-    <form class="form-horizontal" th:action="@{/rejestruj}" th:method="post" th:object="${urzytek}">
+    <form class="form-horizontal" th:action="@{/rejestruj}" th:method="post" th:object="${powtorzenie}">
+
         <div class="form-group">
-            <label th:class="control-label">login</label>
-            <input th:class="form-control" type="text" th:field="*{login}"/>
+            <label class="control-label">Nazwa powtorzenia</label>
+            <datalist th:field="*{nazwa}">
+                <option>slowka</option>
+            </datalist>
         </div>
         <div class="form-group">
-            <label th:class="control-label">hasło</label>
-            <input th:class="form-control" type="text" th:field="*{haslo}" />
+            <label class="control-label">Nazwa powtorzenia</label>
+            <input type="number" th:field="*{numer}"/>
         </div>
         <div th:class="row">
-            <input th:class="btn-default" type="submit" value="rejestruj"/>
+            <input th:class="btn-default" type="submit" value="dodaj powtorzenie"/>
         </div>
     </form>
 </div>
