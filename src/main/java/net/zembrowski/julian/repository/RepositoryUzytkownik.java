@@ -22,6 +22,7 @@ public class RepositoryUzytkownik {
 
     public boolean isExist(Uzytkownik szukany) {
 
+
         if(null==em.find(Uzytkownik.class,szukany.getLogin()))
         {
             return false;
