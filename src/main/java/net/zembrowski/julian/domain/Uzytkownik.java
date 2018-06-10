@@ -7,7 +7,6 @@ import javax.persistence.Id;
 public class Uzytkownik {
 
     @Id
-    int id;
     String login;
     String haslo;
 
