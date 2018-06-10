@@ -22,12 +22,18 @@
         margin-right:30% ;
     }
 
+    p span
+    {
+        font-weight: normal;
+        color: cornflowerblue;
+    }
 
 </style>
 
 
 </head>
 <body>
+<p style="font-weight: bold">zalogowany jako:<span th:text="${nazwaUzytkownika}"></span></p>
 <div th:class="container">
 
     <table th:class="table" border="1" style="width: 30%" >
