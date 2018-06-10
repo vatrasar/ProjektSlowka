@@ -1,5 +1,7 @@
 package net.zembrowski.julian.domain;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
