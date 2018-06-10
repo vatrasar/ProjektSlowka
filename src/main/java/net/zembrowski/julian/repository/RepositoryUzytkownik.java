@@ -20,4 +20,14 @@ public class RepositoryUzytkownik {
         em.persist(uzytkownik);
     }
 
+    public boolean isExist(Uzytkownik szukany) {
+
+        if(null==em.find(Uzytkownik.class,szukany.getLogin()))
+        {
+            return false;
+        }
+        else
+            return true;
+
+    }
 }

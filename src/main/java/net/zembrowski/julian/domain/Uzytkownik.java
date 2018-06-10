@@ -22,10 +22,20 @@ public class Uzytkownik {
         this.haslo = haslo;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Id
 
-    String login;
-    String haslo;
+    private String login;
+    private String haslo;
+    private boolean enabled;
+
 
     public Uzytkownik() {
     }

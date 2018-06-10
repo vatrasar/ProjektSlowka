@@ -22,12 +22,19 @@ public class RejestracjaControler {
 
 
     @RequestMapping(value ="/rejestruj",method = RequestMethod.POST)
-    public String dojajUzytkownikarejestruj(Uzytkownik nowyUzytkownik)
+    public String dojajUzytkownika(Uzytkownik nowyUzytkownik)
     {
+        nowyUzytkownik.setEnabled(true);
+         if(uzytkownicy.isExist(nowyUzytkownik))
+         {
+             return "redirect:/rejestrujPoBledzie";
+         }
         uzytkownicy.addUzytkownik(nowyUzytkownik);
         role.persistRole(nowyUzytkownik.getLogin(),"user");
         return "redirect:/hello";
     }
+
+
 
     @RequestMapping(value ="/rejestruj")
     public String rejestruj(Model model)
@@ -35,6 +42,14 @@ public class RejestracjaControler {
 
         model.addAttribute("urzytek",new Uzytkownik());
         return "rejestracja";
+    }
+
+    @RequestMapping(value ="/rejestrujPoBledzie")
+    public String rejestrujPoBledzie(Model model)
+    {
+
+        model.addAttribute("urzytek",new Uzytkownik());
+        return "rejestracjaPoBledzie";
     }
 
     @RequestMapping(value ="/hello")

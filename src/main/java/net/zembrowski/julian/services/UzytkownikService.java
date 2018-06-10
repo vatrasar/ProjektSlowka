@@ -17,4 +17,7 @@ public class UzytkownikService {
         uzytkownicy.createUzytkonik(nowyUzytkownik);
     }
 
+    public boolean isExist(Uzytkownik szukany) {
+       return uzytkownicy.isExist(szukany);
+    }
 }
