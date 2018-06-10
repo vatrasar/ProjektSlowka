@@ -1,11 +1,15 @@
 package net.zembrowski.julian.domain;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+@Component
+@Scope(value = "session",proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Uzytkownik {
 
     public String getLogin() {
