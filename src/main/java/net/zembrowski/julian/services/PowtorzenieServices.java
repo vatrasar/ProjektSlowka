@@ -1,6 +1,7 @@
 package net.zembrowski.julian.services;
 
 
+import net.zembrowski.julian.domain.Klucz;
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.repository.PowotrzenieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,10 @@ import java.util.List;
 public class PowtorzenieServices {
 
     @Autowired
-    PowotrzenieRepository powtorzenia;
+    private PowotrzenieRepository powtorzenia;
 
     @Autowired
-    Powtorzenie aktualnePowtorzenie;
+    private Powtorzenie aktualnePowtorzenie;
 
     public boolean isExist(Powtorzenie nowePowtorzenie) {
         return  powtorzenia.isExist(nowePowtorzenie);
@@ -42,4 +43,16 @@ public class PowtorzenieServices {
         LocalDate dzis=LocalDate.now();
         return powtorzenia.getPowtorzeniaNaDzis(dzis);
     }
+
+    public Powtorzenie getPowtorzenie(Klucz klucz) {
+       return powtorzenia.getPowtorzenie(klucz);
+    }
+
+    /*zwroci maxymalny numer powtorzenia o danej nazwie*/
+    public int getMaxNumer(String nazwa) {
+
+        return powtorzenia.getMaxNumer(nazwa);
+    }
+
+
 }

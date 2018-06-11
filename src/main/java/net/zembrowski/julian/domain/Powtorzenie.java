@@ -92,4 +92,39 @@ public class Powtorzenie {
                 ", nastepne=" + nastepne +
                 '}';
     }
+
+    /*dodaje odpowiednia liczbe dni do numeru.ustala date kiedy ma byc przeprowadzone nastepne powtorzenie*/
+    public void refaktoryzujPowtorzenie() {
+
+        switch (nastepne)
+        {
+            case 1:
+                nastepne=3;
+                break;
+            case 3:
+                nastepne=10;
+                break;
+            case 10:
+                nastepne=30;
+                break;
+            case 30:
+                nastepne=90;
+                break;
+            case 180:
+                nastepne=360;
+                break;
+        }
+        dzien=dzien.plusDays(nastepne);
+    }
+
+   public void utworzPowDlaBledow(Powtorzenie stare,int nowyNumer)
+   {
+       this.setNazwa(stare.getNazwa());
+       this.setDzien(LocalDate.now().plusDays(1));
+       this.setNumer(nowyNumer);
+       this.setNazwa(stare.getNazwa());
+       this.setWlasciciel(stare.getWlasciciel());
+       this.setNastepne(1);
+       this.setUtworzenie(stare.getUtworzenie());
+   }
 }

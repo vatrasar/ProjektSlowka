@@ -26,7 +26,7 @@ public class PowotrzenieRepository {
     {
 
 
-        Klucz szukany=new Klucz(nowePowtorzenie.getNumer(),nowePowtorzenie.getNazwa());
+        Klucz szukany=new Klucz(nowePowtorzenie.getNumer(),nowePowtorzenie.getNazwa(),nowePowtorzenie.getWlasciciel());
         if(em.find(Powtorzenie.class,szukany)==null)
         {
             return false;
@@ -47,5 +47,15 @@ public class PowotrzenieRepository {
 
         return em.createQuery("select p from Powtorzenie p WHERE p.dzien=:dzis AND p.wlasciciel=:akutalny",Powtorzenie.class).setParameter("dzis",dzis).setParameter("akutalny",akutalnyUzytkownik.getLogin()).getResultList();
 
+    }
+
+    public Powtorzenie getPowtorzenie(Klucz klucz) {
+
+        return em.find(Powtorzenie.class,klucz);
+    }
+
+    public int getMaxNumer(String nazwa) {
+
+        return em.createQuery("select MAX(p.numer) from Powtorzenie p where p.nazwa=:szukana and p.wlasciciel=:aktualny",Integer.class).setParameter("szukana",nazwa).setParameter("aktualny",akutalnyUzytkownik.getLogin()).getSingleResult();
     }
 }

@@ -10,6 +10,7 @@
 </head>
 <body>
 <p style="font-weight: bold">zalogowany jako:<span th:text="${nazwaUzytkownika}"></span></p>
+<p th:if="${powtorzono}" style="color: green">Powtorzenie zakonczone!</p>
 <div th:class="container">
 
     <table th:class="table" >
