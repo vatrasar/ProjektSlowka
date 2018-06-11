@@ -1,6 +1,7 @@
 package net.zembrowski.julian.controlers;
 
 
+import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Uzytkownik;
 import net.zembrowski.julian.repository.RoleRepository;
 import net.zembrowski.julian.services.RoleServices;
@@ -21,6 +22,7 @@ public class RejestracjaControler {
     RoleServices role;
 
 
+
     @RequestMapping(value ="/rejestruj",method = RequestMethod.POST)
     public String dojajUzytkownika(Uzytkownik nowyUzytkownik)
     {
@@ -31,6 +33,7 @@ public class RejestracjaControler {
          }
         uzytkownicy.addUzytkownik(nowyUzytkownik);
         role.persistRole(nowyUzytkownik.getLogin(),"user");
+
         return "redirect:/hello";
     }
 
@@ -57,6 +60,7 @@ public class RejestracjaControler {
     {
         return "hello";
     }
+
 
 
 

@@ -14,8 +14,10 @@ public class MenuControler {
 
     @Autowired
     Uzytkownik akutalnyUzytkownik;
+
+
     @RequestMapping(value = "/pokarzMenu")
-    String wyswietlMenu(Model model)
+   public String wyswietlMenu(Model model)
     {
 
         User user =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -1,17 +1,19 @@
 package net.zembrowski.julian.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 
 @Entity
-@IdClass(KluczPowtorzen.class)
+@IdClass(Klucz.class)
 public class Powtorzenie {
 
     @Id
     private String nazwa;
     @Id
     private int numer;
+    //uzytkownik
+    private String wlasciciel;
+
+    //private LocalDateTime utworzenie;
 
     public String getNazwa() {
         return nazwa;
@@ -29,6 +31,11 @@ public class Powtorzenie {
         this.numer = numer;
     }
 
-    public Powtorzenie() {
+    public String getWlasciciel() {
+        return wlasciciel;
+    }
+
+    public void setWlasciciel(String wlasciciel) {
+        this.wlasciciel = wlasciciel;
     }
 }
