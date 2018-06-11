@@ -1,6 +1,7 @@
 package net.zembrowski.julian.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ import java.time.LocalTime;
 
 @Entity
 @IdClass(Klucz.class)
-
+@Component
 public class Powtorzenie {
 
     @Id

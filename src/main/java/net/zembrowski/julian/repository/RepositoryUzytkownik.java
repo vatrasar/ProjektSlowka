@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 @Repository
 public class RepositoryUzytkownik {
 
-    @Autowired
-    EntityManager em;
+    @PersistenceContext
+    private EntityManager em;
 
     @Transactional
     public void createUzytkonik(Uzytkownik uzytkownik)

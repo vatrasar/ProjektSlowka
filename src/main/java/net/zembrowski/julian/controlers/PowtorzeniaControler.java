@@ -26,6 +26,9 @@ public class PowtorzeniaControler {
     @Autowired
     Uzytkownik aktualnyUzytkownik;
 
+    @Autowired
+    Powtorzenie akutalnePowtorzenie;
+
     @RequestMapping( value = "/dodaniePowtorzenia")
    public String dodaniePowtorzenia(Model model)
     {
