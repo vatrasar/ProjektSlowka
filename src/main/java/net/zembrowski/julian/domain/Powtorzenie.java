@@ -35,6 +35,7 @@ public class Powtorzenie {
 
 
 
+
     public LocalDate getUtworzenie() {
 
         return utworzenie;

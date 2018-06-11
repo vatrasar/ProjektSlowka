@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public class PowotrzenieRepository {
@@ -36,5 +38,11 @@ public class PowotrzenieRepository {
     public void persistPowtorzenie(Powtorzenie nowePowtorzenie) {
 
         em.persist(nowePowtorzenie);
+    }
+
+    public List<Powtorzenie> getPowtorzeniaNaDzis(LocalDate dzis) {
+
+        return em.createQuery("select p from Powtorzenie p WHERE p.dzienPowtorzenia:=dzis",Powtorzenie.class).setParameter("dzis",dzis).getResultList();
+
     }
 }

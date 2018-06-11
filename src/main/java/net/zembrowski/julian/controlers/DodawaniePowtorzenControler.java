@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Controller
-public class PowtorzeniaControler {
+public class DodawaniePowtorzenControler {
 
 
     @Autowired

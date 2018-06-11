@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Service
 public class PowtorzenieServices {
 
@@ -32,5 +35,11 @@ public class PowtorzenieServices {
         aktualnePowtorzenie.setWlasciciel(noweAktualne.getWlasciciel());
         aktualnePowtorzenie.setNastepne(noweAktualne.getNastepne());
         aktualnePowtorzenie.setUtworzenie(noweAktualne.getUtworzenie());
+    }
+
+    public List<Powtorzenie> getPowtorzeniaNaDzis() {
+
+        LocalDate dzis=LocalDate.now();
+        return powtorzenia.getPowtorzeniaNaDzis(dzis);
     }
 }
