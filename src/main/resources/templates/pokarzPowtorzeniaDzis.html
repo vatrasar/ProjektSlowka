@@ -9,7 +9,10 @@
 
 </head>
 <body>
-<p style="font-weight: bold">zalogowany jako:<span th:text="${nazwaUzytkownika}"></span></p>
+<div th:class="row" style="text-align: center;margin:5px;float: right">
+    <a th:href="@{/pokarzMenu}">wroć do menu głównego</a>
+</div>
+<p style="font-weight: bold">zalogowany jako:<span style="font-weight: normal;color: cornflowerblue;" th:text="${nazwaUzytkownika}"></span></p>
 <p th:if="${powtorzono}" style="color: green">Powtorzenie zakonczone!</p>
 <div th:class="container">
 

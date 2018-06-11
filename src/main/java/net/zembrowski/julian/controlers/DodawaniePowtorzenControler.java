@@ -11,7 +11,10 @@ import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.RoleServices;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -74,6 +77,7 @@ public class DodawaniePowtorzenControler {
     }
 
     @RequestMapping(value = "/dodajPytanie",method = RequestMethod.POST)
+    @Transactional
     public String dodajPytanie(Pytanie nowe)
     {
         nowe.setPowtorzenie(akutalnePowtorzenie);

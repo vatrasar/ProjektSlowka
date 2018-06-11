@@ -45,7 +45,7 @@ public class PowotrzenieRepository {
 
     public List<Powtorzenie> getPowtorzeniaNaDzis(LocalDate dzis) {
 
-        return em.createQuery("select p from Powtorzenie p WHERE p.dzien=:dzis AND p.wlasciciel=:akutalny",Powtorzenie.class).setParameter("dzis",dzis).setParameter("akutalny",akutalnyUzytkownik.getLogin()).getResultList();
+        return em.createQuery("select p from Powtorzenie p WHERE p.dzien<=:dzis AND p.wlasciciel=:akutalny",Powtorzenie.class).setParameter("dzis",dzis).setParameter("akutalny",akutalnyUzytkownik.getLogin()).getResultList();
 
     }
 

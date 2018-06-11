@@ -31,6 +31,7 @@ public class RejestracjaControler {
          {
              return "redirect:/rejestrujPoBledzie";
          }
+
         uzytkownicy.addUzytkownik(nowyUzytkownik);
         role.persistRole(nowyUzytkownik.getLogin(),"user");
 

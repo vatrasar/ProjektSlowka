@@ -37,15 +37,18 @@
 <div th:class="container">
 
     <table th:class="table" border="1" style="width: 30%" >
-        <caption style="text-align: center">GłÓWNE MENU</caption>
+        <caption style="text-align: center;font-weight: bold;font-size: 25px">GłÓWNE MENU</caption>
         <tr>
-            <td><a th:href="@{/dodaniePowtorzenia}">Dodaj Pwotorzenie</a></td>
+            <td><a th:href="@{/dodaniePowtorzenia}">Dodaj Powtorzenie</a></td>
         </tr>
         <tr>
             <td><a th:href="@{/pokarzPowtorzenia}">Powtarzaj</a></td>
         </tr>
         <tr>
-            <td><a>wyloguj</a></td>
+            <td><a th:href="@{/rejestruj}">Zarejestruj</a></td>
+        </tr>
+        <tr>
+            <td><a th:href="@{/login}">Login</a></td>
         </tr>
     </table>
 </div>

@@ -4,6 +4,8 @@ import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.PytanieServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,9 +26,15 @@ public class PowtarzanieControler {
 
     @Autowired
     Pytanie aktualnePytanie;
+
     @RequestMapping(value = "/pokarzPowtorzenia")
     public String pokarzPowtorzenia(Model model)
     {
+        User user =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("nazwaUzytkownika",user.getUsername());
+        akutalnyUzytkownik.setLogin(user.getUsername());
+
+
         List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
         model.addAttribute("powtorzenia",powtorzeniaNaDzis);
         model.addAttribute("nazwaUzytkownika",akutalnyUzytkownik.getLogin());
