@@ -18,6 +18,7 @@ public class Powtorzenie {
     @Id
     private int numer;
     //uzytkownik
+    @Id
     private String wlasciciel;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate utworzenie;

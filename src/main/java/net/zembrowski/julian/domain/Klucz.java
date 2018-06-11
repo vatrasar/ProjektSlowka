@@ -9,6 +9,15 @@ public class Klucz implements Serializable {
 
     private int numer;
     private String nazwa;
+    private String wlasciciel;
+
+    public String getWlasciciel() {
+        return wlasciciel;
+    }
+
+    public void setWlasciciel(String wlasciciel) {
+        this.wlasciciel = wlasciciel;
+    }
 
     public Klucz() {
     }

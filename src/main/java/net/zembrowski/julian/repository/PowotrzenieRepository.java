@@ -3,6 +3,7 @@ package net.zembrowski.julian.repository;
 
 import net.zembrowski.julian.domain.Klucz;
 import net.zembrowski.julian.domain.Powtorzenie;
+import net.zembrowski.julian.domain.Uzytkownik;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,8 @@ public class PowotrzenieRepository {
     @PersistenceContext
     private EntityManager em;
 
+    @Autowired
+    Uzytkownik akutalnyUzytkownik;
 
     public boolean isExist(Powtorzenie nowePowtorzenie)
     {
@@ -42,7 +45,7 @@ public class PowotrzenieRepository {
 
     public List<Powtorzenie> getPowtorzeniaNaDzis(LocalDate dzis) {
 
-        return em.createQuery("select p from Powtorzenie p WHERE p.dzien=:dzis",Powtorzenie.class).setParameter("dzis",dzis).getResultList();
+        return em.createQuery("select p from Powtorzenie p WHERE p.dzien=:dzis AND p.wlasciciel=:akutalny",Powtorzenie.class).setParameter("dzis",dzis).setParameter("akutalny",akutalnyUzytkownik.getLogin()).getResultList();
 
     }
 }
