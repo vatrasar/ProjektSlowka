@@ -13,6 +13,7 @@ public class Pytanie {
     String answer;
     @OneToOne
     Powtorzenie powtorzenie;
+    Status status;
 
     public int getId() {
         return id;
@@ -44,5 +45,13 @@ public class Pytanie {
 
     public void setPowtorzenie(Powtorzenie powtorzenie) {
         this.powtorzenie = powtorzenie;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
