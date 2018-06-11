@@ -1,6 +1,8 @@
 package net.zembrowski.julian.controlers;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.zembrowski.julian.domain.Powtorzenie;
+import net.zembrowski.julian.domain.Pytanie;
 import net.zembrowski.julian.domain.Uzytkownik;
 import net.zembrowski.julian.repository.RoleRepository;
 import net.zembrowski.julian.services.PowtorzenieServices;
@@ -53,7 +55,15 @@ public class PowtorzeniaControler {
 
 
         powtorzenia.persistPowtorzenie(NowePowtorzenie);
-        return "redirect:/pokarzMenu";
+        return "redirect:/dodajPytanie";
+    }
+
+
+    @RequestMapping(value = "/dodajPytanie")
+    public String rejestrujPytanie(Model model)
+    {
+        model.addAttribute("pytanie",new Pytanie());
+        return  "dodaniePytania";
     }
 
     @RequestMapping( value = "/rejestracjaPowtorzeniaBlad")
@@ -63,6 +73,8 @@ public class PowtorzeniaControler {
         model.addAttribute("powtorzenie",new Powtorzenie());
         return "rejestracjaPowtorzeniaBlad";
     }
+
+
 
 
 }

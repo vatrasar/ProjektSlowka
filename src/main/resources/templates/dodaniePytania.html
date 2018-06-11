@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <title>Getting started serving web content</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+
+
+</head>
+<body>
+<p style="color: red">Podane powtorzenie juz istnieje!</p>
+<h2 style="text-align: center;margin-bottom: 60px">REJESTRACJA POWTORZENIA</h2>
+<div class="container">
+    <form class="form-horizontal" th:action="@{/dodaniePowtorzenia}" th:method="post" th:object="${pytanie}">
+
+        <div th:class="form-group">
+            <label th:class="control-label">Pytanie</label>
+            <input th:class="form-control" type="text" th:field="*{question}"/>
+        </div>
+        <div th:class="form-group">
+            <label th:class="control-label">Odpowiedz</label>
+            <input th:required="required" th:class="form-control" type="text" th:field="*{answer}"/>
+        </div>
+
+        <div th:class="row" style="text-align: center;margin-top: 20px">
+            <input th:required="required"  th:class="btn-default" type="submit" value="dodaj pytanie"/>
+        </div>
+    </form>
+</div>
+</body>
+</html>

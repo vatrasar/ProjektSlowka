@@ -9,8 +9,8 @@ public class Pytanie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
-    String pytanie;
-    String odpowiedz;
+    String question;
+    String answer;
     @OneToOne
     Powtorzenie powtorzenie;
 
@@ -22,20 +22,20 @@ public class Pytanie {
         this.id = id;
     }
 
-    public String getPytanie() {
-        return pytanie;
+    public String getQuestion() {
+        return question;
     }
 
-    public void setPytanie(String pytanie) {
-        this.pytanie = pytanie;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
-    public String getOdpowiedz() {
-        return odpowiedz;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setOdpowiedz(String odpowiedz) {
-        this.odpowiedz = odpowiedz;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public Powtorzenie getPowtorzenie() {
