@@ -39,9 +39,9 @@ public class PowtorzeniaControler {
 
 
         NowePowtorzenie.setWlasciciel(aktualnyUzytkownik.getLogin());
+        LocalDate akutalnaData=LocalDate.now();
 
-
-
+        NowePowtorzenie.setDzienPowtorzenia(akutalnaData.plusDays(NowePowtorzenie.getNastepne()));
         if(powtorzenia.isExist(NowePowtorzenie))
         {
             return "redirect:/rejestracjaPowtorzeniaBlad";

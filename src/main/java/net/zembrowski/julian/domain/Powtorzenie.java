@@ -20,8 +20,10 @@ public class Powtorzenie {
     private String wlasciciel;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate utworzenie;
+    //data  nastepnego powtorzenia
+    private LocalDate dzienPowtorzenia;
     //dni do nastepnego powtorzenia
-
+    private int nastepne;
     public int getNastepne() {
         return nastepne;
     }
@@ -30,7 +32,7 @@ public class Powtorzenie {
         this.nastepne = nastepne;
     }
 
-    private int nastepne;
+
 
     public LocalDate getUtworzenie() {
 
@@ -65,5 +67,13 @@ public class Powtorzenie {
 
     public void setWlasciciel(String wlasciciel) {
         this.wlasciciel = wlasciciel;
+    }
+
+    public LocalDate getDzienPowtorzenia() {
+        return dzienPowtorzenia;
+    }
+
+    public void setDzienPowtorzenia(LocalDate dzienPowtorzenia) {
+        this.dzienPowtorzenia = dzienPowtorzenia;
     }
 }
