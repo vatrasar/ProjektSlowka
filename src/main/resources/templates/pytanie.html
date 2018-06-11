@@ -12,7 +12,7 @@
 <body>
 <h2 style="text-align: center;margin-top:25%">Pytanie:</h2>
 <div class="container">
-    <form class="form-horizontal" th:action="@{/robPowtorzenie}" th:method="post" th:object="${pytanie}">
+    <form class="form-horizontal" th:action="@{/robPowtorzenie}" th:method="post" th:object="${pyt}">
         <div th:class="row" style="text-align: center;font-size: 10%;">
             <p th:text="*{question}"></p>
         </div>
@@ -22,7 +22,8 @@
             <input th:class="form-control" type="text" th:field="*{question}" />
         </div>
 
-        <input>
+        <input th:hidden="${pyt.id}" th:field="*{id}"/>
+        <input th:hidden="${pyt.answer}" th:field="*{answer}"/>
         <div th:class="row" style="text-align: center;margin-top: 20px">
             <input th:class="btn-default" type="submit" value="sprawdz odpowiedz"/>
         </div>

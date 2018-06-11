@@ -1,9 +1,6 @@
 package net.zembrowski.julian.controlers;
 
-import net.zembrowski.julian.domain.Klucz;
-import net.zembrowski.julian.domain.Powtorzenie;
-import net.zembrowski.julian.domain.Pytanie;
-import net.zembrowski.julian.domain.Uzytkownik;
+import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.PytanieServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,14 +49,31 @@ public class PowtarzanieControler {
             return "pokarzPowtorzeniaDzis";
         }
 
-        model.addAttribute("pytanie",wykonywanePytania.get(0));
-        return "powtarzanie";
+        model.addAttribute("odpowiedz",false);
+        model.addAttribute("pyt",wykonywanePytania.get(0));
+        return "pytanie";
     }
 
 
     @RequestMapping(value = "/robPowtorzenie",method = RequestMethod.POST)
-    public String robPowtorzenieform(Pytanie odpowiedz)
+    public String robPowtorzenieform(Pytanie odpowiedz, Model model)
     {
-        return "";
+        //pole pytanie w odpowiedzi zawiera teraz odpowiedz uzytkownika
+        model.addAttribute("pytanie",odpowiedz);
+        return "odpowiedz";
+    }
+    @RequestMapping(value = "/robPowtorzeniePodsumowanie")
+    public String robPowtorzeniePodsumowanie(@RequestParam("id")Integer id,@RequestParam("zal") Integer zal, Model model)
+    {
+        Status status;
+        if (zal==0)
+        {
+            status=Status.NIEUMIEM
+        }
+        else
+        {
+            status=Status.UMIEM;
+        }
+        return "odpowiedz";
     }
 }
