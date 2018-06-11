@@ -55,4 +55,11 @@ public class PytanieRepository {
             em.merge(modyfikowane);
         }
     }
+
+    @Transactional
+    public void zmienStatusPytania(Integer id, Status status) {
+        Pytanie pytanie=em.find(Pytanie.class,id);
+        pytanie.setStatus(status);
+        em.merge(pytanie);
+    }
 }

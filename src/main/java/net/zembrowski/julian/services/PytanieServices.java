@@ -66,4 +66,9 @@ public class PytanieServices {
 
 
     }
+
+    @Transactional
+    public void zmienStatusPytania(Integer id, Status status) {
+        pytania.zmienStatusPytania(id,status);
+    }
 }

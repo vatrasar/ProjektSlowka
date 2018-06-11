@@ -74,6 +74,8 @@ public class PowtarzanieControler {
         {
             status=Status.UMIEM;
         }
+
+        pytania.zmienStatusPytania(id,status)
         return "odpowiedz";
     }
 }
