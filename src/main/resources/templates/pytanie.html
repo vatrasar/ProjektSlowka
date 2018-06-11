@@ -10,20 +10,23 @@
 
 </head>
 <body>
+
 <h2 style="text-align: center;margin-top:25%">Pytanie:</h2>
 <div class="container">
-    <form class="form-horizontal" th:action="@{/robPowtorzenie}" th:method="post" th:object="${pyt}">
-        <div th:class="row" style="text-align: center;font-size: 10%;">
-            <p th:text="*{question}"></p>
-        </div>
+
+    <div th:class="row" style="text-align: center;">
+    <p style="font-size: 50px"><span th:text="${pyt.question}"></span></p>
+</div>
+    <form class="form-horizontal" th:action="@{/robPowtorzenie}" th:method="post" th:object="${odp}">
+
 
         <div th:class="form-group">
             <label th:class="control-label">Odpowiedz:</label>
-            <input th:class="form-control" type="text" th:field="*{question}" />
+            <input th:required="required" th:class="form-control" placeholder="Wpisz odpowiedz" th:field="*{question}" />
         </div>
 
-        <input th:hidden="${pyt.id}" th:field="*{id}"/>
-        <input th:hidden="${pyt.answer}" th:field="*{answer}"/>
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{answer}" />
         <div th:class="row" style="text-align: center;margin-top: 20px">
             <input th:class="btn-default" type="submit" value="sprawdz odpowiedz"/>
         </div>

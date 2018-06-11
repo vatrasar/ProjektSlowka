@@ -22,6 +22,8 @@ public class PowtarzanieControler {
     @Autowired
     PytanieServices pytania;
 
+    @Autowired
+    Pytanie aktualnePytanie;
     @RequestMapping(value = "/pokarzPowtorzenia")
     public String pokarzPowtorzenia(Model model)
     {
@@ -49,8 +51,14 @@ public class PowtarzanieControler {
             return "pokarzPowtorzeniaDzis";
         }
 
-        model.addAttribute("odpowiedz",false);
-        model.addAttribute("pyt",wykonywanePytania.get(0));
+        Pytanie nowy=new Pytanie();
+        Pytanie stare=wykonywanePytania.get(0);
+        nowy.setId(stare.getId());
+        nowy.setAnswer(stare.getAnswer());
+        model.addAttribute("odp",nowy);
+        aktualnePytanie.setId(stare.getId());
+        aktualnePytanie.setPowtorzenie(stare.getPowtorzenie());
+        model.addAttribute("pyt",stare);
         return "pytanie";
     }
 
@@ -63,19 +71,20 @@ public class PowtarzanieControler {
         return "odpowiedz";
     }
     @RequestMapping(value = "/robPowtorzeniePodsumowanie")
-    public String robPowtorzeniePodsumowanie(@RequestParam("id")Integer id,@RequestParam("zal") Integer zal, Model model)
+    public String robPowtorzeniePodsumowanie(@RequestParam("zal") Integer zal, Model model)
     {
         Status status;
         if (zal==0)
         {
-            status=Status.NIEUMIEM
+            status=Status.NIEUMIEM;
         }
         else
         {
             status=Status.UMIEM;
         }
 
-        pytania.zmienStatusPytania(id,status)
-        return "odpowiedz";
+        pytania.zmienStatusPytania(aktualnePytanie.getId(),status);
+
+        return "redirect:/robPowtorzenie?id="+aktualnePytanie.getPowtorzenie().getNazwa()+"&pk="+aktualnePytanie.getPowtorzenie().getNumer();
     }
 }
