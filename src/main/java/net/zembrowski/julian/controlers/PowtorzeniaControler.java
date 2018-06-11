@@ -4,8 +4,10 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Pytanie;
 import net.zembrowski.julian.domain.Uzytkownik;
+import net.zembrowski.julian.repository.PytanieRepository;
 import net.zembrowski.julian.repository.RoleRepository;
 import net.zembrowski.julian.services.PowtorzenieServices;
+import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.RoleServices;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class PowtorzeniaControler {
     @Autowired
     Powtorzenie akutalnePowtorzenie;
 
+    @Autowired
+    PytanieServices pytania;
+
     @RequestMapping( value = "/dodaniePowtorzenia")
    public String dodaniePowtorzenia(Model model)
     {
@@ -52,9 +57,9 @@ public class PowtorzeniaControler {
             return "redirect:/rejestracjaPowtorzeniaBlad";
         }
 
-
-
         powtorzenia.persistPowtorzenie(NowePowtorzenie);
+        powtorzenia.ustawJakoAktualne(NowePowtorzenie);
+        System.out.print(akutalnePowtorzenie);
         return "redirect:/dodajPytanie";
     }
 
@@ -62,7 +67,25 @@ public class PowtorzeniaControler {
     @RequestMapping(value = "/dodajPytanie")
     public String rejestrujPytanie(Model model)
     {
+
         model.addAttribute("pytanie",new Pytanie());
+        model.addAttribute("sukces",false);
+        return  "dodaniePytania";
+    }
+
+    @RequestMapping(value = "/dodajPytanie",method = RequestMethod.POST)
+    public String dodajPytanie(Pytanie nowe)
+    {
+        nowe.setPowtorzenie(akutalnePowtorzenie);
+        pytania.createPytanie(nowe);
+        return  "redirect:/dodajPytanieSukces";
+    }
+
+    @RequestMapping(value = "/dodajPytanieSukces")
+    public String rejestrujPytanieSukces(Model model)
+    {
+        model.addAttribute("pytanie",new Pytanie());
+        model.addAttribute("sukces",true);
         return  "dodaniePytania";
     }
 

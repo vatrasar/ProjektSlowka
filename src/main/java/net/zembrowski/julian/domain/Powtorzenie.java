@@ -77,4 +77,16 @@ public class Powtorzenie {
     public void setDzienPowtorzenia(LocalDate dzienPowtorzenia) {
         this.dzienPowtorzenia = dzienPowtorzenia;
     }
+
+    @Override
+    public String toString() {
+        return "Powtorzenie{" +
+                "nazwa='" + nazwa + '\'' +
+                ", numer=" + numer +
+                ", wlasciciel='" + wlasciciel + '\'' +
+                ", utworzenie=" + utworzenie +
+                ", dzienPowtorzenia=" + dzienPowtorzenia +
+                ", nastepne=" + nastepne +
+                '}';
+    }
 }

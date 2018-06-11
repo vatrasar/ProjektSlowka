@@ -13,6 +13,9 @@ public class PowtorzenieServices {
     @Autowired
     PowotrzenieRepository powtorzenia;
 
+    @Autowired
+    Powtorzenie aktualnePowtorzenie;
+
     public boolean isExist(Powtorzenie nowePowtorzenie) {
         return  powtorzenia.isExist(nowePowtorzenie);
     }
@@ -20,5 +23,14 @@ public class PowtorzenieServices {
     @Transactional
     public void persistPowtorzenie(Powtorzenie nowePowtorzenie) {
         powtorzenia.persistPowtorzenie(nowePowtorzenie);
+    }
+    public void ustawJakoAktualne(Powtorzenie noweAktualne)
+    {
+        aktualnePowtorzenie.setDzienPowtorzenia(noweAktualne.getDzienPowtorzenia());
+        aktualnePowtorzenie.setNumer(noweAktualne.getNumer());
+        aktualnePowtorzenie.setNazwa(noweAktualne.getNazwa());
+        aktualnePowtorzenie.setWlasciciel(noweAktualne.getWlasciciel());
+        aktualnePowtorzenie.setNastepne(noweAktualne.getNastepne());
+        aktualnePowtorzenie.setUtworzenie(noweAktualne.getUtworzenie());
     }
 }
