@@ -10,6 +10,7 @@
 
 </head>
 <body>
+<p style="color: red">Podane powtorzenie juz istnieje!</p>
 <h2 style="text-align: center;margin-bottom: 60px">REJESTRACJA POWTORZENIA</h2>
 <div class="container">
     <form class="form-horizontal" th:action="@{/dodaniePowtorzenia}" th:method="post" th:object="${powtorzenie}">
@@ -21,13 +22,10 @@
             </datalist>
 
 
-            <label class="control-label">nazwa <input th:step="1" id="movie" list="opcje" th:field="*{nazwa}" /></label>
-
-            <label class="control-label" style="margin-left: 20px">numer</label>
-            <input type="number" th:field="*{numer}" th:min="0"/>
+            <label class="control-label">nazwa <input id="movie" list="opcje" th:field="*{nazwa}" /></label>
         </div>
 
-        <div th:class="form-group" style="text-align: center">
+        <div th:class="form-group">
             <label>data powtorzenia:<input th:field="*{utworzenie}" type="date"></label>
             <label class="control-label">Po ilu dniach nastepne powtorzenie</label>
             <select th:field="*{nastepne}">
@@ -39,8 +37,6 @@
                 <option th:value="180">180</option>
                 <option th:value="360">360</option>
             </select>
-
-
         </div>
         <div th:class="row" style="text-align: center;margin-top: 20px">
             <input th:class="btn-default" type="submit" value="dodaj powtorzenie"/>

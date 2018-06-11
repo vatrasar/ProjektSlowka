@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Controller
 public class PowtorzeniaControler {
@@ -39,15 +41,24 @@ public class PowtorzeniaControler {
         NowePowtorzenie.setWlasciciel(aktualnyUzytkownik.getLogin());
 
 
+
         if(powtorzenia.isExist(NowePowtorzenie))
         {
-            return "redirect:/dodaniePowtorzenia";
+            return "redirect:/rejestracjaPowtorzeniaBlad";
         }
 
 
 
         powtorzenia.persistPowtorzenie(NowePowtorzenie);
         return "redirect:/pokarzMenu";
+    }
+
+    @RequestMapping( value = "/rejestracjaPowtorzeniaBlad")
+    public String dodaniePowtorzeniaBlad(Model model)
+    {
+
+        model.addAttribute("powtorzenie",new Powtorzenie());
+        return "rejestracjaPowtorzeniaBlad";
     }
 
 

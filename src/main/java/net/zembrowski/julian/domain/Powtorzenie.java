@@ -1,9 +1,15 @@
 package net.zembrowski.julian.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @IdClass(Klucz.class)
+
 public class Powtorzenie {
 
     @Id
@@ -12,8 +18,30 @@ public class Powtorzenie {
     private int numer;
     //uzytkownik
     private String wlasciciel;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate utworzenie;
+    //dni do nastepnego powtorzenia
 
-    //private LocalDateTime utworzenie;
+    public int getNastepne() {
+        return nastepne;
+    }
+
+    public void setNastepne(int nastepne) {
+        this.nastepne = nastepne;
+    }
+
+    private int nastepne;
+
+    public LocalDate getUtworzenie() {
+
+        return utworzenie;
+    }
+
+    public void setUtworzenie(LocalDate utworzenie) {
+        this.utworzenie = utworzenie;
+    }
+
+
 
     public String getNazwa() {
         return nazwa;
