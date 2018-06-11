@@ -7,14 +7,28 @@
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 
+    <style>
+        p span
+        {
+            color: black;
+        }
+        #odpowiedz
+        {
+            color: green;
+        }
+        #mojaOdp
+        {
+            color: darkgoldenrod;
+        }
+    </style>
 
 </head>
 <body>
-<h2 style="text-align: center;margin-top:25%">Podsumowanie:</h2>
+<h1 style="text-align: center;margin-top:25%">Podsumowanie:</h1>
 <div class="container" style="text-align: center;font-size: 25px">
     <div>
-        <p>poprawna odpowiedz:<span th:text="${pytanie.answer}"  /></p>
-        <p>twoja odpowiedz:<span th:text="${pytanie.question}"  /></p>
+        <p id="odpowiedz">poprawna odpowiedz:<span th:text="${pytanie.answer}"  /></p>
+        <p id="mojaOdp">twoja odpowiedz:<span th:text="${pytanie.question}"  /></p>
     </div>
 
     <div th:class="form-group">
