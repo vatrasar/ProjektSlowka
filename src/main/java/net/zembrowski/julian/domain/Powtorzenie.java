@@ -22,7 +22,7 @@ public class Powtorzenie {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate utworzenie;
     //data  nastepnego powtorzenia
-    private LocalDate dzienPowtorzenia;
+    private LocalDate dzien;
     //dni do nastepnego powtorzenia
     private int nastepne;
     public int getNastepne() {
@@ -71,12 +71,13 @@ public class Powtorzenie {
         this.wlasciciel = wlasciciel;
     }
 
-    public LocalDate getDzienPowtorzenia() {
-        return dzienPowtorzenia;
+
+    public LocalDate getDzien() {
+        return dzien;
     }
 
-    public void setDzienPowtorzenia(LocalDate dzienPowtorzenia) {
-        this.dzienPowtorzenia = dzienPowtorzenia;
+    public void setDzien(LocalDate dzien) {
+        this.dzien = dzien;
     }
 
     @Override
@@ -86,7 +87,7 @@ public class Powtorzenie {
                 ", numer=" + numer +
                 ", wlasciciel='" + wlasciciel + '\'' +
                 ", utworzenie=" + utworzenie +
-                ", dzienPowtorzenia=" + dzienPowtorzenia +
+                ", dzien=" + dzien +
                 ", nastepne=" + nastepne +
                 '}';
     }

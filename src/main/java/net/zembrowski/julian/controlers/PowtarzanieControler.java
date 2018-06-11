@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -17,11 +18,21 @@ public class PowtarzanieControler {
     Uzytkownik akutalnyUzytkownik;
     @Autowired
     PowtorzenieServices powtorzenia;
+
     @RequestMapping(value = "/pokarzPowtorzenia")
     public String pokarzPowtorzenia(Model model)
     {
         List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
         model.addAttribute("powtorzenia",powtorzeniaNaDzis);
-        return "pokarzPowtorzenia";
+        model.addAttribute("nazwaUzytkownika",akutalnyUzytkownik.getLogin());
+        return "pokarzPowtorzeniaDzis";
+    }
+
+    @RequestMapping(value = "/robPowtorzenie")
+    public String robPowtorzenie(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
+    {
+        
+
+        return "test";
     }
 }

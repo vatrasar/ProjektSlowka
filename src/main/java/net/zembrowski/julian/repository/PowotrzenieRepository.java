@@ -42,7 +42,7 @@ public class PowotrzenieRepository {
 
     public List<Powtorzenie> getPowtorzeniaNaDzis(LocalDate dzis) {
 
-        return em.createQuery("select p from Powtorzenie p WHERE p.dzienPowtorzenia:=dzis",Powtorzenie.class).setParameter("dzis",dzis).getResultList();
+        return em.createQuery("select p from Powtorzenie p WHERE p.dzien=:dzis",Powtorzenie.class).setParameter("dzis",dzis).getResultList();
 
     }
 }

@@ -51,7 +51,7 @@ public class DodawaniePowtorzenControler {
         NowePowtorzenie.setWlasciciel(aktualnyUzytkownik.getLogin());
         LocalDate akutalnaData=LocalDate.now();
 
-        NowePowtorzenie.setDzienPowtorzenia(akutalnaData.plusDays(NowePowtorzenie.getNastepne()));
+        NowePowtorzenie.setDzien(akutalnaData.plusDays(NowePowtorzenie.getNastepne()));
         if(powtorzenia.isExist(NowePowtorzenie))
         {
             return "redirect:/rejestracjaPowtorzeniaBlad";

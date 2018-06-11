@@ -29,7 +29,7 @@ public class PowtorzenieServices {
     }
     public void ustawJakoAktualne(Powtorzenie noweAktualne)
     {
-        aktualnePowtorzenie.setDzienPowtorzenia(noweAktualne.getDzienPowtorzenia());
+        aktualnePowtorzenie.setDzien(noweAktualne.getDzien());
         aktualnePowtorzenie.setNumer(noweAktualne.getNumer());
         aktualnePowtorzenie.setNazwa(noweAktualne.getNazwa());
         aktualnePowtorzenie.setWlasciciel(noweAktualne.getWlasciciel());

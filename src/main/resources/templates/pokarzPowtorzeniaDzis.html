@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <title>Getting started serving web content</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<p style="font-weight: bold">zalogowany jako:<span th:text="${nazwaUzytkownika}"></span></p>
+<div th:class="container">
+
+    <table th:class="table" >
+
+        <tr>
+            <th>nazwa</th>
+            <th>numer</th>
+            <th>Po ilu dniach</th>
+            <th>start</th>
+        </tr>
+        <tr th:each="pow:${powtorzenia}">
+            <td th:text="${pow.getNazwa()}"></td>
+            <td th:text="${pow.getNumer()}"></td>
+            <td th:text="${pow.getNastepne()}"></td>
+            <td><a th:href="${'/robPowtorzenie?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">rob</a></td>
+        </tr>
+
+    </table>
+</div>
+</body>
+</html>
