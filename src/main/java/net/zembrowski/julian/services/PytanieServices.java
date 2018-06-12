@@ -36,13 +36,7 @@ public class PytanieServices {
     public void zatwierdzWykonaniePowtorzenia(Powtorzenie wykonywane) {
 
         List<Pytanie>bledy=pytania.getBledy(wykonywane);
-        if (bledy.isEmpty())
-        {
-            wykonywane.refaktoryzujPowtorzenie();
 
-        }
-        else
-        {
             //uzyskanie numeru jakie powinno miec powtorzenie z bledami
             int numer=1+powtorzenia.getMaxNumer(wykonywane.getNazwa());
 
@@ -59,7 +53,7 @@ public class PytanieServices {
 
             }
             pytania.nadajStatusNiesprawdzone(powDlaBledow);
-        }
+
 
         wykonywane.refaktoryzujPowtorzenie();
         pytania.nadajStatusNiesprawdzone(wykonywane);

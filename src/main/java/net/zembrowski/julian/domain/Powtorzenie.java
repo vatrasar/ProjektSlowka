@@ -116,6 +116,7 @@ public class Powtorzenie {
                 nastepne=360;
                 break;
         }
+        dzien=LocalDate.now();
         dzien=dzien.plusDays(nastepne);
     }
 
