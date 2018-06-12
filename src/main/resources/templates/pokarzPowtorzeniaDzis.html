@@ -22,12 +22,14 @@
             <th>nazwa</th>
             <th>numer</th>
             <th>Po ilu dniach</th>
+            <th>Data notatek</th>
             <th>start</th>
         </tr>
         <tr th:each="pow:${powtorzenia}">
             <td th:text="${pow.getNazwa()}"></td>
             <td th:text="${pow.getNumer()}"></td>
             <td th:text="${pow.getNastepne()}"></td>
+            <td th:text="${pow.getUtworzenie()}"></td>
             <td><a th:href="${'/robPowtorzenie?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">rob</a></td>
         </tr>
 
