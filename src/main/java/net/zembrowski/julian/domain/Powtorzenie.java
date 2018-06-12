@@ -115,6 +115,9 @@ public class Powtorzenie {
             case 180:
                 nastepne=360;
                 break;
+            case 360:
+                nastepne=360;
+                break;
         }
         dzien=LocalDate.now();
         dzien=dzien.plusDays(nastepne);
