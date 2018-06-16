@@ -29,8 +29,11 @@ public class RepositoryUzytkownik {
         return actualUser;
     }
 
-    public void setActualUser(Uzytkownik actualUser) {
-        this.actualUser = actualUser;
+    public void setActualUser(Uzytkownik newActualUser) {
+        actualUser.setLogin(newActualUser.getLogin());
+        actualUser.setHaslo(newActualUser.getHaslo());
+        actualUser.setEnabled(newActualUser.isEnabled());
+
     }
 
     public boolean isExist(Uzytkownik szukany) {

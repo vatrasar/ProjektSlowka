@@ -31,7 +31,7 @@ public class DodawaniePowtorzenControler {
     PowtorzenieServices powtorzenia;
 
     @Autowired
-    Uzytkownik aktualnyUzytkownik;
+    UzytkownikService users;
 
     @Autowired
     Powtorzenie akutalnePowtorzenie;
@@ -51,8 +51,9 @@ public class DodawaniePowtorzenControler {
     {
 
 
+        users.updateAktualnyUzytkownik();
 
-        NowePowtorzenie.setWlasciciel(aktualnyUzytkownik.getLogin());
+        NowePowtorzenie.setWlasciciel(users.getActualUserLogin());
         LocalDate akutalnaData=LocalDate.now();
 
         NowePowtorzenie.setDzien(akutalnaData.plusDays(NowePowtorzenie.getNastepne()));

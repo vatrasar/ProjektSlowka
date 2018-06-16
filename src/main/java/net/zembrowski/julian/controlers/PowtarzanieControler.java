@@ -33,6 +33,7 @@ public class PowtarzanieControler {
     {
         users.updateAktualnyUzytkownik();
 
+        model.addAttribute("isTraining",false);
         List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
         model.addAttribute("powtorzenia",powtorzeniaNaDzis);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
@@ -42,6 +43,7 @@ public class PowtarzanieControler {
     @RequestMapping(value = "/robPowtorzenie")
     public String robPowtorzenie(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
     {
+
         model.addAttribute("isTraining",false);
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
         List<Pytanie> wykonywanePytania=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
@@ -96,4 +98,5 @@ public class PowtarzanieControler {
 
         return "redirect:/robPowtorzenie?id="+aktualnePytanie.getPowtorzenie().getNazwa()+"&pk="+aktualnePytanie.getPowtorzenie().getNumer();
     }
+
 }

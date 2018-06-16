@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 
 @Entity
 @IdClass(Klucz.class)
@@ -133,4 +134,24 @@ public class Powtorzenie {
        this.setNastepne(1);
        this.setUtworzenie(stare.getUtworzenie());
    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Powtorzenie that = (Powtorzenie) o;
+        return getNumer() == that.getNumer() &&
+                getNastepne() == that.getNastepne() &&
+                Objects.equals(getNazwa(), that.getNazwa()) &&
+                Objects.equals(getWlasciciel(), that.getWlasciciel()) &&
+                Objects.equals(getUtworzenie(), that.getUtworzenie()) &&
+                Objects.equals(getDzien(), that.getDzien());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getNazwa(), getNumer(), getWlasciciel(), getUtworzenie(), getDzien(), getNastepne());
+    }
 }

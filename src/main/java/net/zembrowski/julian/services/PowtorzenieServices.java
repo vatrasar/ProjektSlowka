@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -64,12 +65,16 @@ public class PowtorzenieServices {
 
     private void onlyAfterOneDayStays(List<Powtorzenie>pow)
     {
+        List<Powtorzenie>usuwane=new ArrayList<>();
         for(Powtorzenie sprawdzane: pow)
         {
-            if (sprawdzane.getNastepne()!=1)
+            LocalDate jutro=LocalDate.now().plusDays(1);
+
+            if (sprawdzane.getNastepne()!=1 || !sprawdzane.getDzien().isEqual(jutro))
             {
-                pow.remove(sprawdzane);
+                usuwane.add(sprawdzane);
             }
         }
+        pow.removeAll(usuwane);
     }
 }

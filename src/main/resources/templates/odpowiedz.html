@@ -31,9 +31,13 @@
         <p id="mojaOdp">twoja odpowiedz:<span th:text="${pytanie.question}"  /></p>
     </div>
 
-    <div th:class="form-group">
+    <div th:if="${isTraining}==false" th:class="form-group">
         <a style="margin-right: 20px" th:href="${'/robPowtorzeniePodsumowanie?zal=1'}">Umiem</a>
         <a th:href="${'/robPowtorzeniePodsumowanie?zal=0'}">Nie Umiem</a>
+    </div>
+    <div th:if="${isTraining}" th:class="form-group">
+        <a style="margin-right: 20px" th:href="${'/cwiczPodsumowanie?zal=1'}">Umiem</a>
+        <a th:href="${'/cwiczPodsumowanie?zal=0'}">Nie Umiem</a>
     </div>
 </div>
 </body>

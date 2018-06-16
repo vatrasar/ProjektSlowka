@@ -67,6 +67,18 @@ public class Pytanie {
         this.answer = nowe.answer;
         this.powtorzenie = nowe.powtorzenie;
         this.status = nowe.status;
+        this.id=nowe.id;
+    }
+
+    @Override
+    public String toString() {
+        return "Pytanie{" +
+                "id=" + id +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                ", powtorzenie=" + powtorzenie +
+                ", status=" + status +
+                '}';
     }
 
     public Pytanie() {

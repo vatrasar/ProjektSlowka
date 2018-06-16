@@ -30,7 +30,8 @@
             <td th:text="${pow.getNumer()}"></td>
             <td th:text="${pow.getNastepne()}"></td>
             <td th:text="${pow.getUtworzenie()}"></td>
-            <td><a th:href="${'/robPowtorzenie?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">rob</a></td>
+            <td th:if="${isTraining==false}"><a th:href="${'/robPowtorzenie?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">rob</a></td>
+            <td th:if="${isTraining}"><a th:href="${'/cwicz?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
         </tr>
 
     </table>

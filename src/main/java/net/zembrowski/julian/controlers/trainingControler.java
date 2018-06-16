@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,12 +32,14 @@ public class trainingControler {
     PytanieServices pytania;
 
     private static List<Pytanie>actualQuestionsList;
-    private static Pytanie aktualnePytanie;
+
+    @Autowired
+    private Pytanie aktualnePytanie;
 
     @RequestMapping(value = "/training")
    public String training(Model model)
     {
-
+        model.addAttribute("isTraining",true);
         users.updateAktualnyUzytkownik();
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
         model.addAttribute("isTraining",true);
@@ -56,12 +59,10 @@ public class trainingControler {
         //jesli w powtorzeniu nie ma zadnych pytan to nic sie nie dzieje
         if (actualQuestionsList.isEmpty())
         {
-
             przygotujModel(model);
             return "pokarzPowtorzeniaDzis";
         }
-
-
+        actualQuestionsList=new ArrayList<>(actualQuestionsList);
         Pytanie nowy=new Pytanie();
         Pytanie stare=actualQuestionsList.get(0);
         nowy.setId(stare.getId());
@@ -69,7 +70,7 @@ public class trainingControler {
         model.addAttribute("odp",nowy);
         aktualnePytanie.setPytanie(stare);
         model.addAttribute("pyt",stare);
-        return "pytanie";
+        return "pytanieCwicz";
     }
 
     @RequestMapping(value = "/cwiczOdp",method = RequestMethod.POST)
@@ -81,7 +82,7 @@ public class trainingControler {
         return "odpowiedz";
     }
 
-    @RequestMapping(value = "/robPowtorzeniePodsumowanie")
+    @RequestMapping(value = "/cwiczPodsumowanie")
     public String cwiczPodsumowanie(@RequestParam("zal") Integer zal, Model model)
     {
         Status status;
@@ -90,8 +91,9 @@ public class trainingControler {
 
 
             //przesówanie pytania na koniec listy
-            actualQuestionsList.remove(0);
-            actualQuestionsList.add(aktualnePytanie);
+            Pytanie nowe=actualQuestionsList.remove(0);
+            actualQuestionsList.add(nowe);
+           
         }
         else//umiem
         {
@@ -108,6 +110,7 @@ public class trainingControler {
     @RequestMapping(value = "/cwiczNext")
     public String workNext(Model model)
     {
+        model.addAttribute("isTraining",true);
         //jesli wszystko jest juz nauczone to konczysz powtarzaie
         if (actualQuestionsList.isEmpty())
         {
@@ -120,11 +123,13 @@ public class trainingControler {
         Pytanie nowy=new Pytanie();
         Pytanie stare=actualQuestionsList.get(0);
         nowy.setId(stare.getId());
+
         nowy.setAnswer(stare.getAnswer());
         model.addAttribute("odp",nowy);
         aktualnePytanie.setPytanie(stare);
+
         model.addAttribute("pyt",stare);
-        return "pytanie";
+        return "pytanieCwicz";
     }
 
 
