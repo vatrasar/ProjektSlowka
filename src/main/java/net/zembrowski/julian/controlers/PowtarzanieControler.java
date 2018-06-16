@@ -74,6 +74,7 @@ public class PowtarzanieControler {
     @RequestMapping(value = "/robPowtorzenie",method = RequestMethod.POST)
     public String robPowtorzenieform(Pytanie odpowiedz, Model model)
     {
+        model.addAttribute("isTraining",false);
         //pole pytanie w odpowiedzi zawiera teraz odpowiedz uzytkownika
         model.addAttribute("pytanie",odpowiedz);
         return "odpowiedz";

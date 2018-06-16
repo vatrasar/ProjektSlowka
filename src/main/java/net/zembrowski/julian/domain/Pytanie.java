@@ -61,4 +61,15 @@ public class Pytanie {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public void setPytanie(Pytanie nowe) {
+        this.question = nowe.question;
+        this.answer = nowe.answer;
+        this.powtorzenie = nowe.powtorzenie;
+        this.status = nowe.status;
+    }
+
+    public Pytanie() {
+
+    }
 }
