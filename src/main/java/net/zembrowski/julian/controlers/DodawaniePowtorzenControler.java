@@ -51,6 +51,7 @@ public class DodawaniePowtorzenControler {
     {
 
 
+
         NowePowtorzenie.setWlasciciel(aktualnyUzytkownik.getLogin());
         LocalDate akutalnaData=LocalDate.now();
 

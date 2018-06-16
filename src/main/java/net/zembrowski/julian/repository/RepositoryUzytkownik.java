@@ -16,11 +16,21 @@ public class RepositoryUzytkownik {
     @PersistenceContext
     private EntityManager em;
 
+    @Autowired
+    Uzytkownik actualUser;
     @Transactional
     public void createUzytkonik(Uzytkownik uzytkownik)
     {
         em.persist(uzytkownik);
 
+    }
+
+    public Uzytkownik getActualUser() {
+        return actualUser;
+    }
+
+    public void setActualUser(Uzytkownik actualUser) {
+        this.actualUser = actualUser;
     }
 
     public boolean isExist(Uzytkownik szukany) {
@@ -31,6 +41,7 @@ public class RepositoryUzytkownik {
             return false;
         }
         else
+
             return true;
 
     }

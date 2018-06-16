@@ -3,6 +3,7 @@ package net.zembrowski.julian.controlers;
 import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.PytanieServices;
+import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -18,7 +19,7 @@ import java.util.List;
 public class PowtarzanieControler {
 
     @Autowired
-    Uzytkownik akutalnyUzytkownik;
+    UzytkownikService users;
     @Autowired
     PowtorzenieServices powtorzenia;
     @Autowired
@@ -30,21 +31,18 @@ public class PowtarzanieControler {
     @RequestMapping(value = "/pokarzPowtorzenia")
     public String pokarzPowtorzenia(Model model)
     {
-        User user =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("nazwaUzytkownika",user.getUsername());
-        akutalnyUzytkownik.setLogin(user.getUsername());
-
+        users.updateAktualnyUzytkownik();
 
         List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
         model.addAttribute("powtorzenia",powtorzeniaNaDzis);
-        model.addAttribute("nazwaUzytkownika",akutalnyUzytkownik.getLogin());
+        model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
         return "pokarzPowtorzeniaDzis";
     }
 
     @RequestMapping(value = "/robPowtorzenie")
     public String robPowtorzenie(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
     {
-        Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,akutalnyUzytkownik.getLogin()));
+        Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
         List<Pytanie> wykonywanePytania=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
 
         //spelnione gdy wszystki powtorzenia sa juz wykonane
@@ -55,7 +53,7 @@ public class PowtarzanieControler {
             //nizej to samo co w pokarz powtorzenia
             List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
             model.addAttribute("powtorzenia",powtorzeniaNaDzis);
-            model.addAttribute("nazwaUzytkownika",akutalnyUzytkownik.getLogin());
+            model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
             return "pokarzPowtorzeniaDzis";
         }
 

@@ -37,7 +37,6 @@ public class Uzytkownik {
     }
 
     @Id
-
     private String login;
     private String haslo;
     private boolean enabled;
@@ -46,5 +45,9 @@ public class Uzytkownik {
     public Uzytkownik() {
     }
 
-
+    public Uzytkownik(String login, String haslo, boolean enabled) {
+        this.login = login;
+        this.haslo = haslo;
+        this.enabled = enabled;
+    }
 }
