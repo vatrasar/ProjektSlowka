@@ -27,8 +27,9 @@ public class trainingControler {
     PowtorzenieServices powtorzenia;
     @Autowired
     PytanieServices pytania;
-    @Autowired
-    Pytanie aktualnePytanie;
+
+    private static List<Pytanie>actualQuestionsList;
+    private static Pytanie aktualnePytanie;
 
     @RequestMapping(value = "/training")
    public String training(Model model)
@@ -43,20 +44,20 @@ public class trainingControler {
 
         return "pokarzPowtorzeniaDzis";
     }
-    @RequestMapping(value = "/robPowtorzenie")
-    public String robPowtorzenie(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
+    @RequestMapping(value = "/cwicz")
+    public String work(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
     {
         model.addAttribute("isTraining",false);
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
-        List<Pytanie> wykonywanePytania=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
+        actualQuestionsList=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
 
-        //spelnione gdy wszystki powtorzenia sa juz wykonane
-        if (wykonywanePytania.isEmpty())
+        //jesli w powtorzeniu nie ma zadnych pytan to nic sie nie dzieje
+        if (actualQuestionsList.isEmpty())
         {
-            pytania.zatwierdzWykonaniePowtorzenia(wykonywane);
+
             model.addAttribute("powtorzono",true);
-            //nizej to samo co w pokarz powtorzenia
             List<Powtorzenie>toLearn =powtorzenia.getRepetsToLearn();
+            //nizej to samo co w pokarz powtorzenia
             model.addAttribute("powtorzenia",toLearn);
             model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
             return "pokarzPowtorzeniaDzis";
@@ -64,7 +65,7 @@ public class trainingControler {
 
 
         Pytanie nowy=new Pytanie();
-        Pytanie stare=wykonywanePytania.get(0);
+        Pytanie stare=actualQuestionsList.get(0);
         nowy.setId(stare.getId());
         nowy.setAnswer(stare.getAnswer());
         model.addAttribute("odp",nowy);
@@ -73,6 +74,7 @@ public class trainingControler {
         model.addAttribute("pyt",stare);
         return "pytanie";
     }
+
 
 
 }

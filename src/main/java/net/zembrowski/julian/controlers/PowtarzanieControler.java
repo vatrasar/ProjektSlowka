@@ -25,16 +25,14 @@ public class PowtarzanieControler {
     @Autowired
     PytanieServices pytania;
 
-
-   private static Pytanie aktualnePytanie;
-    private static List<Pytanie>actualRepete;
+    @Autowired
+    Pytanie aktualnePytanie;
 
     @RequestMapping(value = "/pokarzPowtorzenia")
     public String pokarzPowtorzenia(Model model)
     {
         users.updateAktualnyUzytkownik();
 
-        model.addAttribute("isTraining",false);
         List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
         model.addAttribute("powtorzenia",powtorzeniaNaDzis);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
@@ -44,17 +42,17 @@ public class PowtarzanieControler {
     @RequestMapping(value = "/robPowtorzenie")
     public String robPowtorzenie(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
     {
-        model.addAttribute("isTraining",true);
+        model.addAttribute("isTraining",false);
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
-        actualRepete=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
+        List<Pytanie> wykonywanePytania=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
 
-        //powtorzenie bylo puste, nic sie nie dzieje
-        if (actualRepete.isEmpty())
+        //spelnione gdy wszystki powtorzenia sa juz wykonane
+        if (wykonywanePytania.isEmpty())
         {
-
+            pytania.zatwierdzWykonaniePowtorzenia(wykonywane);
             model.addAttribute("powtorzono",true);
             //nizej to samo co w pokarz powtorzenia
-            List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getRepetsToLearn();
+            List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
             model.addAttribute("powtorzenia",powtorzeniaNaDzis);
             model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
             return "pokarzPowtorzeniaDzis";
@@ -62,7 +60,7 @@ public class PowtarzanieControler {
 
 
         Pytanie nowy=new Pytanie();
-        Pytanie stare=actualRepete.get(0);
+        Pytanie stare=wykonywanePytania.get(0);
         nowy.setId(stare.getId());
         nowy.setAnswer(stare.getAnswer());
         model.addAttribute("odp",nowy);
@@ -76,7 +74,6 @@ public class PowtarzanieControler {
     @RequestMapping(value = "/robPowtorzenie",method = RequestMethod.POST)
     public String robPowtorzenieform(Pytanie odpowiedz, Model model)
     {
-
         //pole pytanie w odpowiedzi zawiera teraz odpowiedz uzytkownika
         model.addAttribute("pytanie",odpowiedz);
         return "odpowiedz";
