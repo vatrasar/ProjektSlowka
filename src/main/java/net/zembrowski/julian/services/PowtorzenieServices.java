@@ -55,5 +55,21 @@ public class PowtorzenieServices {
     }
 
 
+    public List<Powtorzenie> getRepetsToLearn() {
+        LocalDate jutro=LocalDate.now().plusDays(1);
+        List<Powtorzenie>naJutro=powtorzenia.getPowtorzeniaNaDzis(jutro);
+       onlyAfterOneDayStays(naJutro);
+        return naJutro;
+    }
 
+    private void onlyAfterOneDayStays(List<Powtorzenie>pow)
+    {
+        for(Powtorzenie sprawdzane: pow)
+        {
+            if (sprawdzane.getNastepne()!=1)
+            {
+                pow.remove(sprawdzane);
+            }
+        }
+    }
 }
