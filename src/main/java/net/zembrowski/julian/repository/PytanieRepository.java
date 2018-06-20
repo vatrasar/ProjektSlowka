@@ -7,6 +7,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -61,5 +62,14 @@ public class PytanieRepository {
         Pytanie pytanie=em.find(Pytanie.class,id);
         pytanie.setStatus(status);
         em.merge(pytanie);
+    }
+    @Transactional
+    public void deletePytanie(int id) {
+        Pytanie deleteQuestion=em.find(Pytanie.class,id);
+        em.remove(deleteQuestion);
+    }
+
+    public Pytanie getPytanie(int id) {
+        return em.find(Pytanie.class,id);
     }
 }

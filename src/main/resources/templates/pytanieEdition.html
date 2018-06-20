@@ -10,10 +10,9 @@
 
 </head>
 <body>
-<p th:if="${sukces}" style="color: green">Dodano Pytanie!</p>
-<h2 style="text-align: center;margin-bottom: 60px">REJESTRACJA POWTORZENIA</h2>
+<h2 style="text-align: center;margin-bottom: 60px">Edycja Pytania</h2>
 <div class="container">
-    <form class="form-horizontal" th:action="@{/dodajPytanie}" th:method="post" th:object="${pytanie}">
+    <form class="form-horizontal" th:action="@{/zmianaPytania}" th:method="post" th:object="${pytanie}">
 
         <div th:class="form-group">
             <label th:class="control-label">Pytanie</label>
@@ -26,10 +25,9 @@
         <input type="hidden" th:field="*{id}" />
 
 
-        <div th:class="row" style="text-align: center;margin-top: 20px">
-            <input th:required="required"  th:class="btn-default" type="submit" value="dodaj pytanie"/>
+        <div th:class="row"  style="text-align: center;margin-top: 20px">
+            <input th:required="required"  th:class="btn-default" type="submit" value="edycja pytania"/>
         </div>
-
 
         <div th:class="row" style="text-align: center;margin-top: 20px">
             <a th:href="@{/pokarzMenu}">wroć do menu głównego</a>

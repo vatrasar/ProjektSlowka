@@ -10,7 +10,7 @@
 
 </head>
 <body>
-
+<a th:href="${'/zmianaPytania?id='+pyt.getId() }">zmien pytanie</a>
 <h2 style="text-align: center;margin-top:25%">Pytanie:</h2>
 <div class="container">
 
@@ -21,7 +21,7 @@
 
         <div th:class="form-group">
             <label th:class="control-label">Odpowiedz:</label>
-            <input th:required="required" th:class="form-control" placeholder="Wpisz odpowiedz" th:field="*{question}" />
+            <input th:autocomplete="off" th:required="required" th:class="form-control" placeholder="Wpisz odpowiedz" th:field="*{question}" />
         </div>
 
         <input type="hidden" th:field="*{id}" />

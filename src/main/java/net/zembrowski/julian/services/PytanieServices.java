@@ -65,4 +65,22 @@ public class PytanieServices {
     public void zmienStatusPytania(Integer id, Status status) {
         pytania.zmienStatusPytania(id,status);
     }
+
+    @Transactional
+    public void deletePytanie(int id) {
+        pytania.deletePytanie(id);
+    }
+
+    @Transactional
+    public void editPytanie(Pytanie edytowane) {
+
+        Pytanie stare=pytania.getPytanie(edytowane.getId());
+        edytowane.setPowtorzenie(stare.getPowtorzenie());
+        Pytanie nowe=new Pytanie();
+        nowe.setPowtorzenie(edytowane.getPowtorzenie());
+        nowe.setQuestion(edytowane.getQuestion());
+        nowe.setAnswer(edytowane.getAnswer());
+        pytania.deletePytanie(edytowane.getId());
+        pytania.createPytanie(nowe);
+    }
 }

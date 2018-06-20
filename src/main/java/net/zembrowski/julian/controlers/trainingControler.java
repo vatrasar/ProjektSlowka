@@ -120,7 +120,7 @@ public class trainingControler {
             przygotujModel(model);
             return "pokarzPowtorzeniaDzis";
         }
-
+        
 
         Pytanie nowy=new Pytanie();
         Pytanie stare=actualQuestionsList.get(0);

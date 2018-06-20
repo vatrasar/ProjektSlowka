@@ -3,6 +3,7 @@ package net.zembrowski.julian.controlers;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Pytanie;
+import net.zembrowski.julian.domain.Status;
 import net.zembrowski.julian.domain.Uzytkownik;
 import net.zembrowski.julian.repository.PytanieRepository;
 import net.zembrowski.julian.repository.RoleRepository;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -103,7 +105,24 @@ public class DodawaniePowtorzenControler {
         return "rejestracjaPowtorzeniaBlad";
     }
 
+    @RequestMapping("/zmianaPytania")
+    public String zmienPytanie(@RequestParam("id") int id, Model model)
+    {
+        Pytanie edytowane=new Pytanie();
+        edytowane.setId(id);
+        model.addAttribute("pytanie",edytowane);
+        model.addAttribute("edition",true);
+       return "pytanieEdition";
+    }
 
+    @RequestMapping(value = "/zmianaPytania",method = RequestMethod.POST)
+    public String edycjaPytanie(Pytanie edytowane)
+    {
+        pytania.editPytanie(edytowane);
+
+
+        return "redirect:/training";
+    }
 
 
 }
