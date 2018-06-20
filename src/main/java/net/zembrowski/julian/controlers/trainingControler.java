@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -56,6 +57,7 @@ public class trainingControler {
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
         actualQuestionsList=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
 
+        Collections.shuffle(actualQuestionsList);
         //jesli w powtorzeniu nie ma zadnych pytan to nic sie nie dzieje
         if (actualQuestionsList.isEmpty())
         {
@@ -93,7 +95,7 @@ public class trainingControler {
             //przesówanie pytania na koniec listy
             Pytanie nowe=actualQuestionsList.remove(0);
             actualQuestionsList.add(nowe);
-           
+
         }
         else//umiem
         {
