@@ -29,6 +29,7 @@ public class Powtorzenie {
     private LocalDate dzien;
     //dni do nastepnego powtorzenia
     private int nastepne;
+    private boolean empty;
     public int getNastepne() {
         return nastepne;
     }
@@ -146,7 +147,16 @@ public class Powtorzenie {
                 Objects.equals(getNazwa(), that.getNazwa()) &&
                 Objects.equals(getWlasciciel(), that.getWlasciciel()) &&
                 Objects.equals(getUtworzenie(), that.getUtworzenie()) &&
-                Objects.equals(getDzien(), that.getDzien());
+                Objects.equals(getDzien(), that.getDzien()) &&
+        Objects.equals(isEmpty(), that.isEmpty());
+    }
+
+    public boolean isEmpty() {
+        return empty;
+    }
+
+    public void setEmpty(boolean empty) {
+        this.empty = empty;
     }
 
     @Override

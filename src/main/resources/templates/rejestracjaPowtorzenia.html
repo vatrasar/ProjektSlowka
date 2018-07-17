@@ -39,9 +39,14 @@
                 <option th:value="180">180</option>
                 <option th:value="360">360</option>
             </select>
-
-
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="true" th:field="*{empty}" id="pusty">
+                <label class="form-check-label" for="pusty">
+                    puste
+                </label>
+            </div>
         </div>
+
         <div th:class="row" style="text-align: center;margin-top: 20px">
             <input th:class="btn-default" type="submit" value="dodaj powtorzenie"/>
         </div>

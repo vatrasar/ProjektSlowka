@@ -58,6 +58,10 @@ public class DodawaniePowtorzenControler {
         NowePowtorzenie.setWlasciciel(users.getActualUserLogin());
         LocalDate akutalnaData=LocalDate.now();
 
+        if(!NowePowtorzenie.isEmpty())
+        {
+            NowePowtorzenie.setEmpty(false);
+        }
         NowePowtorzenie.setDzien(akutalnaData.plusDays(NowePowtorzenie.getNastepne()));
         if(powtorzenia.isExist(NowePowtorzenie))
         {
@@ -66,7 +70,12 @@ public class DodawaniePowtorzenControler {
 
         powtorzenia.persistPowtorzenie(NowePowtorzenie);
         powtorzenia.ustawJakoAktualne(NowePowtorzenie);
-        System.out.print(akutalnePowtorzenie);
+
+        if (NowePowtorzenie.isEmpty())
+        {
+            return "redirect:/pokarzMenu";
+        }
+        else
         return "redirect:/dodajPytanie";
     }
 
