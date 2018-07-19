@@ -82,4 +82,10 @@ public class PowtorzenieServices {
     public void updatePowtorzenie(Powtorzenie wykonywane) {
         powtorzenia.updatePowtorzenie(wykonywane);
     }
+
+    @Transactional
+    public void remove(Powtorzenie powtorzenie) {
+        powtorzenia.remove(powtorzenie);
+
+    }
 }

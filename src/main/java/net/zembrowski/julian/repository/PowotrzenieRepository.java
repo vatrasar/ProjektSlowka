@@ -63,4 +63,9 @@ public class PowotrzenieRepository {
     public void updatePowtorzenie(Powtorzenie wykonywane) {
         em.merge(wykonywane);
     }
+    @Transactional
+    public void remove(Powtorzenie powtorzenie) {
+
+        em.remove(em.contains(powtorzenie) ? powtorzenie : em.merge(powtorzenie));
+    }
 }

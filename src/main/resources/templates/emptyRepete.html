@@ -25,12 +25,15 @@
 </head>
 <body>
 <h1 style="text-align: center;margin-top:25%">Puste Powtorzenie</h1>
+
+<p th:text="${nazwa}" style="text-align: center;font-weight: bold"></p>
 <div class="container" style="text-align: center;font-size: 25px">
 
 
     <div  th:class="form-group">
         <a style="margin-right: 20px" th:href="${'/robPowtorzeniePodsumowaniePustego?zal=1'}">Umiem</a>
-        <a th:href="${'/robPowtorzeniePodsumowaniePustego?zal=0'}">Nie Umiem</a>
+        <a style="margin-right: 20px" th:href="${'/robPowtorzeniePodsumowaniePustego?zal=0'}">Nie Umiem</a>
+        <a th:href="${'/robPowtorzeniePodsumowaniePustego?zal=2'}">usun powtorzenie</a>
     </div>
 
 </div>

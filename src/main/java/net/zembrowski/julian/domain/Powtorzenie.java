@@ -87,14 +87,7 @@ public class Powtorzenie {
 
     @Override
     public String toString() {
-        return "Powtorzenie{" +
-                "nazwa='" + nazwa + '\'' +
-                ", numer=" + numer +
-                ", wlasciciel='" + wlasciciel + '\'' +
-                ", utworzenie=" + utworzenie +
-                ", dzien=" + dzien +
-                ", nastepne=" + nastepne +
-                '}';
+        return ""+nazwa+" "+numer+" utworzenie:"+utworzenie;
     }
 
     /*dodaje odpowiednia liczbe dni do numeru.ustala date kiedy ma byc przeprowadzone nastepne powtorzenie*/

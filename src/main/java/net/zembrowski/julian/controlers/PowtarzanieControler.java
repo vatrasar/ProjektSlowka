@@ -51,6 +51,7 @@ public class PowtarzanieControler {
         if (wykonywane.isEmpty())
         {
             aktualnePytanie.setPowtorzenie(wykonywane);
+            model.addAttribute("nazwa",wykonywane.toString());
             return "emptyRepete";
         }
         List<Pytanie> wykonywanePytania=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
@@ -119,6 +120,11 @@ public class PowtarzanieControler {
             status=Status.UMIEM;
         }
 
+        if (zal==2)
+        {
+            powtorzenia.remove(aktualnePytanie.getPowtorzenie());
+            return "redirect:/pokarzPowtorzenia";
+        }
         pytania.zatwierdzWykonaniePowtorzeniaPuste(aktualnePytanie.getPowtorzenie(),status);
 
         //nizej to samo co w pokarz powtorzenia
