@@ -58,4 +58,9 @@ public class PowotrzenieRepository {
 
         return em.createQuery("select MAX(p.numer) from Powtorzenie p where p.nazwa=:szukana and p.wlasciciel=:aktualny",Integer.class).setParameter("szukana",nazwa).setParameter("aktualny",akutalnyUzytkownik.getLogin()).getSingleResult();
     }
+
+    @Transactional
+    public void updatePowtorzenie(Powtorzenie wykonywane) {
+        em.merge(wykonywane);
+    }
 }

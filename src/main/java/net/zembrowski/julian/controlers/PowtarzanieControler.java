@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.util.List;
 
 @Controller
@@ -46,9 +47,15 @@ public class PowtarzanieControler {
 
         model.addAttribute("isTraining",false);
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
+        //jesli powtorzenie zostało oznaczone(rozmyślnie) jako puste
+        if (wykonywane.isEmpty())
+        {
+            aktualnePytanie.setPowtorzenie(wykonywane);
+            return "emptyRepete";
+        }
         List<Pytanie> wykonywanePytania=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
 
-        //spelnione gdy wszystki powtorzenia sa juz wykonane
+        //spelnione gdy wszystki pytania sa juz powtorzone
         if (wykonywanePytania.isEmpty())
         {
             pytania.zatwierdzWykonaniePowtorzenia(wykonywane);
@@ -97,6 +104,28 @@ public class PowtarzanieControler {
         pytania.zmienStatusPytania(aktualnePytanie.getId(),status);
 
         return "redirect:/robPowtorzenie?id="+aktualnePytanie.getPowtorzenie().getNazwa()+"&pk="+aktualnePytanie.getPowtorzenie().getNumer();
+    }
+
+    @RequestMapping(value = "/robPowtorzeniePodsumowaniePustego")
+    public String robPowtorzeniePodsumowaniePustego(@RequestParam("zal") Integer zal, Model model)
+    {
+        Status status;
+        if (zal==0)
+        {
+            status=Status.NIEUMIEM;
+        }
+        else
+        {
+            status=Status.UMIEM;
+        }
+
+        pytania.zatwierdzWykonaniePowtorzeniaPuste(aktualnePytanie.getPowtorzenie(),status);
+
+        //nizej to samo co w pokarz powtorzenia
+        List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
+        model.addAttribute("powtorzenia",powtorzeniaNaDzis);
+        model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
+        return "redirect:/pokarzPowtorzenia";
     }
 
 }

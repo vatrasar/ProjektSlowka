@@ -77,4 +77,9 @@ public class PowtorzenieServices {
         }
         pow.removeAll(usuwane);
     }
+
+    @Transactional
+    public void updatePowtorzenie(Powtorzenie wykonywane) {
+        powtorzenia.updatePowtorzenie(wykonywane);
+    }
 }
