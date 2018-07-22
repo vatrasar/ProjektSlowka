@@ -33,7 +33,6 @@ public class PowtarzanieControler {
     public String pokarzPowtorzenia(Model model)
     {
         users.updateAktualnyUzytkownik();
-
         model.addAttribute("isTraining",false);
         List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
         model.addAttribute("powtorzenia",powtorzeniaNaDzis);

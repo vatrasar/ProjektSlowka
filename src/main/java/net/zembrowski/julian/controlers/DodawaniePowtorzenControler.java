@@ -46,6 +46,7 @@ public class DodawaniePowtorzenControler {
     {
 
         model.addAttribute("powtorzenie",new Powtorzenie());
+        
         return "rejestracjaPowtorzenia";
     }
     @RequestMapping( value = "/dodaniePowtorzenia",method = RequestMethod.POST)
@@ -53,8 +54,10 @@ public class DodawaniePowtorzenControler {
     {
 
 
+
         users.updateAktualnyUzytkownik();
 
+        NowePowtorzenie.setNumer(powtorzenia.getMaxNumer(NowePowtorzenie.getNazwa())+1);
         NowePowtorzenie.setWlasciciel(users.getActualUserLogin());
         LocalDate akutalnaData=LocalDate.now();
 

@@ -54,9 +54,16 @@ public class PowotrzenieRepository {
         return em.find(Powtorzenie.class,klucz);
     }
 
+    @Transactional
     public int getMaxNumer(String nazwa) {
 
-        return em.createQuery("select MAX(p.numer) from Powtorzenie p where p.nazwa=:szukana and p.wlasciciel=:aktualny",Integer.class).setParameter("szukana",nazwa).setParameter("aktualny",akutalnyUzytkownik.getLogin()).getSingleResult();
+
+        if(0==em.createQuery("select count(p.numer) from Powtorzenie p where p.nazwa=:szukana and p.wlasciciel=:aktualny",Long.class).setParameter("szukana",nazwa).setParameter("aktualny",akutalnyUzytkownik.getLogin()).getSingleResult().intValue())
+        {
+            return 0;
+        }
+        String a=em.createQuery("select MAX(p.numer) from Powtorzenie p where p.nazwa=:szukana and p.wlasciciel=:aktualny",Integer.class).setParameter("szukana",nazwa).setParameter("aktualny",akutalnyUzytkownik.getLogin()).getSingleResult().toString();
+        return Integer.valueOf(a);
     }
 
     @Transactional
