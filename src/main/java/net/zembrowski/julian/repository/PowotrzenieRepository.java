@@ -4,6 +4,7 @@ package net.zembrowski.julian.repository;
 import net.zembrowski.julian.domain.Klucz;
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Uzytkownik;
+import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,8 @@ public class PowotrzenieRepository {
 
     @Autowired
     Uzytkownik akutalnyUzytkownik;
+    @Autowired
+    UzytkownikService users;
 
     public boolean isExist(Powtorzenie nowePowtorzenie)
     {
@@ -58,6 +61,7 @@ public class PowotrzenieRepository {
     public int getMaxNumer(String nazwa) {
 
 
+        users.updateAktualnyUzytkownik();
         if(0==em.createQuery("select count(p.numer) from Powtorzenie p where p.nazwa=:szukana and p.wlasciciel=:aktualny",Long.class).setParameter("szukana",nazwa).setParameter("aktualny",akutalnyUzytkownik.getLogin()).getSingleResult().intValue())
         {
             return 0;
