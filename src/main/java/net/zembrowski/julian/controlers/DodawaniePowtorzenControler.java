@@ -50,7 +50,7 @@ public class DodawaniePowtorzenControler {
         return "rejestracjaPowtorzenia";
     }
     @RequestMapping( value = "/dodaniePowtorzenia",method = RequestMethod.POST)
-    public String przyjeciePowtorzenia(Powtorzenie NowePowtorzenie)
+    public String przyjeciePowtorzenia(Powtorzenie NowePowtorzenie,Model model)
     {
 
 
@@ -75,11 +75,13 @@ public class DodawaniePowtorzenControler {
 
         if (NowePowtorzenie.isEmpty())
         {
-            return "redirect:/pokarzMenu";
+            model.addAttribute("nowePow",NowePowtorzenie);
+            return "podsumowanieDodanegoPowtorzenia";
         }
         else
         return "redirect:/dodajPytanie";
     }
+
 
 
     @RequestMapping(value = "/dodajPytanie")
