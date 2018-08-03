@@ -124,6 +124,8 @@ public class PowtarzanieControler {
 
         if (zal==2)
         {
+            status=Status.NIEUMIEM;
+            pytania.zatwierdzWykonaniePowtorzeniaPuste(aktualnePytanie.getPowtorzenie(),status);
             powtorzenia.remove(aktualnePytanie.getPowtorzenie());
             return "redirect:/pokarzPowtorzenia";
         }
