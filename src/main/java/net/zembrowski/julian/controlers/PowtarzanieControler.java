@@ -44,13 +44,16 @@ public class PowtarzanieControler {
     public String robPowtorzenie(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
     {
 
+        users.updateAktualnyUzytkownik();
         model.addAttribute("isTraining",false);
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
         //jesli powtorzenie zostało oznaczone(rozmyślnie) jako puste
         if (wykonywane.isEmpty())
         {
             aktualnePytanie.setPowtorzenie(wykonywane);
+            int sugerowanyNumerNastepnego=powtorzenia.getMaxNumer(wykonywane.getNazwa())+1;
             model.addAttribute("nazwa",wykonywane.toString());
+            model.addAttribute("sugerowanyNumer",sugerowanyNumerNastepnego);
             return "emptyRepete";
         }
         List<Pytanie> wykonywanePytania=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
