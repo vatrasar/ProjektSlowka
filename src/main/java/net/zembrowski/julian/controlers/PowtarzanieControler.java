@@ -4,6 +4,7 @@ import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.UzytkownikService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -138,4 +141,24 @@ public class PowtarzanieControler {
         return "redirect:/pokarzPowtorzenia";
     }
 
+    @RequestMapping("/licznik")
+    public String licz(Model model)
+    {
+        int liczbaDni=7;
+        LocalDate dzis=LocalDate.now();
+        Para liczby[]=new Para[liczbaDni];
+
+
+
+        for (int i=1;i<=liczbaDni;i++) {
+            liczby[i-1]=new Para();
+            List<Powtorzenie> powtorzeniaNaTydzien = powtorzenia.getPowtorzeniaNaDzien(dzis.plusDays(i));
+            liczby[i-1].liczba=powtorzeniaNaTydzien.size();
+            powtorzeniaNaTydzien.clear();
+            liczby[i-1].numer=i;
+        }
+        model.addAttribute("liczbaPow",liczby);
+        model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
+        return "pokarzPlan";
+    }
 }

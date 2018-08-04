@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <title>Getting started serving web content</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+
+    <style>
+        .ciezko
+        {
+            background-color:red;
+        }
+        .srednio
+        {
+            background-color: yellow;
+        }
+        .latwo
+        {
+            background-color: chartreuse;
+        }
+        td{
+            font-weight: bold ;
+            text-align: center;
+        }
+        th
+        {
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+<div th:class="row" style="text-align: center;margin:5px;float: right">
+    <a th:href="@{/pokarzMenu}">wroć do menu głównego</a>
+</div>
+<p style="font-weight: bold">zalogowany jako:<span style="font-weight: normal;color: cornflowerblue;" th:text="${nazwaUzytkownika}"></span></p>
+
+<div th:class="container">
+
+
+    <table  th:class="table" style="width: 30%; margin-left: 30%;margin-right: 30%" border="1">
+
+        <caption style="text-align: center;font-weight: bold;font-size: 200%">Plan na najbliższe 7 dni</caption>
+        <tr>
+            <th >dzis+</th>
+            <th >liczba powtórzeń</th>
+        </tr>
+        <tr th:each="numer:${liczbaPow}">
+            <td th:if="${numer.liczba>=20}" class="ciezko" style="text-align: center" th:text="${numer.numer}"></td>
+            <td th:if="${numer.liczba>=20}" class="ciezko" th:text="${numer.liczba}"></td>
+            <td th:if="${numer.liczba>=10 && numer.liczba<20}" class="srednio" style="text-align: center" th:text="${numer.numer}"></td>
+            <td th:if="${numer.liczba>=10 && numer.liczba<20}" class="srednio" th:text="${numer.liczba}"></td>
+            <td th:if="${numer.liczba<10}" class="latwo" style="text-align: center" th:text="${numer.numer}"></td>
+            <td th:if="${numer.liczba<10}" class="latwo" th:text="${numer.liczba}"></td>
+        </tr>
+
+    </table>
+</div>
+</body>
+</html>

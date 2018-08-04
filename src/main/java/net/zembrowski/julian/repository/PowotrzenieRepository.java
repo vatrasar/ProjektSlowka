@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -78,5 +79,11 @@ public class PowotrzenieRepository {
     public void remove(Powtorzenie powtorzenie) {
 
         em.remove(em.contains(powtorzenie) ? powtorzenie : em.merge(powtorzenie));
+    }
+    @Transactional
+    public List<Powtorzenie> getPowtorzeniaNaDzien(LocalDate dzien) {
+
+        return em.createQuery("select p from Powtorzenie p WHERE p.dzien=:szukany AND p.wlasciciel=:akutalny",Powtorzenie.class).setParameter("szukany",dzien).setParameter("akutalny",akutalnyUzytkownik.getLogin()).getResultList();
+
     }
 }

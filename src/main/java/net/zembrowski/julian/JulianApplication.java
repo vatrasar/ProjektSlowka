@@ -18,6 +18,7 @@ public class JulianApplication  extends SpringBootServletInitializer{
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 
 
+
 		return builder.sources(JulianApplication.class);
 	}
 }
