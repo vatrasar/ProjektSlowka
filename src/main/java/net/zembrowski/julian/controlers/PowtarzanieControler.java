@@ -153,9 +153,9 @@ public class PowtarzanieControler {
         for (int i=1;i<=liczbaDni;i++) {
             liczby[i-1]=new Para();
             List<Powtorzenie> powtorzeniaNaTydzien = powtorzenia.getPowtorzeniaNaDzien(dzis.plusDays(i));
-            liczby[i-1].liczba=powtorzeniaNaTydzien.size();
+            liczby[i-1].setLiczba(powtorzeniaNaTydzien.size());
             powtorzeniaNaTydzien.clear();
-            liczby[i-1].numer=i;
+            liczby[i-1].setNazwa(dzis.plusDays(i).getDayOfWeek().name());
         }
         model.addAttribute("liczbaPow",liczby);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());

@@ -44,16 +44,16 @@
 
         <caption style="text-align: center;font-weight: bold;font-size: 200%">Plan na najbliższe 7 dni</caption>
         <tr>
-            <th >dzis+</th>
+            <th >dzień</th>
             <th >liczba powtórzeń</th>
         </tr>
         <tr th:each="numer:${liczbaPow}">
-            <td th:if="${numer.liczba>=20}" class="ciezko" style="text-align: center" th:text="${numer.numer}"></td>
-            <td th:if="${numer.liczba>=20}" class="ciezko" th:text="${numer.liczba}"></td>
-            <td th:if="${numer.liczba>=10 && numer.liczba<20}" class="srednio" style="text-align: center" th:text="${numer.numer}"></td>
-            <td th:if="${numer.liczba>=10 && numer.liczba<20}" class="srednio" th:text="${numer.liczba}"></td>
-            <td th:if="${numer.liczba<10}" class="latwo" style="text-align: center" th:text="${numer.numer}"></td>
-            <td th:if="${numer.liczba<10}" class="latwo" th:text="${numer.liczba}"></td>
+            <td th:if="${numer.getLiczba()>=20}" class="ciezko" style="text-align: center" th:text="${numer.translateDay()}"></td>
+            <td th:if="${numer.getLiczba()>=20}" class="ciezko" th:text="${numer.getLiczba()}"></td>
+            <td th:if="${numer.getLiczba()>=10 && numer.getLiczba()<20}" class="srednio" style="text-align: center" th:text="${numer.translateDay()}"></td>
+            <td th:if="${numer.getLiczba()>=10 && numer.getLiczba()<20}" class="srednio" th:text="${numer.getLiczba()}"></td>
+            <td th:if="${numer.getLiczba()<10}" class="latwo" style="text-align: center" th:text="${numer.translateDay()}"></td>
+            <td th:if="${numer.getLiczba()<10}" class="latwo" th:text="${numer.getLiczba()}"></td>
         </tr>
 
     </table>
