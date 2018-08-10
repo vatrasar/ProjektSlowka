@@ -144,6 +144,7 @@ public class PowtarzanieControler {
     @RequestMapping("/licznik")
     public String licz(Model model)
     {
+        users.updateAktualnyUzytkownik();
         int liczbaDni=7;
         LocalDate dzis=LocalDate.now();
         Para liczby[]=new Para[liczbaDni];

@@ -29,6 +29,7 @@ public class PowotrzenieRepository {
     public boolean isExist(Powtorzenie nowePowtorzenie)
     {
 
+        Powtorzenie a=new Powtorzenie();
 
         Klucz szukany=new Klucz(nowePowtorzenie.getNumer(),nowePowtorzenie.getNazwa(),nowePowtorzenie.getWlasciciel());
         if(em.find(Powtorzenie.class,szukany)==null)
@@ -37,6 +38,7 @@ public class PowotrzenieRepository {
         }
         else
             return true;
+
 
 
     }
