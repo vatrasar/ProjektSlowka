@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
-    <title>Getting started serving web content</title>
+    <title>Julian</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
@@ -30,7 +30,7 @@
             <td th:text="${pow.getNumer()}"></td>
             <td th:text="${pow.getNastepne()}"></td>
             <td th:text="${pow.getUtworzenie()}"></td>
-            <td th:if="${isTraining==false}"><a th:href="${'/robPowtorzenie?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">rob</a></td>
+            <td th:if="${isTraining==false}"><a th:href="${'/robPowtorzenie?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">rób</a></td>
             <td th:if="${isTraining}"><a th:href="${'/cwicz?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
         </tr>
 
