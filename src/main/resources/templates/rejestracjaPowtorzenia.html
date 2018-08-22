@@ -7,6 +7,19 @@
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 
+    <style>
+        form{
+
+            margin-right: 40%;
+            text-align: right;
+            /*margin-left: 30%;*/
+        }
+        #dni
+        {
+
+            text-align-last: right;
+        }
+    </style>
 
 </head>
 <body>
@@ -15,22 +28,25 @@
     <form class="form-horizontal" th:action="@{/dodaniePowtorzenia}" th:method="post" th:object="${powtorzenie}">
 
 
-        <div class="form-group" style="text-align: center">
+        <div class="form-group" >
             <datalist id="opcje">
                 <option value="slowka">
             </datalist>
 
-
-            <label class="control-label">nazwa <input th:step="1" id="movie" list="opcje" th:field="*{nazwa}" /></label>
+            <label class="control-label">nazwa <input class="form-control" th:step="1" id="movie" list="opcje" th:field="*{nazwa}" /></label>
 
             <!--<label class="control-label" style="margin-left: 20px">numer</label>-->
             <!--<input type="number" th:field="*{numer}" th:min="0"/>-->
         </div>
 
-        <div th:class="form-group" style="text-align: center">
-            <label>data notatek:<input th:field="*{utworzenie}" type="date"></label>
-            <label class="control-label">Po ilu dniach nastepne powtorzenie</label>
-            <select th:field="*{nastepne}">
+        <div class="form-group">
+            <label class="control-label">data notatek:<input class="form-control" th:field="*{utworzenie}" type="date"></label>
+        </div>
+        <div class="form-group">
+
+            <label for="dni" class="control-label">Po ilu dniach nastepne powtorzenie</label>
+            <div style="margin-left: 90%">
+            <select class="form-control" id="dni" th:field="*{nastepne}">
                 <option th:value="1">1</option>
                 <option th:value="3">3</option>
                 <option th:value="10">10</option>
@@ -39,18 +55,20 @@
                 <option th:value="180">180</option>
                 <option th:value="360">360</option>
             </select>
-            <div class="form-check">
+            </div>
+        </div>
+            <div class="form-check" >
                 <input class="form-check-input" type="checkbox" value="true" th:field="*{empty}" id="pusty">
                 <label class="form-check-label" for="pusty">
                     puste
                 </label>
             </div>
-        </div>
 
-        <div th:class="row" style="text-align: center;margin-top: 20px">
+
+        <div th:class="row" style="margin-top: 20px">
             <input th:class="btn-default" type="submit" value="dodaj powtorzenie"/>
         </div>
-        <div th:class="row" style="text-align: center;margin-top: 20px">
+        <div th:class="row" style="margin-top: 20px">
             <a th:href="@{/pokarzMenu}">wroć do menu głównego</a>
         </div>
     </form>
