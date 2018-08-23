@@ -74,7 +74,8 @@ public class PowotrzenieRepository {
     }
 
     @Transactional
-    public void updatePowtorzenie(Powtorzenie wykonywane) {
+    public void updatePowtorzenie(Powtorzenie wykonywane)
+    {
         em.merge(wykonywane);
     }
     @Transactional
@@ -88,4 +89,5 @@ public class PowotrzenieRepository {
         return em.createQuery("select p from Powtorzenie p WHERE p.dzien=:szukany AND p.wlasciciel=:akutalny",Powtorzenie.class).setParameter("szukany",dzien).setParameter("akutalny",akutalnyUzytkownik.getLogin()).getResultList();
 
     }
+
 }

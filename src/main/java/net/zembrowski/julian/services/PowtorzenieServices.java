@@ -94,4 +94,18 @@ public class PowtorzenieServices {
 
       return  powtorzenia.getPowtorzeniaNaDzien(dzien);
     }
+
+    /**
+     * sprawia że wartosc nastepne jest ustawiana na 1 a wartość dzien na nastepny dzień(czyli jutro)
+     * @param powtorzenie
+     */
+    public void resetujPowtorzenie(Powtorzenie powtorzenie) {
+
+        LocalDate dataNastepnego=LocalDate.now().plusDays(1);
+        powtorzenie.setDzien(dataNastepnego);
+        powtorzenie.setNastepne(1);
+        powtorzenia.updatePowtorzenie(powtorzenie);
+
+
+    }
 }
