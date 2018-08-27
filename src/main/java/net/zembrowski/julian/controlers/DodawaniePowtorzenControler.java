@@ -12,6 +12,8 @@ import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.RoleServices;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -20,10 +22,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 public class DodawaniePowtorzenControler {
@@ -45,8 +49,12 @@ public class DodawaniePowtorzenControler {
    public String dodaniePowtorzenia(Model model)
     {
 
-        model.addAttribute("powtorzenie",new Powtorzenie());
+        Powtorzenie nowe = new Powtorzenie();
 
+        nowe.setUtworzenie(LocalDate.now().minusDays(1));
+        model.addAttribute("powtorzenie", nowe);
+
+        model.addAttribute("dataWczoraj", LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         return "rejestracjaPowtorzenia";
     }
     @RequestMapping( value = "/dodaniePowtorzenia",method = RequestMethod.POST)

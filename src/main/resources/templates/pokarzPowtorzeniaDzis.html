@@ -7,17 +7,45 @@
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 
+    <style>
+        .ciezko
+        {
+            color:red;
+        }
+        .srednio
+        {
+            color: yellow;
+        }
+        .latwo
+        {
+            color: chartreuse;
+        }
+        .pozostalePow
+        {
+            color: cornflowerblue;
+            font-weight: bold;
+            font-size: 180%;
+        }
+    </style>
 </head>
 <body>
 <div th:class="row" style="text-align: center;margin:5px;float: right">
     <a th:href="@{/pokarzMenu}">wroć do menu głównego</a>
 </div>
+
 <p style="font-weight: bold">zalogowany jako:<span style="font-weight: normal;color: cornflowerblue;" th:text="${nazwaUzytkownika}"></span></p>
 <p th:if="${powtorzono}" style="color: green">Powtorzenie zakonczone!</p>
+
+<div  style="text-align: center;">
+    <p class="pozostalePow" th:if="${powtorzenia.size()<10}">Pozostałe powtórzenia:<span class="latwo" th:text="${powtorzenia.size()}" /></p>
+    <p class="pozostalePow" th:if="${powtorzenia.size()>=10 && powtorzenia.size()<20}">Pozostałe powtórzenia:<span class="srednio" th:text="${powtorzenia.size()}" /></p>
+    <p class="pozostalePow" th:if="${powtorzenia.size()>=20}">Pozostałe powtórzenia:<span class="ciezko" th:text="${powtorzenia.size()}" /></p>
+</div>
+
 <div th:class="container">
 
     <table th:class="table" >
-
+        
         <tr>
             <th>nazwa</th>
             <th>numer</th>

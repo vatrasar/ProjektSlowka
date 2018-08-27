@@ -18,7 +18,9 @@
         {
 
             text-align-last: right;
+
         }
+
     </style>
 
 </head>
@@ -46,7 +48,7 @@
 
             <label for="dni" class="control-label">Po ilu dniach nastepne powtorzenie</label>
             <div style="margin-left: 90%">
-            <select class="form-control" id="dni" th:field="*{nastepne}">
+            <select class="form-control" id="dni"  th:field="*{nastepne}">
                 <option th:value="1">1</option>
                 <option th:value="3">3</option>
                 <option th:value="10">10</option>
