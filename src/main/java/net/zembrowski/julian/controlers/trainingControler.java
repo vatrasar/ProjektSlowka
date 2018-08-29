@@ -40,7 +40,7 @@ public class trainingControler {
     @RequestMapping(value = "/training")
    public String training(Model model)
     {
-        model.addAttribute("isTraining",true);
+
         users.updateAktualnyUzytkownik();
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
         model.addAttribute("isTraining",true);
@@ -130,13 +130,15 @@ public class trainingControler {
         model.addAttribute("odp",nowy);
         aktualnePytanie.setPytanie(stare);
 
+
         model.addAttribute("pyt",stare);
         return "pytanieCwicz";
     }
 
 
    private void przygotujModel(Model model)
-    {
+   {
+       model.addAttribute("isTraining",true);
         model.addAttribute("powtorzono",true);
         List<Powtorzenie>toLearn =powtorzenia.getRepetsToLearn();
         //nizej to samo co w pokarz powtorzenia
