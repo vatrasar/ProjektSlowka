@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class PowtorzenieServices {
@@ -104,8 +105,18 @@ public class PowtorzenieServices {
         LocalDate dataNastepnego=LocalDate.now().plusDays(1);
         powtorzenie.setDzien(dataNastepnego);
         powtorzenie.setNastepne(1);
+        powtorzenie.setProblems(false);
         powtorzenia.updatePowtorzenie(powtorzenie);
 
 
+    }
+
+    @Transactional
+    public void setOpposedProblem(Klucz klucz) {
+
+        Powtorzenie modifi=powtorzenia.getPowtorzenie(klucz);
+
+        modifi.setProblems(!modifi.isProblems());
+        powtorzenia.updatePowtorzenie(modifi);
     }
 }

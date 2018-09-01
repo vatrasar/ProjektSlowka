@@ -26,6 +26,10 @@
             font-weight: bold;
             font-size: 180%;
         }
+        .problem
+        {
+            background-color: red;
+        }
     </style>
 </head>
 <body>
@@ -36,17 +40,13 @@
 <p style="font-weight: bold">zalogowany jako:<span style="font-weight: normal;color: cornflowerblue;" th:text="${nazwaUzytkownika}"></span></p>
 <p th:if="${powtorzono}" style="color: green">Powtorzenie zakonczone!</p>
 
-<div th:if="${!isTraining}"  style="text-align: center;">
+<div style="text-align: center;">
     <p class="pozostalePow" th:if="${powtorzenia.size()<10}">Pozostałe powtórzenia:<span class="latwo" th:text="${powtorzenia.size()}" /></p>
     <p class="pozostalePow" th:if="${powtorzenia.size()>=10 && powtorzenia.size()<20}">Pozostałe powtórzenia:<span class="srednio" th:text="${powtorzenia.size()}" /></p>
     <p class="pozostalePow" th:if="${powtorzenia.size()>=20}">Pozostałe powtórzenia:<span class="ciezko" th:text="${powtorzenia.size()}" /></p>
 </div>
 
-<div th:if="${isTraining}"  style="text-align: center;">
-    <p class="pozostalePow" th:if="${powtorzenia.size()<10}">Do nauczenia:<span class="latwo" th:text="${powtorzenia.size()}" /></p>
-    <p class="pozostalePow" th:if="${powtorzenia.size()>=10 && powtorzenia.size()<20}">Do nauczenia:<span class="srednio" th:text="${powtorzenia.size()}" /></p>
-    <p class="pozostalePow" th:if="${powtorzenia.size()>=20}">Do nauczenia:<span class="ciezko" th:text="${powtorzenia.size()}" /></p>
-</div>
+
 <div th:class="container">
 
     <table th:class="table" >
@@ -57,14 +57,17 @@
             <th>Po ilu dniach</th>
             <th>Data notatek</th>
             <th>start</th>
+
         </tr>
+
         <tr th:each="pow:${powtorzenia}">
+
             <td th:text="${pow.getNazwa()}"></td>
             <td th:text="${pow.getNumer()}"></td>
             <td th:text="${pow.getNastepne()}"></td>
             <td th:text="${pow.getUtworzenie()}"></td>
-            <td th:if="${isTraining==false}"><a th:href="${'/robPowtorzenie?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">rób</a></td>
-            <td th:if="${isTraining}"><a th:href="${'/cwicz?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
+            <td><a th:href="${'/robPowtorzenie?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">rób</a></td>
+
         </tr>
 
     </table>

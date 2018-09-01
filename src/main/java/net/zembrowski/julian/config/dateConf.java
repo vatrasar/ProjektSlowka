@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 
 import javax.sql.DataSource;
+import java.util.logging.Logger;
 
 @Configuration
 public class dateConf {
@@ -19,6 +20,8 @@ public class dateConf {
        emfb.setPersistenceUnitName("baza");
        return emfb;
    }
+
+
 
 
 }

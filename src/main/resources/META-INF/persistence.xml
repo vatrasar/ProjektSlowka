@@ -7,7 +7,7 @@
 
         <properties>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/corejava"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/program"/>
             <property name="hibernate.connection.autocommit" value="true"/>
             <property name="hibernate.connection.username" value="wykonanie"/>
             <property name="hibernate.connection.password" value="program"/>
@@ -16,7 +16,7 @@
             <property name="hibernate.connection.characterEncoding" value="utf8"/>
             <property name="hibernate.connection.useUnicode" value="true"/>
             <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
             <!-- use encache provider-->
             <!--<property name="hibernate.cache.region.factory_class"-->
             <!--value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>-->

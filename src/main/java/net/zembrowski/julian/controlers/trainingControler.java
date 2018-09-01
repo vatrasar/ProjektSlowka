@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 @Controller
@@ -43,26 +44,28 @@ public class trainingControler {
 
         users.updateAktualnyUzytkownik();
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
-        model.addAttribute("isTraining",true);
 
         List<Powtorzenie>toLearn =powtorzenia.getRepetsToLearn();
         model.addAttribute("powtorzenia",toLearn);
 
-        return "pokarzPowtorzeniaDzis";
+        return "pokarzDoPocwiczenia";
     }
     @RequestMapping(value = "/cwicz")
     public String work(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
     {
-        model.addAttribute("isTraining",true);
+
+        Logger.getGlobal().warning("jestem w cwicz!");
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
         actualQuestionsList=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
 
+        //mieszanie pytań
         Collections.shuffle(actualQuestionsList);
         //jesli w powtorzeniu nie ma zadnych pytan to nic sie nie dzieje
         if (actualQuestionsList.isEmpty())
         {
             przygotujModel(model);
-            return "pokarzPowtorzeniaDzis";
+            model.addAttribute("powtorzono",true);
+            return "pokarzDoPocwiczenia";
         }
         actualQuestionsList=new ArrayList<>(actualQuestionsList);
         Pytanie nowy=new Pytanie();
@@ -78,7 +81,7 @@ public class trainingControler {
     @RequestMapping(value = "/cwiczOdp",method = RequestMethod.POST)
     public String cwiczOdpowiedz(Pytanie odpowiedz, Model model)
     {
-        model.addAttribute("isTraining",true);
+
         //pole pytanie w odpowiedzi zawiera teraz odpowiedz uzytkownika
         model.addAttribute("pytanie",odpowiedz);
         return "odpowiedz";
@@ -87,7 +90,7 @@ public class trainingControler {
     @RequestMapping(value = "/cwiczPodsumowanie")
     public String cwiczPodsumowanie(@RequestParam("zal") Integer zal, Model model)
     {
-        Status status;
+
         if (zal==0)//nie umiem
         {
 
@@ -112,13 +115,14 @@ public class trainingControler {
     @RequestMapping(value = "/cwiczNext")
     public String workNext(Model model)
     {
-        model.addAttribute("isTraining",true);
+
         //jesli wszystko jest juz nauczone to konczysz powtarzaie
         if (actualQuestionsList.isEmpty())
         {
 
             przygotujModel(model);
-            return "pokarzPowtorzeniaDzis";
+            model.addAttribute("powtorzono",true);
+            return "pokarzDoPocwiczenia";
         }
         
 
@@ -138,11 +142,25 @@ public class trainingControler {
 
    private void przygotujModel(Model model)
    {
-       model.addAttribute("isTraining",true);
-        model.addAttribute("powtorzono",true);
+
+
         List<Powtorzenie>toLearn =powtorzenia.getRepetsToLearn();
         //nizej to samo co w pokarz powtorzenia
         model.addAttribute("powtorzenia",toLearn);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
+    }
+
+
+
+    @RequestMapping(value = "/zaznacz")
+    public String zaz(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
+    {
+
+        przygotujModel(model);
+        users.updateAktualnyUzytkownik();
+        powtorzenia.setOpposedProblem(new Klucz(numer,nazwa,users.getActualUserLogin()));
+         return "pokarzDoPocwiczenia";
+
+
     }
 }

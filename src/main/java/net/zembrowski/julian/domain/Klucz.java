@@ -2,6 +2,7 @@ package net.zembrowski.julian.domain;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.util.Objects;
 
 //klucz dla klasy powtorzenie
 public class Klucz implements Serializable {
@@ -27,6 +28,22 @@ public class Klucz implements Serializable {
     }
 
     public Klucz() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Klucz klucz = (Klucz) o;
+        return getNumer() == klucz.getNumer() &&
+                Objects.equals(getNazwa(), klucz.getNazwa()) &&
+                Objects.equals(getWlasciciel(), klucz.getWlasciciel());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getNumer(), getNazwa(), getWlasciciel());
     }
 
     public int getNumer() {

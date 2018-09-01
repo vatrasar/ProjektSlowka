@@ -36,7 +36,7 @@ public class PowtarzanieControler {
     public String pokarzPowtorzenia(Model model)
     {
         users.updateAktualnyUzytkownik();
-        model.addAttribute("isTraining",false);
+
         List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
         model.addAttribute("powtorzenia",powtorzeniaNaDzis);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
@@ -48,7 +48,7 @@ public class PowtarzanieControler {
     {
 
         users.updateAktualnyUzytkownik();
-        model.addAttribute("isTraining",false);
+
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
         //jesli powtorzenie zostało oznaczone(rozmyślnie) jako puste
         if (wykonywane.isEmpty())

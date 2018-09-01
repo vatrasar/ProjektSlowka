@@ -30,6 +30,9 @@ public class Powtorzenie {
     //dni do nastepnego powtorzenia
     private int nastepne;
     private boolean empty;
+    //ture then you had problems with that repete
+    @Column(nullable = false, columnDefinition = "bit(1) default 0")
+    private boolean problems;
     public int getNastepne() {
         return nastepne;
     }
@@ -38,8 +41,13 @@ public class Powtorzenie {
         this.nastepne = nastepne;
     }
 
+    public boolean isProblems() {
+        return problems;
+    }
 
-
+    public void setProblems(boolean problems) {
+        this.problems = problems;
+    }
 
     public LocalDate getUtworzenie() {
 
