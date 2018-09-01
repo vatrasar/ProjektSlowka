@@ -84,6 +84,7 @@ public class trainingControler {
 
         //pole pytanie w odpowiedzi zawiera teraz odpowiedz uzytkownika
         model.addAttribute("pytanie",odpowiedz);
+        model.addAttribute("isTraining",true);
         return "odpowiedz";
     }
 
@@ -155,9 +156,8 @@ public class trainingControler {
     @RequestMapping(value = "/zaznacz")
     public String zaz(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
     {
-
-        przygotujModel(model);
         users.updateAktualnyUzytkownik();
+        przygotujModel(model);
         powtorzenia.setOpposedProblem(new Klucz(numer,nazwa,users.getActualUserLogin()));
          return "pokarzDoPocwiczenia";
 
