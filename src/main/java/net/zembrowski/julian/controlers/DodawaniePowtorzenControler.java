@@ -52,6 +52,7 @@ public class DodawaniePowtorzenControler {
         Powtorzenie nowe = new Powtorzenie();
 
         nowe.setUtworzenie(LocalDate.now().minusDays(1));
+        nowe.setEmpty(true);
         model.addAttribute("powtorzenie", nowe);
 
         model.addAttribute("dataWczoraj", LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
