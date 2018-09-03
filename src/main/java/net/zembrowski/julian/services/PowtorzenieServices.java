@@ -119,4 +119,8 @@ public class PowtorzenieServices {
         modifi.setProblems(!modifi.isProblems());
         powtorzenia.updatePowtorzenie(modifi);
     }
+
+    public void dropPowotrzenie(Powtorzenie powtorzenie) {
+        powtorzenia.remove(powtorzenie);
+    }
 }

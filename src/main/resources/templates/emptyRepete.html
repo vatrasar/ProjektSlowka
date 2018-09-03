@@ -20,6 +20,10 @@
         {
             color: darkgoldenrod;
         }
+        .przycisk
+        {
+            margin-right: 20px
+        }
     </style>
 
 </head>
@@ -32,9 +36,10 @@
 
 
     <div  th:class="form-group">
-        <a style="margin-right: 20px" th:href="${'/robPowtorzeniePodsumowaniePustego?zal=1'}">Umiem</a>
-        <a style="margin-right: 20px" th:href="${'/robPowtorzeniePodsumowaniePustego?zal=0'}">Nie Umiem</a>
-        <a th:href="${'/robPowtorzeniePodsumowaniePustego?zal=2'}">resetuj</a>
+        <a class="przycisk" th:href="${'/robPowtorzeniePodsumowaniePustego?zal=1'}"> Umiem </a>
+        <a class="przycisk" th:href="${'/robPowtorzeniePodsumowaniePustego?zal=0'}"> Nie Umiem </a>
+        <a class="przycisk"  th:href="${'/robPowtorzeniePodsumowaniePustego?zal=2'}"> resetuj </a>
+        <a th:href="${'/robPowtorzeniePodsumowaniePustego?zal=3'}"> usuń </a>
     </div>
 
 </div>

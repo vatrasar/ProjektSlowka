@@ -130,6 +130,12 @@ public class PowtarzanieControler {
             powtorzenia.resetujPowtorzenie(aktualnePytanie.getPowtorzenie());
             return "redirect:/pokarzPowtorzenia";
         }
+        if(zal==3)
+        {
+            powtorzenia.dropPowotrzenie(aktualnePytanie.getPowtorzenie());
+        }
+
+
         pytania.zatwierdzWykonaniePowtorzeniaPuste(aktualnePytanie.getPowtorzenie(),status);
 
         //nizej to samo co w pokarz powtorzenia
