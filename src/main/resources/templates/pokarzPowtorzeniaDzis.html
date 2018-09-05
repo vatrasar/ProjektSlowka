@@ -10,7 +10,7 @@
     <style>
         .ciezko
         {
-            color:red;
+            color: darkorange;
         }
         .srednio
         {
@@ -30,6 +30,10 @@
         {
             background-color: red;
         }
+        .okropnie
+        {
+            color:red;
+        }
     </style>
 </head>
 <body>
@@ -41,9 +45,11 @@
 <p th:if="${powtorzono}" style="color: green">Powtorzenie zakonczone!</p>
 
 <div style="text-align: center;">
+
     <p class="pozostalePow" th:if="${powtorzenia.size()<10}">Pozostałe powtórzenia:<span class="latwo" th:text="${powtorzenia.size()}" /></p>
     <p class="pozostalePow" th:if="${powtorzenia.size()>=10 && powtorzenia.size()<20}">Pozostałe powtórzenia:<span class="srednio" th:text="${powtorzenia.size()}" /></p>
-    <p class="pozostalePow" th:if="${powtorzenia.size()>=20}">Pozostałe powtórzenia:<span class="ciezko" th:text="${powtorzenia.size()}" /></p>
+    <p class="pozostalePow" th:if="${powtorzenia.size()>=20 && powtorzenia.size()<30}">Pozostałe powtórzenia:<span class="ciezko" th:text="${powtorzenia.size()}" /></p>
+    <p class="pozostalePow" th:if="${powtorzenia.size()>=30}">Pozostałe powtórzenia:<span class="okropnie" th:text="${powtorzenia.size()}" /></p>
 </div>
 
 

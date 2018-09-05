@@ -7,28 +7,8 @@
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 
-    <style>
-        .ciezko
-        {
-            background-color:red;
-        }
-        .srednio
-        {
-            background-color: yellow;
-        }
-        .latwo
-        {
-            background-color: chartreuse;
-        }
-        td{
-            font-weight: bold ;
-            text-align: center;
-        }
-        th
-        {
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/koloryPowtorzen.css}" type="text/css" />
+
 
 </head>
 <body>
@@ -48,8 +28,10 @@
             <th >liczba powtórzeń</th>
         </tr>
         <tr th:each="numer:${liczbaPow}">
-            <td th:if="${numer.getLiczba()>=20}" class="ciezko" style="text-align: center" th:text="${numer.translateDay()}"></td>
-            <td th:if="${numer.getLiczba()>=20}" class="ciezko" th:text="${numer.getLiczba()}"></td>
+            <td th:if="${numer.getLiczba()>=30}" class="okropnie" style="text-align: center" th:text="${numer.translateDay()}"></td>
+            <td th:if="${numer.getLiczba()>=30}" class="okropnie" th:text="${numer.getLiczba()}"></td>
+            <td th:if="${numer.getLiczba()>=20 && numer.getLiczba()<30}" class="ciezko" style="text-align: center" th:text="${numer.translateDay()}"></td>
+            <td th:if="${numer.getLiczba()>=20 && numer.getLiczba()<30}" class="ciezko" th:text="${numer.getLiczba()}"></td>
             <td th:if="${numer.getLiczba()>=10 && numer.getLiczba()<20}" class="srednio" style="text-align: center" th:text="${numer.translateDay()}"></td>
             <td th:if="${numer.getLiczba()>=10 && numer.getLiczba()<20}" class="srednio" th:text="${numer.getLiczba()}"></td>
             <td th:if="${numer.getLiczba()<10}" class="latwo" style="text-align: center" th:text="${numer.translateDay()}"></td>

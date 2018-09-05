@@ -1,0 +1,24 @@
+.okropnie
+{
+    background-color:red;
+}
+.ciezko
+{
+    background-color: darkorange;
+}
+.srednio
+{
+    background-color: yellow;
+}
+.latwo
+{
+    background-color: chartreuse;
+}
+td{
+    font-weight: bold ;
+    text-align: center;
+}
+th
+{
+    text-align: center;
+}

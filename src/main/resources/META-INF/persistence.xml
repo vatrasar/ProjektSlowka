@@ -7,7 +7,7 @@
 
         <properties>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/program"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/program?autoReconnect=true"/>
             <property name="hibernate.connection.autocommit" value="true"/>
             <property name="hibernate.connection.username" value="wykonanie"/>
             <property name="hibernate.connection.password" value="program"/>
