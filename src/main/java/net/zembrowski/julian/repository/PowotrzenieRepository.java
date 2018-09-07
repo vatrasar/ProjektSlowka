@@ -49,9 +49,15 @@ public class PowotrzenieRepository {
         em.persist(nowePowtorzenie);
     }
 
+
+    /**
+     *Function returns repeats from present day and every repeat which wasn't done in before days
+     * @param dzien
+     * @return
+     */
     public List<Powtorzenie> getPowtorzeniaNaDzis(LocalDate dzis) {
 
-        return em.createQuery("select p from Powtorzenie p WHERE p.dzien<=:dzis AND p.wlasciciel=:akutalny",Powtorzenie.class).setParameter("dzis",dzis).setParameter("akutalny",akutalnyUzytkownik.getLogin()).getResultList();
+        return em.createQuery("select p from Powtorzenie p WHERE p.dzien<=:dzis AND p.wlasciciel=:akutalny order by nazwa,nastepne",Powtorzenie.class).setParameter("dzis",dzis).setParameter("akutalny",akutalnyUzytkownik.getLogin()).getResultList();
 
     }
 
@@ -83,10 +89,16 @@ public class PowotrzenieRepository {
 
         em.remove(em.contains(powtorzenie) ? powtorzenie : em.merge(powtorzenie));
     }
+
+    /**
+     * Function returns repetes  only from one Day (repeats from before days are ignore)
+     * @param dzien
+     * @return
+     */
     @Transactional
     public List<Powtorzenie> getPowtorzeniaNaDzien(LocalDate dzien) {
 
-        return em.createQuery("select p from Powtorzenie p WHERE p.dzien=:szukany AND p.wlasciciel=:akutalny",Powtorzenie.class).setParameter("szukany",dzien).setParameter("akutalny",akutalnyUzytkownik.getLogin()).getResultList();
+        return em.createQuery("select p from Powtorzenie p WHERE p.dzien=:szukany AND p.wlasciciel=:akutalny order by nazwa",Powtorzenie.class).setParameter("szukany",dzien).setParameter("akutalny",akutalnyUzytkownik.getLogin()).getResultList();
 
     }
 
