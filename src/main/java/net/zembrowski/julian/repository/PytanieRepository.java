@@ -72,4 +72,15 @@ public class PytanieRepository {
     public Pytanie getPytanie(int id) {
         return em.find(Pytanie.class,id);
     }
+
+
+    public List<Pytanie> getPytaniaOfPowtorzenie(Powtorzenie powtorzenie) {
+
+        return em.createQuery("select p from Pytanie as p where powtorzenie=:pow",Pytanie.class).setParameter("pow",powtorzenie).getResultList();
+    }
+
+    public void upadatePytanie(Pytanie pyt) {
+
+        em.merge(pyt);
+    }
 }

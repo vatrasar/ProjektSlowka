@@ -33,6 +33,9 @@ public class Powtorzenie {
     //ture then you had problems with that repete
     @Column(nullable = false, columnDefinition = "bit(1) default 0")
     private boolean problems;
+
+
+
     public int getNastepne() {
         return nastepne;
     }
@@ -91,11 +94,6 @@ public class Powtorzenie {
 
     public void setDzien(LocalDate dzien) {
         this.dzien = dzien;
-    }
-
-    @Override
-    public String toString() {
-        return ""+nazwa+" "+numer+" utworzenie:"+utworzenie;
     }
 
     /*dodaje odpowiednia liczbe dni do numeru.ustala date kiedy ma byc przeprowadzone nastepne powtorzenie*/
@@ -164,5 +162,19 @@ public class Powtorzenie {
     public int hashCode() {
 
         return Objects.hash(getNazwa(), getNumer(), getWlasciciel(), getUtworzenie(), getDzien(), getNastepne());
+    }
+
+    @Override
+    public String toString() {
+        return "Powtorzenie{" +
+                "nazwa='" + nazwa + '\'' +
+                ", numer=" + numer +
+                ", wlasciciel='" + wlasciciel + '\'' +
+                ", utworzenie=" + utworzenie +
+                ", dzien=" + dzien +
+                ", nastepne=" + nastepne +
+                ", empty=" + empty +
+                ", problems=" + problems +
+                '}';
     }
 }

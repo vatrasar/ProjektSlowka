@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <title>Julian</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+
+    <style>
+        form{
+
+            margin-right: 40%;
+            text-align: right;
+            /*margin-left: 30%;*/
+        }
+        #dni
+        {
+
+            text-align-last: right;
+
+        }
+
+    </style>
+
+</head>
+<body>
+<h2 style="text-align: center;margin-bottom: 60px">REJESTRACJA POWTORZENIA</h2>
+<div class="container">
+    <form class="form-horizontal" th:action="@{/edit}" th:method="post" th:object="${powtorzenie}">
+
+
+        <div class="form-group" >
+            <datalist id="opcje">
+                <option value="slowka">
+            </datalist>
+
+            <label class="control-label">nazwa <input class="form-control" th:step="1" id="movie" list="opcje" th:field="*{nazwa}" /></label>
+
+            <!--<label class="control-label" style="margin-left: 20px">numer</label>-->
+            <!--<input type="number" th:field="*{numer}" th:min="0"/>-->
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">data notatek:<input class="form-control" th:field="*{utworzenie}" type="date"></label>
+        </div>
+        <div class="form-group">
+
+            <label for="dni" class="control-label">Po ilu dniach nastepne powtorzenie</label>
+            <div style="margin-left: 90%">
+                <select class="form-control" id="dni"  th:field="*{nastepne}">
+                    <option th:value="1">1</option>
+                    <option th:value="3">3</option>
+                    <option th:value="10">10</option>
+                    <option th:value="30">30</option>
+                    <option th:value="90">90</option>
+                    <option th:value="180">180</option>
+                    <option th:value="360">360</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-check" >
+            <input class="form-check-input" type="checkbox" value="true" th:field="*{empty}" id="pusty" checked>
+            <label class="form-check-label" for="pusty">
+                puste
+            </label>
+        </div>
+
+
+        <div th:class="row" style="margin-top: 20px">
+            <input th:class="btn-default" type="submit" value="dodaj powtorzenie"/>
+        </div>
+        <div th:class="row" style="margin-top: 20px">
+            <a th:href="@{/pokarzMenu}">wroć do menu głównego</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

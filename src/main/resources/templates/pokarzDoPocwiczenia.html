@@ -35,6 +35,10 @@
             color: gold;
             font-weight: bold;
         }
+        td,th
+        {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -61,7 +65,9 @@
             <th>Po ilu dniach</th>
             <th>Data notatek</th>
             <th>start</th>
+            <th>Edycja</th>
             <th>byl problem</th>
+
         </tr>
         <tr  th:each="pow:${powtorzenia}">
             <div th:if="${pow.isProblems()}">
@@ -70,7 +76,11 @@
                 <td class="problem" th:text="${pow.getNastepne()}"></td>
                 <td class="problem" th:text="${pow.getUtworzenie()}"></td>
                 <td class="problem" ><a th:href="${'/cwicz?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
+                <td class="problem" ><a th:href="${'/menuEdycji?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&source=training'}">edytuj</a></td>
                 <td class="problem" ><a th:href="${'/zaznacz?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">odzaznacz</a></td>
+
+
+
             </div>
             <div th:if="${pow.isProblems()!= true}">
                 <td th:text="${pow.getNazwa()}"></td>
@@ -78,7 +88,9 @@
                 <td th:text="${pow.getNastepne()}"></td>
                 <td th:text="${pow.getUtworzenie()}"></td>
                 <td><a th:href="${'/cwicz?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
+                <td><a th:href="${'/menuEdycji?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&source=training'}">edytuj</a></td>
                 <td><a th:href="${'/zaznacz?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">zaznacz</a></td>
+
             </div>
         </tr>
 

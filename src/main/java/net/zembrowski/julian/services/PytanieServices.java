@@ -116,4 +116,30 @@ public class PytanieServices {
         pytania.deletePytanie(edytowane.getId());
         pytania.createPytanie(nowe);
     }
+
+
+    @Transactional
+    public void dropPytaniaOfPowtorzenie(Powtorzenie powtorzenie) {
+
+        List<Pytanie>pytaniaPowtorzenia=pytania.getPytaniaOfPowtorzenie(powtorzenie);
+        for(Pytanie pytanie:pytaniaPowtorzenia)
+        {
+            deletePytanie(pytanie.getId());
+        }
+
+    }
+
+    public List<Pytanie> getPytaniaPowtorzenia(Powtorzenie powtorzenie) {
+
+        return pytania.getPytaniaOfPowtorzenie(powtorzenie);
+    }
+
+    public void addPytaniaToPowtorzenie(Powtorzenie nowe, List<Pytanie> pytaniaStaregoPowtorzenia) {
+
+        for(Pytanie pyt:pytaniaStaregoPowtorzenia)
+        {
+            pyt.setPowtorzenie(nowe);
+            pytania.upadatePytanie(pyt);
+        }
+    }
 }

@@ -22,6 +22,8 @@ public class PowtorzenieServices {
 
     @Autowired
     private Powtorzenie aktualnePowtorzenie;
+    @Autowired
+    private PytanieServices pytania;
 
     public boolean isExist(Powtorzenie nowePowtorzenie) {
         return  powtorzenia.isExist(nowePowtorzenie);
@@ -39,6 +41,7 @@ public class PowtorzenieServices {
         aktualnePowtorzenie.setWlasciciel(noweAktualne.getWlasciciel());
         aktualnePowtorzenie.setNastepne(noweAktualne.getNastepne());
         aktualnePowtorzenie.setUtworzenie(noweAktualne.getUtworzenie());
+        aktualnePowtorzenie.setEmpty(noweAktualne.isEmpty());
     }
 
     public List<Powtorzenie> getPowtorzeniaNaDzis() {
@@ -120,7 +123,11 @@ public class PowtorzenieServices {
         powtorzenia.updatePowtorzenie(modifi);
     }
 
+    @Transactional
     public void dropPowotrzenie(Powtorzenie powtorzenie) {
+
+        pytania.dropPytaniaOfPowtorzenie(powtorzenie);
         powtorzenia.remove(powtorzenie);
+
     }
 }

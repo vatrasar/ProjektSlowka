@@ -55,7 +55,6 @@ public class DodawaniePowtorzenControler {
         nowe.setEmpty(true);
         model.addAttribute("powtorzenie", nowe);
 
-        model.addAttribute("dataWczoraj", LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         return "rejestracjaPowtorzenia";
     }
     @RequestMapping( value = "/dodaniePowtorzenia",method = RequestMethod.POST)
@@ -69,10 +68,7 @@ public class DodawaniePowtorzenControler {
         NowePowtorzenie.setNumer(powtorzenia.getMaxNumer(NowePowtorzenie.getNazwa())+1);
         LocalDate akutalnaData=LocalDate.now();
 
-        if(!NowePowtorzenie.isEmpty())
-        {
-            NowePowtorzenie.setEmpty(false);
-        }
+
         NowePowtorzenie.setDzien(akutalnaData.plusDays(NowePowtorzenie.getNastepne()));
         if(powtorzenia.isExist(NowePowtorzenie))
         {
@@ -141,10 +137,11 @@ public class DodawaniePowtorzenControler {
     public String edycjaPytanie(Pytanie edytowane)
     {
         pytania.editPytanie(edytowane);
-
-
         return "redirect:/training";
     }
+
+
+
 
 
 }

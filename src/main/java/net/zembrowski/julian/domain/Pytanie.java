@@ -15,12 +15,12 @@ public class Pytanie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
-    String question;
-    String answer;
-    @OneToOne
-    Powtorzenie powtorzenie;
-    Status status;
+    private   int id;
+    private String question;
+    private  String answer;
+    @ManyToOne
+   private Powtorzenie powtorzenie;
+    private Status status;
 
     public int getId() {
         return id;
