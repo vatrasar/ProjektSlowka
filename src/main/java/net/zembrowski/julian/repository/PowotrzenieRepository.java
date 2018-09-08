@@ -6,6 +6,7 @@ import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Uzytkownik;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
+@Scope("session")
 public class PowotrzenieRepository {
 
     @PersistenceContext

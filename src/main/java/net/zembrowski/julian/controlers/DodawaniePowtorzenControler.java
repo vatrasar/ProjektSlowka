@@ -12,6 +12,7 @@ import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.RoleServices;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +31,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 @Controller
+@Scope("session")
 public class DodawaniePowtorzenControler {
 
 

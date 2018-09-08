@@ -13,8 +13,7 @@ import javax.persistence.EntityManager;
 public class Starter implements CommandLineRunner {
 
     EntityManager em;
-    @Autowired
-    RoleRepository roleRepository;
+
     @Override
     @Transactional
     public void run(String... args) throws Exception {

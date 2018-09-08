@@ -4,6 +4,7 @@ package net.zembrowski.julian.repository;
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Uzytkownik;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 @Repository
+@Scope("session")
 public class RepositoryUzytkownik {
 
     @PersistenceContext

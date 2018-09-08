@@ -14,6 +14,7 @@ import java.util.Objects;
 @Entity
 @IdClass(Klucz.class)
 @Component
+@Scope("session")
 public class Powtorzenie {
 
     @Id

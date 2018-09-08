@@ -5,6 +5,7 @@ import net.zembrowski.julian.domain.Klucz;
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.repository.PowotrzenieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
+@Scope("session")
 public class PowtorzenieServices {
 
     @Autowired
@@ -22,8 +24,7 @@ public class PowtorzenieServices {
 
     @Autowired
     private Powtorzenie aktualnePowtorzenie;
-    @Autowired
-    private PytanieServices pytania;
+
 
     public boolean isExist(Powtorzenie nowePowtorzenie) {
         return  powtorzenia.isExist(nowePowtorzenie);
@@ -123,10 +124,14 @@ public class PowtorzenieServices {
         powtorzenia.updatePowtorzenie(modifi);
     }
 
+    /**
+     * UWAGA: Pozostawi pytania powtórzenia nie usunięte!
+     * @param powtorzenie
+     */
     @Transactional
     public void dropPowotrzenie(Powtorzenie powtorzenie) {
 
-        pytania.dropPytaniaOfPowtorzenie(powtorzenie);
+
         powtorzenia.remove(powtorzenie);
 
     }

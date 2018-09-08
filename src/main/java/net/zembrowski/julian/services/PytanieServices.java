@@ -5,6 +5,7 @@ import net.zembrowski.julian.domain.Pytanie;
 import net.zembrowski.julian.domain.Status;
 import net.zembrowski.julian.repository.PytanieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Scope("session")
 public class PytanieServices {
 
     @Autowired

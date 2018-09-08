@@ -6,6 +6,7 @@ import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
+@Scope("session")
 public class PowtarzanieControler {
 
     @Autowired

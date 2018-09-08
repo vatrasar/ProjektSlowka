@@ -10,6 +10,7 @@ import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Controller
+@Scope("session")
 public class editionControler {
 
     @Autowired
@@ -87,6 +89,7 @@ public class editionControler {
     @RequestMapping("/dropPow")
     public String dropPow()
     {
+        pytania.dropPytaniaOfPowtorzenie(akutalnePowtorzenie);
         powtorzenia.dropPowotrzenie(akutalnePowtorzenie);
         return "redirect:/training";
     }

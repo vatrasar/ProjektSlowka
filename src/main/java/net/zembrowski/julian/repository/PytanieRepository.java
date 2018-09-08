@@ -3,6 +3,7 @@ package net.zembrowski.julian.repository;
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Pytanie;
 import net.zembrowski.julian.domain.Status;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
+@Scope("session")
 public class PytanieRepository {
 
     @PersistenceContext
