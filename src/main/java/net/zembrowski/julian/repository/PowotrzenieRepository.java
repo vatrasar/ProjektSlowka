@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
 @Scope("session")
@@ -64,6 +65,7 @@ public class PowotrzenieRepository {
     }
 
     public Powtorzenie getPowtorzenie(Klucz klucz) {
+
 
         return em.find(Powtorzenie.class,klucz);
     }

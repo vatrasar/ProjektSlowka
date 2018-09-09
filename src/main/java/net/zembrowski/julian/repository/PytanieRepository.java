@@ -85,4 +85,9 @@ public class PytanieRepository {
 
         em.merge(pyt);
     }
+
+    public List<Pytanie> getOneWayCheckedQuestions(Powtorzenie wykonywane) {
+
+        return em.createQuery("SELECT p from Pytanie p where p.powtorzenie=:obecne AND p.status=:stat",Pytanie.class).setParameter("obecne",wykonywane).setParameter("stat",Status.UMIEM_JEDNA_STRONE).getResultList();
+    }
 }

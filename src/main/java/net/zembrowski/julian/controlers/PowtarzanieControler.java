@@ -51,6 +51,7 @@ public class PowtarzanieControler {
 
         users.updateAktualnyUzytkownik();
 
+
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
         //jesli powtorzenie zostało oznaczone(rozmyślnie) jako puste
         if (wykonywane.isEmpty())
@@ -61,29 +62,55 @@ public class PowtarzanieControler {
             model.addAttribute("sugerowanyNumer",sugerowanyNumerNastepnego);
             return "emptyRepete";
         }
+
+
+
+
         List<Pytanie> wykonywanePytania=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
 
-        //spelnione gdy wszystki pytania sa juz powtorzone
+
+
+        //spelnione gdy nie ma już niesprawdzonych
         if (wykonywanePytania.isEmpty())
         {
-            pytania.zatwierdzWykonaniePowtorzenia(wykonywane);
-            model.addAttribute("powtorzono",true);
-            //nizej to samo co w pokarz powtorzenia
-            List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
-            model.addAttribute("powtorzenia",powtorzeniaNaDzis);
-            model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
-            return "pokarzPowtorzeniaDzis";
+
+            wykonywanePytania=pytania.getOneWayCheckedQuestions(wykonywane);
+            //spełnione gdy nie ma juz niesprawdzonych i powtórzonych w jedną strone
+            if (wykonywanePytania.isEmpty()) //
+            {
+                pytania.zatwierdzWykonaniePowtorzenia(wykonywane);
+                model.addAttribute("powtorzono", true);
+                //nizej to samo co w pokarz powtorzenia
+                List<Powtorzenie> powtorzeniaNaDzis = powtorzenia.getPowtorzeniaNaDzis();
+                model.addAttribute("powtorzenia", powtorzeniaNaDzis);
+                model.addAttribute("nazwaUzytkownika", users.getActualUserLogin());
+                return "pokarzPowtorzeniaDzis";
+            }
+            //pytanie jest ustawiane jako odpowiedz a odpoweidz jako pytanie
+            Pytanie odpowiedz=new Pytanie();
+            Pytanie pytanie=wykonywanePytania.get(0);
+            pytanie.reverse();
+            odpowiedz.setId(pytanie.getId());
+            odpowiedz.setAnswer(pytanie.getAnswer());
+            model.addAttribute("odp",odpowiedz);
+            aktualnePytanie.setPytanie(pytanie);
+            model.addAttribute("pyt",pytanie);
+            return "pytanie";
+
         }
 
 
-        Pytanie nowy=new Pytanie();
-        Pytanie stare=wykonywanePytania.get(0);
-        nowy.setId(stare.getId());
-        nowy.setAnswer(stare.getAnswer());
-        model.addAttribute("odp",nowy);
-        aktualnePytanie.setId(stare.getId());
-        aktualnePytanie.setPowtorzenie(stare.getPowtorzenie());
-        model.addAttribute("pyt",stare);
+        //pytanie to pytanie odpowiedz to odpowiedz
+        Pytanie odpowiedz=new Pytanie();
+        Pytanie pytanie=wykonywanePytania.get(0);
+        odpowiedz.setId(pytanie.getId());
+        odpowiedz.setAnswer(pytanie.getAnswer());
+        model.addAttribute("odp",odpowiedz);
+        aktualnePytanie.setPytanie(pytanie);
+        model.addAttribute("pyt",pytanie);
+
+
+
         return "pytanie";
     }
 
@@ -99,15 +126,11 @@ public class PowtarzanieControler {
     @RequestMapping(value = "/robPowtorzeniePodsumowanie")
     public String robPowtorzeniePodsumowanie(@RequestParam("zal") Integer zal, Model model)
     {
-        Status status;
-        if (zal==0)
+        if (isNotSameSession())
         {
-            status=Status.NIEUMIEM;
+            return "redirect:/pokarzPowtorzenia";
         }
-        else
-        {
-            status=Status.UMIEM;
-        }
+        Status status=pytania.determineStatus(zal,aktualnePytanie);
 
         pytania.zmienStatusPytania(aktualnePytanie.getId(),status);
 
@@ -167,5 +190,12 @@ public class PowtarzanieControler {
         model.addAttribute("liczbaPow",liczby);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
         return "pokarzPlan";
+    }
+    private boolean isNotSameSession()
+    {
+        if (aktualnePytanie.getPowtorzenie()==null)
+            return true;
+        else
+            return false;
     }
 }

@@ -35,7 +35,7 @@ public class trainingControler {
     @Autowired
     PytanieServices pytania;
 
-    private static List<Pytanie>actualQuestionsList;
+    private  List<Pytanie>actualQuestionsList;
 
     @Autowired
     private Pytanie aktualnePytanie;
@@ -105,8 +105,28 @@ public class trainingControler {
         }
         else//umiem
         {
-            //usuwanie pytania które umiesz z listy
-            actualQuestionsList.remove(0);
+           Pytanie przetwarzany = actualQuestionsList.get(0);
+            if (przetwarzany.getPowtorzenie().isReverse())
+            {
+                if (przetwarzany.getStatus()==Status.NIESPRAWDZONE) //umiem w jedna strone
+                {
+
+                    przetwarzany.setStatus(Status.UMIEM_JEDNA_STRONE);
+                    przetwarzany.reverse();
+                    //przesuwanie na koniec listy
+                    actualQuestionsList.remove(0);
+                    actualQuestionsList.add(przetwarzany);
+
+                }
+                else //usuwanie pytania które umiesz z listy
+                {
+
+                    actualQuestionsList.remove(0);
+
+                }
+            }
+            else
+                actualQuestionsList.remove(0);
 
         }
 
@@ -118,6 +138,7 @@ public class trainingControler {
     @RequestMapping(value = "/cwiczNext")
     public String workNext(Model model)
     {
+
 
         //jesli wszystko jest juz nauczone to konczysz powtarzaie
         if (actualQuestionsList.isEmpty())

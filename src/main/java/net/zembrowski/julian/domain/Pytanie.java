@@ -70,6 +70,7 @@ public class Pytanie {
         this.id=nowe.id;
     }
 
+
     @Override
     public String toString() {
         return "Pytanie{" +
@@ -83,5 +84,14 @@ public class Pytanie {
 
     public Pytanie() {
 
+    }
+
+    /**
+     * swap question and answer
+     */
+    public void reverse() {
+        String temp=answer;
+        answer=question;
+        question=temp;
     }
 }

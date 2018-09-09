@@ -42,16 +42,16 @@ public class editionControler {
 
         powtorzenia.ustawJakoAktualne(powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,uytkownicy.getActualUserLogin())));
 
-        if (source.equals("training"))
+
+       if (source.equals("training"))
         {
             if (akutalnePowtorzenie.isEmpty()) {
                 model.addAttribute("puste", true);
-                Logger.getGlobal().warning(akutalnePowtorzenie.toString());
+
             }
             else {
                 model.addAttribute("puste", false);
-                Logger.getGlobal().warning("dodano false");
-                Logger.getGlobal().warning(akutalnePowtorzenie.toString());
+
             }
             uytkownicy.updateAktualnyUzytkownik();
             model.addAttribute("user",uytkownicy.getActualUserLogin());
@@ -112,24 +112,41 @@ public class editionControler {
         NowePowtorzenie.setDzien(akutalnePowtorzenie.getDzien());
 
 
+
         List<Pytanie>pytaniaStaregoPowtorzenia=pytania.getPytaniaPowtorzenia(akutalnePowtorzenie);
 
+        //There was SQLExpection without that
+       Powtorzenie temp=pytania.addQuestionsToTempPowotrzenie(pytaniaStaregoPowtorzenia);
+
+
+        //usuniecie pierwotnego powtorzenia by sprawdzic czy nowe już gdzieś nie istnieje
         powtorzenia.dropPowotrzenie(akutalnePowtorzenie);
-        //uwaga to musi byc po usunieciu starego powtorzenia!
-        NowePowtorzenie.setNumer(powtorzenia.getMaxNumer(NowePowtorzenie.getNazwa())+1);
+
+        //jeśli nazwa jest ta sama co poprzednio nie powinno sie zmieniać numeru powtorzenia
+        if(akutalnePowtorzenie.getNazwa().equals(NowePowtorzenie.getNazwa()))
+            NowePowtorzenie.setNumer(akutalnePowtorzenie.getNumer());
+        else
+            NowePowtorzenie.setNumer(powtorzenia.getMaxNumer(NowePowtorzenie.getNazwa())+1);
+
 
         if(powtorzenia.isExist(NowePowtorzenie))
         {
             powtorzenia.persistPowtorzenie(akutalnePowtorzenie);
             pytania.addPytaniaToPowtorzenie(akutalnePowtorzenie,pytaniaStaregoPowtorzenia);
+            //czyszczenie
+            powtorzenia.dropPowotrzenie(temp);
             return "/pokarzMenu";
         }
 
         powtorzenia.persistPowtorzenie(NowePowtorzenie);
 
-        if(!NowePowtorzenie.isEmpty())
-        pytania.addPytaniaToPowtorzenie(NowePowtorzenie,pytaniaStaregoPowtorzenia);
+        if(!NowePowtorzenie.isEmpty()) {
 
+            pytania.addPytaniaToPowtorzenie(NowePowtorzenie, pytaniaStaregoPowtorzenia);
+
+        }
+        //czyszczenie
+        powtorzenia.dropPowotrzenie(temp);
         powtorzenia.ustawJakoAktualne(NowePowtorzenie);
 
         if (NowePowtorzenie.isEmpty())

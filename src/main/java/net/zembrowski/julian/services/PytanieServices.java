@@ -3,6 +3,7 @@ package net.zembrowski.julian.services;
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Pytanie;
 import net.zembrowski.julian.domain.Status;
+import net.zembrowski.julian.domain.Uzytkownik;
 import net.zembrowski.julian.repository.PytanieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -20,6 +21,10 @@ public class PytanieServices {
     private PytanieRepository pytania;
     @Autowired
     private PowtorzenieServices powtorzenia;
+
+    @Autowired
+    private UzytkownikService users;
+
 
     @Transactional
     public void createPytanie(Pytanie nowePytanie)
@@ -143,5 +148,55 @@ public class PytanieServices {
             pyt.setPowtorzenie(nowe);
             pytania.upadatePytanie(pyt);
         }
+    }
+
+
+    /**
+     * Check witch status should question should get now.
+     * Warning! Only for question from reversed repete!
+     * @param zal
+     * @param aktualne
+     * @return
+     */
+    public Status determineStatus(Integer zal, Pytanie aktualne) {
+
+
+        if (zal==0)
+        {
+           return Status.NIEUMIEM;
+        }
+        if(aktualne.getPowtorzenie().isReverse())
+        {
+
+
+            if (aktualne.getStatus()==Status.UMIEM_JEDNA_STRONE)
+            {
+                return Status.UMIEM;
+            }
+            else
+                return Status.UMIEM_JEDNA_STRONE;
+
+        }
+        else
+            return Status.UMIEM;
+
+    }
+
+    public List<Pytanie> getOneWayCheckedQuestions(Powtorzenie wykonywane) {
+
+
+        return pytania.getOneWayCheckedQuestions(wykonywane);
+
+    }
+
+    public Powtorzenie addQuestionsToTempPowotrzenie(List<Pytanie> pytaniaStaregoPowtorzenia) {
+
+        Powtorzenie temp=new Powtorzenie();
+        temp.setNazwa("temp");
+        temp.setWlasciciel(users.getActualUserLogin());
+        temp.setNumer(-1);//number not posible for ordinary user
+        powtorzenia.persistPowtorzenie(temp);
+        this.addPytaniaToPowtorzenie(temp,pytaniaStaregoPowtorzenia);
+        return temp;
     }
 }

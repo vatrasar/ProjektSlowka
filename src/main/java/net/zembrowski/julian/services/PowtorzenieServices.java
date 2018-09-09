@@ -43,6 +43,7 @@ public class PowtorzenieServices {
         aktualnePowtorzenie.setNastepne(noweAktualne.getNastepne());
         aktualnePowtorzenie.setUtworzenie(noweAktualne.getUtworzenie());
         aktualnePowtorzenie.setEmpty(noweAktualne.isEmpty());
+        aktualnePowtorzenie.setReverse(noweAktualne.isReverse());
     }
 
     public List<Powtorzenie> getPowtorzeniaNaDzis() {
@@ -52,6 +53,7 @@ public class PowtorzenieServices {
     }
 
     public Powtorzenie getPowtorzenie(Klucz klucz) {
+
        return powtorzenia.getPowtorzenie(klucz);
     }
 

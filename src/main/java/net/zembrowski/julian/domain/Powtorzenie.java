@@ -31,11 +31,26 @@ public class Powtorzenie {
     //dni do nastepnego powtorzenia
     private int nastepne;
     private boolean empty;
-    //ture then you had problems with that repete
+    //ture when you had problems with that repete
     @Column(nullable = false, columnDefinition = "bit(1) default 0")
     private boolean problems;
 
+    //when is true you will have to ask for question and then ask for answer (two ways repete)
+    @Column(nullable = false, columnDefinition = "bit(1) default 0")
+    private boolean reverse;
 
+  public Powtorzenie()
+    {
+
+    }
+
+    public boolean isReverse() {
+        return reverse;
+    }
+
+    public void setReverse(boolean reverse) {
+        this.reverse = reverse;
+    }
 
     public int getNastepne() {
         return nastepne;
@@ -134,6 +149,7 @@ public class Powtorzenie {
        this.setWlasciciel(stare.getWlasciciel());
        this.setNastepne(1);
        this.setUtworzenie(stare.getUtworzenie());
+       this.setReverse(stare.reverse);
    }
 
 

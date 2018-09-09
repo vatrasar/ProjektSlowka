@@ -1,34 +1,24 @@
 package net.zembrowski.julian.controlers;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
+
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Pytanie;
-import net.zembrowski.julian.domain.Status;
-import net.zembrowski.julian.domain.Uzytkownik;
-import net.zembrowski.julian.repository.PytanieRepository;
-import net.zembrowski.julian.repository.RoleRepository;
+
 import net.zembrowski.julian.services.PowtorzenieServices;
+
 import net.zembrowski.julian.services.PytanieServices;
-import net.zembrowski.julian.services.RoleServices;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.datetime.DateFormatter;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 @Controller
 @Scope("session")
@@ -55,6 +45,7 @@ public class DodawaniePowtorzenControler {
 
         nowe.setUtworzenie(LocalDate.now().minusDays(1));
         nowe.setEmpty(true);
+        nowe.setReverse(false);
         model.addAttribute("powtorzenie", nowe);
 
         return "rejestracjaPowtorzenia";
