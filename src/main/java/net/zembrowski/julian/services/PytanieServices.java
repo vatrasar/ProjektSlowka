@@ -1,17 +1,18 @@
 package net.zembrowski.julian.services;
 
-import net.zembrowski.julian.domain.Powtorzenie;
-import net.zembrowski.julian.domain.Pytanie;
-import net.zembrowski.julian.domain.Status;
-import net.zembrowski.julian.domain.Uzytkownik;
+import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.repository.PytanieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 @Scope("session")
@@ -25,11 +26,44 @@ public class PytanieServices {
     @Autowired
     private UzytkownikService users;
 
+    @Autowired
+    MediaSourceService mediaSourceService;
+    private static String path="C:\\Users\\Vatrasar\\Dysk Google\\programDane";//path to folder with video and img data
 
     @Transactional
-    public void createPytanie(Pytanie nowePytanie)
+    public void createPytanie(Pytanie nowePytanie, MultipartFile[] plikiAns, MultipartFile[] plikiOdp)
     {
         pytania.createPytanie(nowePytanie);
+
+        saveFiles(plikiAns, MediaStatus.ANSWER,nowePytanie);
+        saveFiles(plikiOdp, MediaStatus.QUESTION, nowePytanie);
+    }
+
+    /**
+     * saev files to directory and their paths to database
+     * @param pliki
+     * @param status
+     * @param nowePytanie
+     */
+    private void saveFiles(MultipartFile[] pliki, MediaStatus status, Pytanie nowePytanie) {
+        for (MultipartFile plik:pliki)
+        {
+            Path sciezka= Paths.get(path,plik.getOriginalFilename());
+            try {
+                Files.write(sciezka,plik.getBytes());
+
+                mediaSourceService.persistanceMediaSource(new MediaSource(sciezka.toString(),nowePytanie,status));
+            }
+            catch (java.nio.file.AccessDeniedException e)
+            {
+                Logger.getGlobal().info("zakonczono wczytywanie plikow");
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
     }
 
     public List<Pytanie> getPytaniaPowtorzeniaNiesprawdzone(Powtorzenie wykonywane) {

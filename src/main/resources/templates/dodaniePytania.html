@@ -13,7 +13,7 @@
 <p th:if="${sukces}" style="color: green">Dodano Pytanie!</p>
 <h2 style="text-align: center;margin-bottom: 60px">REJESTRACJA PYTANIA</h2>
 <div class="container">
-    <form class="form-horizontal" th:action="@{/dodajPytanie}" th:method="post" th:object="${pytanie}">
+    <form class="form-horizontal" th:action="@{/dodajPytanie}" th:method="post" enctype="multipart/form-data"  th:object="${pytanie}">
 
         <div th:class="form-group">
             <label th:class="control-label">Pytanie</label>
@@ -24,6 +24,18 @@
             <input th:required="required" th:class="form-control" type="text" th:field="*{answer}"/>
         </div>
         <input type="hidden" th:field="*{id}" />
+
+
+        <h3>Audio/img/video</h3>
+        <div th:class="form-group">
+            <label for="mediaOdpowiedz">odpowiedz</label>
+            <input type="file" id="mediaOdpowiedz" name="odp" multiple>
+        </div>
+
+        <div th:class="form-group">
+            <label for="mediaPytania">pytanie</label>
+            <input type="file" id="mediaPytania" name="ans" multiple>
+        </div>
 
 
         <div th:class="row" style="text-align: center;margin-top: 20px">

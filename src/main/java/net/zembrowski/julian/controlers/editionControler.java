@@ -1,14 +1,11 @@
 package net.zembrowski.julian.controlers;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.zembrowski.julian.domain.Klucz;
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Pytanie;
-import net.zembrowski.julian.repository.PowotrzenieRepository;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.UzytkownikService;
-import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -18,10 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Controller
 @Scope("session")
@@ -80,10 +76,10 @@ public class editionControler {
 
     @RequestMapping(value = "/pytanieAdd",method = RequestMethod.POST)
     @Transactional
-    public String dodajPytanie(Pytanie nowe)
+    public String dodajPytanie(Pytanie nowe,@RequestParam("odp")MultipartFile[]plikiOdp,@RequestParam("ans")MultipartFile[]plikiAns)
     {
         nowe.setPowtorzenie(akutalnePowtorzenie);
-        pytania.createPytanie(nowe);
+        pytania.createPytanie(nowe, plikiAns, plikiOdp);
         return  "redirect:/pytanieAdd";
     }
     @RequestMapping("/dropPow")

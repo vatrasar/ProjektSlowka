@@ -14,9 +14,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -91,12 +93,14 @@ public class DodawaniePowtorzenControler {
         return  "dodaniePytania";
     }
 
-    @RequestMapping(value = "/dodajPytanie",method = RequestMethod.POST)
+
+    @PostMapping(value = "/dodajPytanie")
     @Transactional
-    public String dodajPytanie(Pytanie nowe)
+    public String dodajPytanie(Model model,Pytanie nowe,@RequestParam("odp")MultipartFile[]plikiOdp,@RequestParam("ans")MultipartFile[]plikiAns)
     {
+
         nowe.setPowtorzenie(akutalnePowtorzenie);
-        pytania.createPytanie(nowe);
+        pytania.createPytanie(nowe,plikiAns,plikiOdp);
         return  "redirect:/dodajPytanieSukces";
     }
 
