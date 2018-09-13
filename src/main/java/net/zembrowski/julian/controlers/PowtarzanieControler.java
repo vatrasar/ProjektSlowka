@@ -126,6 +126,7 @@ public class PowtarzanieControler {
     @RequestMapping(value = "/robPowtorzeniePodsumowanie")
     public String robPowtorzeniePodsumowanie(@RequestParam("zal") Integer zal, Model model)
     {
+        users.updateAktualnyUzytkownik();
         if (isNotSameSession())
         {
             return "redirect:/pokarzPowtorzenia";

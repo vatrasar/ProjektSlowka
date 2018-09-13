@@ -86,6 +86,15 @@ public class Pytanie {
 
     }
 
+    public Pytanie(Pytanie nowe)
+    {
+        id=nowe.getId();
+        powtorzenie=nowe.getPowtorzenie();
+        answer=nowe.getAnswer();
+        question=nowe.getQuestion();
+        status=nowe.getStatus();
+    }
+
     /**
      * swap question and answer
      */
@@ -93,5 +102,6 @@ public class Pytanie {
         String temp=answer;
         answer=question;
         question=temp;
+
     }
 }

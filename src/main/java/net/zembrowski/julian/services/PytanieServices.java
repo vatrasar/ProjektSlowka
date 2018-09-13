@@ -199,4 +199,8 @@ public class PytanieServices {
         this.addPytaniaToPowtorzenie(temp,pytaniaStaregoPowtorzenia);
         return temp;
     }
+
+    public Pytanie getPytanie(int id) {
+        return pytania.getPytanie(id);
+    }
 }
