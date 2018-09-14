@@ -28,7 +28,7 @@ public class PytanieServices {
 
     @Autowired
     MediaSourceService mediaSourceService;
-    private static String path="C:\\Users\\Vatrasar\\Dysk Google\\programDane";//path to folder with video and img data
+    private static String path="C:\\Users\\Vatrasar\\IdeaProjects\\julian\\src\\main\\resources\\static\\programDane";//path to folder with video and img data
 
     @Transactional
     public void createPytanie(Pytanie nowePytanie, MultipartFile[] plikiAns, MultipartFile[] plikiOdp)
@@ -48,11 +48,11 @@ public class PytanieServices {
     private void saveFiles(MultipartFile[] pliki, MediaStatus status, Pytanie nowePytanie) {
         for (MultipartFile plik:pliki)
         {
-            Path sciezka= Paths.get(path,plik.getOriginalFilename());
+            Path sciezka= Paths.get(path,(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()));
             try {
                 Files.write(sciezka,plik.getBytes());
 
-                mediaSourceService.persistanceMediaSource(new MediaSource(sciezka.toString(),nowePytanie,status));
+                mediaSourceService.persistanceMediaSource(new MediaSource("/programDane"+"/"+(mediaSourceService.getMaxId()+1),nowePytanie,status));
             }
             catch (java.nio.file.AccessDeniedException e)
             {
@@ -165,6 +165,7 @@ public class PytanieServices {
         List<Pytanie>pytaniaPowtorzenia=pytania.getPytaniaOfPowtorzenie(powtorzenie);
         for(Pytanie pytanie:pytaniaPowtorzenia)
         {
+            mediaSourceService.dropMediaOfPytanie(pytanie);
             deletePytanie(pytanie.getId());
         }
 

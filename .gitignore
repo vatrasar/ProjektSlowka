@@ -19,6 +19,7 @@
 .idea
 mvnw.cmd
 mvnw
+programDane
 
 ### NetBeans ###
 /nbproject/private/

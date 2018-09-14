@@ -98,10 +98,11 @@ public class Pytanie {
     /**
      * swap question and answer
      */
-    public void reverse() {
+    public Pytanie reverse() {
         String temp=answer;
         answer=question;
         question=temp;
 
+        return this;
     }
 }

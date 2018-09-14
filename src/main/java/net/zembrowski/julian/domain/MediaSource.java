@@ -15,7 +15,7 @@ public class MediaSource {
     @ManyToOne
    private Pytanie pytanie;
 
-    String path;
+  private  String path;
     //is it for answer or question?
     private MediaStatus status;
 
@@ -28,6 +28,14 @@ public class MediaSource {
         this.pytanie = pytanie;
         this.status = status;
         this.path=path;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public int getId() {

@@ -1,6 +1,7 @@
 package net.zembrowski.julian.controlers;
 
 import net.zembrowski.julian.domain.*;
+import net.zembrowski.julian.services.MediaSourceService;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.UzytkownikService;
@@ -15,10 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.print.attribute.standard.Media;
+import javax.print.attribute.standard.MediaPrintableArea;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Controller
 @Scope("session")
@@ -31,6 +36,8 @@ public class PowtarzanieControler {
     @Autowired
     PytanieServices pytania;
 
+    @Autowired
+    MediaSourceService mediaSourceService;
     @Autowired
     Pytanie aktualnePytanie;
 
@@ -63,13 +70,7 @@ public class PowtarzanieControler {
             return "emptyRepete";
         }
 
-
-
-
         List<Pytanie> wykonywanePytania=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
-
-
-
         //spelnione gdy nie ma już niesprawdzonych
         if (wykonywanePytania.isEmpty())
         {
@@ -79,39 +80,62 @@ public class PowtarzanieControler {
             if (wykonywanePytania.isEmpty()) //
             {
                 pytania.zatwierdzWykonaniePowtorzenia(wykonywane);
-                model.addAttribute("powtorzono", true);
-                //nizej to samo co w pokarz powtorzenia
-                List<Powtorzenie> powtorzeniaNaDzis = powtorzenia.getPowtorzeniaNaDzis();
-                model.addAttribute("powtorzenia", powtorzeniaNaDzis);
-                model.addAttribute("nazwaUzytkownika", users.getActualUserLogin());
+                prepareModelAfterEndOfRepete(model);
                 return "pokarzPowtorzeniaDzis";
             }
             //pytanie jest ustawiane jako odpowiedz a odpoweidz jako pytanie
-            Pytanie odpowiedz=new Pytanie();
             Pytanie pytanie=wykonywanePytania.get(0);
-            pytanie.reverse();
-            odpowiedz.setId(pytanie.getId());
-            odpowiedz.setAnswer(pytanie.getAnswer());
-            model.addAttribute("odp",odpowiedz);
-            aktualnePytanie.setPytanie(pytanie);
-            model.addAttribute("pyt",pytanie);
+            prepareModelForQuestion(model,new Pytanie(),pytanie.reverse());
+
+            //add media
+            prepareModelForMedia(model, wykonywanePytania.get(0),MediaStatus.ANSWER);
+
+
             return "pytanie";
 
         }
 
 
         //pytanie to pytanie odpowiedz to odpowiedz
-        Pytanie odpowiedz=new Pytanie();
-        Pytanie pytanie=wykonywanePytania.get(0);
+        prepareModelForQuestion(model, new Pytanie(), wykonywanePytania.get(0));
+        //add media
+        prepareModelForMedia(model, wykonywanePytania.get(0),MediaStatus.QUESTION);
+        return "pytanie";
+    }
+
+    /**
+     * add media only with MediaStatus like in status arg
+     * @param model
+     * @param currentQuestion
+     * @param status
+     */
+    private void prepareModelForMedia(Model model, Pytanie currentQuestion,final MediaStatus status) {
+        List<MediaSource>mediaForQuestion=mediaSourceService.getMediaForQuestion(currentQuestion);
+        Logger.getGlobal().warning(mediaForQuestion.size()+"poczatek mediow");
+        List<List<MediaSource>>madiaGroups=mediaSourceService.groupByType(mediaForQuestion);
+        Logger.getGlobal().warning(madiaGroups.get(0).size()+"grupa img");
+
+        mediaSourceService.filterWithStatus(madiaGroups,status);
+
+        model.addAttribute("mediaImg",madiaGroups.get(0));
+        model.addAttribute("mediaAudio",madiaGroups.get(1));
+        model.addAttribute("mediaVideo",madiaGroups.get(2));
+    }
+
+    private void prepareModelForQuestion(Model model, Pytanie odpowiedz, Pytanie pytanie) {
         odpowiedz.setId(pytanie.getId());
         odpowiedz.setAnswer(pytanie.getAnswer());
         model.addAttribute("odp",odpowiedz);
         aktualnePytanie.setPytanie(pytanie);
         model.addAttribute("pyt",pytanie);
+    }
 
-
-
-        return "pytanie";
+    private void prepareModelAfterEndOfRepete(Model model) {
+        model.addAttribute("powtorzono", true);
+        //nizej to samo co w pokarz powtorzenia
+        List<Powtorzenie> powtorzeniaNaDzis = powtorzenia.getPowtorzeniaNaDzis();
+        model.addAttribute("powtorzenia", powtorzeniaNaDzis);
+        model.addAttribute("nazwaUzytkownika", users.getActualUserLogin());
     }
 
 
@@ -121,6 +145,11 @@ public class PowtarzanieControler {
         model.addAttribute("isTraining",false);
         //pole pytanie w odpowiedzi zawiera teraz odpowiedz uzytkownika
         model.addAttribute("pytanie",odpowiedz);
+        Pytanie pytanie=pytania.getPytanie(odpowiedz.getId());
+        if(pytanie.getStatus()==Status.UMIEM_JEDNA_STRONE)
+            prepareModelForMedia(model,pytanie,MediaStatus.QUESTION);
+        else
+            prepareModelForMedia(model,pytanie,MediaStatus.ANSWER);
         return "odpowiedz";
     }
     @RequestMapping(value = "/robPowtorzeniePodsumowanie")
