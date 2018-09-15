@@ -31,12 +31,12 @@ public class PytanieServices {
     private static String path="C:\\Users\\Vatrasar\\IdeaProjects\\julian\\src\\main\\resources\\static\\programDane";//path to folder with video and img data
 
     @Transactional
-    public void createPytanie(Pytanie nowePytanie, MultipartFile[] plikiAns, MultipartFile[] plikiOdp)
+    public void createPytanie(Pytanie nowePytanie, MultipartFile[] plikiPyt, MultipartFile[] plikiOdp)
     {
         pytania.createPytanie(nowePytanie);
 
-        saveFiles(plikiAns, MediaStatus.ANSWER,nowePytanie);
-        saveFiles(plikiOdp, MediaStatus.QUESTION, nowePytanie);
+        saveFiles(plikiOdp, MediaStatus.ANSWER,nowePytanie);
+        saveFiles(plikiPyt, MediaStatus.QUESTION, nowePytanie);
     }
 
     /**
@@ -52,7 +52,7 @@ public class PytanieServices {
             try {
                 Files.write(sciezka,plik.getBytes());
 
-                mediaSourceService.persistanceMediaSource(new MediaSource("/programDane"+"/"+(mediaSourceService.getMaxId()+1),nowePytanie,status));
+                mediaSourceService.persistanceMediaSource(new MediaSource("/programDane"+"/"+(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()),nowePytanie,status));
             }
             catch (java.nio.file.AccessDeniedException e)
             {

@@ -83,7 +83,14 @@ public class MediaSourceService {
     }
 
     public int getMaxId() {
-        return mediaSourceRepository.getMaxId();
+
+        try {
+            int id= mediaSourceRepository.getMaxId();
+            return id;
+        } catch (NullPointerException e) {
+           return 0;
+        }
+
     }
 
     public void dropMediaOfPytanie(Pytanie pytanie) {

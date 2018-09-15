@@ -21,7 +21,7 @@
         </div>
         <div th:class="form-group">
             <label th:class="control-label">Odpowiedz</label>
-            <input th:required="required" th:class="form-control" type="text" th:field="*{answer}"/>
+            <input  th:class="form-control" type="text" th:field="*{answer}"/>
         </div>
         <input type="hidden" th:field="*{id}" />
 
@@ -34,12 +34,12 @@
 
         <div th:class="form-group">
             <label for="mediaPytania">pytanie</label>
-            <input type="file" id="mediaPytania" name="ans" multiple>
+            <input type="file" id="mediaPytania" name="pyt" multiple>
         </div>
 
 
         <div th:class="row" style="text-align: center;margin-top: 20px">
-            <input th:required="required"  th:class="btn-default" type="submit" value="dodaj pytanie"/>
+            <input  th:class="btn-default" type="submit" value="dodaj pytanie"/>
         </div>
 
 
