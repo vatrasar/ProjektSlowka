@@ -1,9 +1,7 @@
 package net.zembrowski.julian.controlers;
 
-import net.zembrowski.julian.domain.Klucz;
-import net.zembrowski.julian.domain.Powtorzenie;
-import net.zembrowski.julian.domain.Pytanie;
-import net.zembrowski.julian.domain.Status;
+import net.zembrowski.julian.domain.*;
+import net.zembrowski.julian.services.MediaSourceService;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.UzytkownikService;
@@ -38,6 +36,9 @@ public class trainingControler {
     private  List<Pytanie>actualQuestionsList;
 
     @Autowired
+    MediaSourceService mediaSourceService;
+
+    @Autowired
     private Pytanie aktualnePytanie;
 
     @RequestMapping(value = "/training")
@@ -70,13 +71,18 @@ public class trainingControler {
             return "pokarzDoPocwiczenia";
         }
         actualQuestionsList=new ArrayList<>(actualQuestionsList);
-        Pytanie nowy=new Pytanie();
-        Pytanie stare=actualQuestionsList.get(0);
-        nowy.setId(stare.getId());
-        nowy.setAnswer(stare.getAnswer());
-        model.addAttribute("odp",nowy);
-        aktualnePytanie.setPytanie(stare);
-        model.addAttribute("pyt",stare);
+
+
+
+        //pytanie jest ustawiane jako odpowiedz a odpoweidz jako pytanie
+        Pytanie pytanie=actualQuestionsList.get(0);
+        prepareModelForQuestion(model,new Pytanie(),pytanie.reverse());
+
+        //add media
+        prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.QUESTION);
+
+
+
         return "pytanieCwicz";
     }
 
@@ -87,7 +93,43 @@ public class trainingControler {
         //pole pytanie w odpowiedzi zawiera teraz odpowiedz uzytkownika
         model.addAttribute("pytanie",odpowiedz);
         model.addAttribute("isTraining",true);
+        //add media
+        prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);
+
+
         return "odpowiedz";
+    }
+
+
+
+    private void prepareModelForQuestion(Model model, Pytanie odpowiedz, Pytanie pytanie) {
+        odpowiedz.setId(pytanie.getId());
+        odpowiedz.setAnswer(pytanie.getAnswer());
+        model.addAttribute("odp",odpowiedz);
+        aktualnePytanie.setPytanie(pytanie);
+        model.addAttribute("pyt",pytanie);
+
+        return;
+    }
+
+    /**
+     * add media only with MediaStatus like in status arg
+     * @param model
+     * @param currentQuestion
+     * @param status
+     */
+    private void prepareModelForMedia(Model model, Pytanie currentQuestion,final MediaStatus status) {
+        List<MediaSource>mediaForQuestion=mediaSourceService.getMediaForQuestion(currentQuestion);
+        Logger.getGlobal().warning(mediaForQuestion.size()+"poczatek mediow");
+        List<List<MediaSource>>madiaGroups=mediaSourceService.groupByType(mediaForQuestion);
+        Logger.getGlobal().warning(madiaGroups.get(0).size()+"grupa img");
+
+        mediaSourceService.filterWithStatus(madiaGroups,status);
+
+        model.addAttribute("mediaImg",madiaGroups.get(0));
+        model.addAttribute("mediaAudio",madiaGroups.get(1));
+        model.addAttribute("mediaVideo",madiaGroups.get(2));
+        return;
     }
 
     @RequestMapping(value = "/cwiczPodsumowanie")
@@ -148,18 +190,17 @@ public class trainingControler {
             model.addAttribute("powtorzono",true);
             return "pokarzDoPocwiczenia";
         }
-        
-
-        Pytanie nowy=new Pytanie();
-        Pytanie stare=actualQuestionsList.get(0);
-        nowy.setId(stare.getId());
-
-        nowy.setAnswer(stare.getAnswer());
-        model.addAttribute("odp",nowy);
-        aktualnePytanie.setPytanie(stare);
 
 
-        model.addAttribute("pyt",stare);
+
+        //pytanie jest ustawiane jako odpowiedz a odpoweidz jako pytanie
+        Pytanie pytanie=actualQuestionsList.get(0);
+        prepareModelForQuestion(model,new Pytanie(),pytanie.reverse());
+
+        //add media
+        prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.QUESTION);
+
+
         return "pytanieCwicz";
     }
 
