@@ -30,6 +30,9 @@ public class PytanieServices {
     MediaSourceService mediaSourceService;
     private static String path="C:\\Users\\Vatrasar\\IdeaProjects\\julian\\src\\main\\resources\\static\\programDane";//path to folder with video and img data
 
+    //on google Drive
+    private static String pathBackup="C:\\Users\\Vatrasar\\Dysk Google\\programDane";
+
     @Transactional
     public void createPytanie(Pytanie nowePytanie, MultipartFile[] plikiPyt, MultipartFile[] plikiOdp)
     {
@@ -49,9 +52,11 @@ public class PytanieServices {
         for (MultipartFile plik:pliki)
         {
             Path sciezka= Paths.get(path,(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()));
+            Path sciezkaBackup=Paths.get(pathBackup,(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()));
             try {
                 Files.write(sciezka,plik.getBytes());
 
+                Files.write(sciezkaBackup,plik.getBytes());
                 mediaSourceService.persistanceMediaSource(new MediaSource("/programDane"+"/"+(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()),nowePytanie,status));
             }
             catch (java.nio.file.AccessDeniedException e)
