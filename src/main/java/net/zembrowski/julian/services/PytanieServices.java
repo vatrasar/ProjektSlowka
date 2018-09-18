@@ -152,6 +152,7 @@ public class PytanieServices {
 
     @Transactional
     public void deletePytanie(int id) {
+        mediaSourceService.dropMediaOfPytanie(pytania.getPytanie(id));
         pytania.deletePytanie(id);
     }
 
@@ -175,7 +176,6 @@ public class PytanieServices {
         List<Pytanie>pytaniaPowtorzenia=pytania.getPytaniaOfPowtorzenie(powtorzenie);
         for(Pytanie pytanie:pytaniaPowtorzenia)
         {
-            mediaSourceService.dropMediaOfPytanie(pytanie);
             deletePytanie(pytanie.getId());
         }
 

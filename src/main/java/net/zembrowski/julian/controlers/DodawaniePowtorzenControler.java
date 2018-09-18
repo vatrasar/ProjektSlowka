@@ -130,6 +130,14 @@ public class DodawaniePowtorzenControler {
        return "pytanieEdition";
     }
 
+    @RequestMapping("/dropPytanie")
+    public String dropPytanie(Model model,@RequestParam("id") int id)
+    {
+        Powtorzenie pow=pytania.getPytanie(id).getPowtorzenie();
+        pytania.deletePytanie(id);
+
+        return "redirect:/cwicz?id="+pow.getNazwa()+"&pk="+pow.getNumer();
+    }
     @RequestMapping(value = "/zmianaPytania",method = RequestMethod.POST)
     public String edycjaPytanie(Pytanie edytowane)
     {

@@ -9,9 +9,17 @@
 
     <link rel="stylesheet" th:href="@{/css/mediaStyle.css}" type="text/css">
 
+    <style>
+        #drop
+        {
+            float: right;
+            margin-right: 1%;
+        }
+    </style>
 </head>
 <body>
 <a th:href="${'/zmianaPytania?id='+pyt.getId() }">zmien pytanie</a>
+<a id="drop" th:href="${'/dropPytanie?id='+pyt.getId() }">usuń pytanie</a>
 <h2 style="text-align: center;margin-top:25%">Pytanie:</h2>
 <div class="container">
 
