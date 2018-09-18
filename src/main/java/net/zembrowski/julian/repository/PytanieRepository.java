@@ -26,6 +26,7 @@ public class PytanieRepository {
     public void createPytanie(Pytanie nowe)
     {
 
+
         nowe.setStatus(Status.NIESPRAWDZONE);
         em.persist(nowe);
     }

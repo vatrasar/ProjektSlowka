@@ -51,6 +51,10 @@ public class PytanieServices {
     private void saveFiles(MultipartFile[] pliki, MediaStatus status, Pytanie nowePytanie) {
         for (MultipartFile plik:pliki)
         {
+            if (plik.getOriginalFilename().length()<4)//if name of file isn't right(mostly when there is no file)
+            {
+                continue;
+            }
             Path sciezkaSrc= Paths.get(pathSrc,(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()));
             Path sciezkaTarget= Paths.get(pathTarget,(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()));
             Path sciezkaBackup=Paths.get(pathBackup,(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()));

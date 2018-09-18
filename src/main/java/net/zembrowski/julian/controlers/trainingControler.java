@@ -57,7 +57,7 @@ public class trainingControler {
     public String work(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
     {
 
-        Logger.getGlobal().warning("jestem w cwicz!");
+
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
         actualQuestionsList=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
 
@@ -74,13 +74,15 @@ public class trainingControler {
 
 
 
-        //pytanie jest ustawiane jako odpowiedz a odpoweidz jako pytanie
+
         Pytanie pytanie=actualQuestionsList.get(0);
-        prepareModelForQuestion(model,new Pytanie(),pytanie.reverse());
+        prepareModelForQuestion(model,new Pytanie(),pytanie);
 
         //add media
-        prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.QUESTION);
-
+        if(pytanie.getStatus()==Status.UMIEM_JEDNA_STRONE)// test is use for question witch should to be reverse
+            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);
+        else
+            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.QUESTION);
 
 
         return "pytanieCwicz";
@@ -94,7 +96,10 @@ public class trainingControler {
         model.addAttribute("pytanie",odpowiedz);
         model.addAttribute("isTraining",true);
         //add media
-        prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);
+        if(actualQuestionsList.get(0).getStatus()==Status.UMIEM_JEDNA_STRONE)// test is use for question witch should to be reverse
+            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.QUESTION);
+        else
+            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);
 
 
         return "odpowiedz";
@@ -193,12 +198,15 @@ public class trainingControler {
 
 
 
-        //pytanie jest ustawiane jako odpowiedz a odpoweidz jako pytanie
+
         Pytanie pytanie=actualQuestionsList.get(0);
-        prepareModelForQuestion(model,new Pytanie(),pytanie.reverse());
+        prepareModelForQuestion(model,new Pytanie(),pytanie);
 
         //add media
-        prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.QUESTION);
+        if(pytanie.getStatus()==Status.UMIEM_JEDNA_STRONE)// test is use for question witch should to be reverse
+            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);
+        else
+            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.QUESTION);
 
 
         return "pytanieCwicz";

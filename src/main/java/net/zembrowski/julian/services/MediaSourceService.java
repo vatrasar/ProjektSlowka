@@ -71,6 +71,11 @@ public class MediaSourceService {
 
     }
 
+    /**
+     * only media with right status(answer, question)  stays
+     * @param madiaGroups
+     * @param status
+     */
     public void filterWithStatus(List<List<MediaSource>> madiaGroups, MediaStatus status) {
 
         for (int i=0;i<3;i++)
