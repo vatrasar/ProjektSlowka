@@ -28,8 +28,8 @@ public class PytanieServices {
 
     @Autowired
     MediaSourceService mediaSourceService;
-    private static String path="C:\\Users\\Vatrasar\\IdeaProjects\\julian\\src\\main\\resources\\static\\programDane";//path to folder with video and img data
-
+    private static String pathTarget="C:\\Users\\Vatrasar\\IdeaProjects\\julian\\target\\classes\\static\\programDane";//path to folder with video and img data in target. Without that Ia had to restart aplication to use my files
+    private static String pathSrc="C:\\Users\\Vatrasar\\IdeaProjects\\julian\\src\\main\\resources\\static\\programDane";//path to folder with video and img data in src(to save data)
     //on google Drive
     private static String pathBackup="C:\\Users\\Vatrasar\\Dysk Google\\programDane";
 
@@ -51,11 +51,12 @@ public class PytanieServices {
     private void saveFiles(MultipartFile[] pliki, MediaStatus status, Pytanie nowePytanie) {
         for (MultipartFile plik:pliki)
         {
-            Path sciezka= Paths.get(path,(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()));
+            Path sciezkaSrc= Paths.get(pathSrc,(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()));
+            Path sciezkaTarget= Paths.get(pathTarget,(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()));
             Path sciezkaBackup=Paths.get(pathBackup,(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()));
             try {
-                Files.write(sciezka,plik.getBytes());
-
+                Files.write(sciezkaTarget,plik.getBytes());
+                Files.write(sciezkaSrc,plik.getBytes());
                 Files.write(sciezkaBackup,plik.getBytes());
                 mediaSourceService.persistanceMediaSource(new MediaSource("/programDane"+"/"+(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()),nowePytanie,status));
             }

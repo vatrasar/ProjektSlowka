@@ -16,8 +16,9 @@
     <div th:class="row" style="text-align: center;">
         <p style="font-size: 50px"><span th:text="${pyt.question}"></span></p>
     </div>
+    
 
-
+    
     <section th:each="a:${mediaImg}">
         <img th:src="${a.getPath()}">
     </section>
