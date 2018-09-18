@@ -28,7 +28,8 @@
 <h1 style="text-align: center;margin-top:25%">Podsumowanie:</h1>
 <div class="container" style="text-align: center;font-size: 25px">
     <div>
-        <p id="odpowiedz">poprawna odpowiedz:<span th:text="${pytanie.answer}"  /></p>
+        <p id="odpowiedz">poprawna odpowiedz:</p>
+        <p th:text="${pytanie.answer}"></p>
     </div>
 
     <section th:each="a:${mediaImg}">
