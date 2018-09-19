@@ -111,9 +111,9 @@ public class PowtarzanieControler {
      */
     private void prepareModelForMedia(Model model, Pytanie currentQuestion,final MediaStatus status) {
         List<MediaSource>mediaForQuestion=mediaSourceService.getMediaForQuestion(currentQuestion);
-        Logger.getGlobal().warning(mediaForQuestion.size()+"poczatek mediow");
+
         List<List<MediaSource>>madiaGroups=mediaSourceService.groupByType(mediaForQuestion);
-        Logger.getGlobal().warning(madiaGroups.get(0).size()+"grupa img");
+
 
         mediaSourceService.filterWithStatus(madiaGroups,status);
 

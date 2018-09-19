@@ -137,9 +137,22 @@ public class trainingControler {
         return;
     }
 
+    private boolean isNotSameSession()
+    {
+        if (actualQuestionsList==null)
+            return true;
+        else
+            return false;
+    }
+
     @RequestMapping(value = "/cwiczPodsumowanie")
     public String cwiczPodsumowanie(@RequestParam("zal") Integer zal, Model model)
     {
+
+        if (isNotSameSession())
+        {
+            return "redirect:/training";
+        }
 
         if (zal==0)//nie umiem
         {
