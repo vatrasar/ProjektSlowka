@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -247,5 +248,35 @@ public class PytanieServices {
 
     public Pytanie getPytanie(int id) {
         return pytania.getPytanie(id);
+    }
+
+    /**
+     * check if repete isn't mark as empty.then if it is true,
+     * method checks how many questions has that repete.
+     * if it is zero, method deletes repete
+     * @param powtorzeniaNaDzis
+     */
+    @Transactional
+    public void dropGhostRepetes(List<Powtorzenie> powtorzeniaNaDzis)
+    {
+
+        List<Powtorzenie>toDrop=new ArrayList<>();
+        for (Powtorzenie checkRepete : powtorzeniaNaDzis)
+        {
+            if(!checkRepete.isEmpty()) {
+                int repeteSize = pytania.getPytaniaOfPowtorzenie(checkRepete).size();
+                if (repeteSize == 0) {
+
+
+                    toDrop.add(checkRepete);
+                    powtorzenia.dropPowotrzenie(checkRepete);
+
+
+                }
+            }
+        }
+        powtorzeniaNaDzis.removeAll(toDrop);
+
+
     }
 }

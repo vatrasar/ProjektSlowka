@@ -47,6 +47,7 @@ public class PowtarzanieControler {
         users.updateAktualnyUzytkownik();
 
         List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
+        pytania.dropGhostRepetes(powtorzeniaNaDzis);
         model.addAttribute("powtorzenia",powtorzeniaNaDzis);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
         return "pokarzPowtorzeniaDzis";
