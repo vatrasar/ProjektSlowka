@@ -1,16 +1,21 @@
-.okropnie
+.dark
 {
     background-color:red;
 }
-.ciezko
+.hard
 {
     background-color: darkorange;
 }
-.srednio
+.medium
 {
     background-color: yellow;
 }
-.latwo
+.easy
+{
+    background-color: aqua;
+}
+
+.veryEasy
 {
     background-color: chartreuse;
 }

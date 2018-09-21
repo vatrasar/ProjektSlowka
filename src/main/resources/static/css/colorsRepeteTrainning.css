@@ -1,0 +1,29 @@
+.dark
+{
+    color:red;
+}
+.hard
+{
+    color: darkorange;
+}
+.medium
+{
+    color: yellow;
+}
+.easy
+{
+    color: aqua;
+}
+
+.veryEasy
+{
+    color: chartreuse;
+}
+td{
+    font-weight: bold ;
+    text-align: center;
+}
+th
+{
+    text-align: center;
+}

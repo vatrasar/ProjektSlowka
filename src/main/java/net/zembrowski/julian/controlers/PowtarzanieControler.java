@@ -50,6 +50,7 @@ public class PowtarzanieControler {
         pytania.dropGhostRepetes(powtorzeniaNaDzis);
         model.addAttribute("powtorzenia",powtorzeniaNaDzis);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
+        model.addAttribute("classResolver",HtmlClassResolver.dark);
         return "pokarzPowtorzeniaDzis";
     }
 
@@ -66,6 +67,7 @@ public class PowtarzanieControler {
         {
             aktualnePytanie.setPowtorzenie(wykonywane);
             int sugerowanyNumerNastepnego=powtorzenia.getMaxNumer(wykonywane.getNazwa())+1;
+
             model.addAttribute("nazwa",wykonywane.toString());
             model.addAttribute("sugerowanyNumer",sugerowanyNumerNastepnego);
             return "emptyRepete";
@@ -137,6 +139,7 @@ public class PowtarzanieControler {
         List<Powtorzenie> powtorzeniaNaDzis = powtorzenia.getPowtorzeniaNaDzis();
         model.addAttribute("powtorzenia", powtorzeniaNaDzis);
         model.addAttribute("nazwaUzytkownika", users.getActualUserLogin());
+        model.addAttribute("classResolver",HtmlClassResolver.dark);
     }
 
 
@@ -201,27 +204,7 @@ public class PowtarzanieControler {
         return "redirect:/pokarzPowtorzenia";
     }
 
-    @RequestMapping("/licznik")
-    public String licz(Model model)
-    {
-        users.updateAktualnyUzytkownik();
-        int liczbaDni=7;
-        LocalDate dzis=LocalDate.now();
-        Para liczby[]=new Para[liczbaDni];
 
-
-
-        for (int i=1;i<=liczbaDni;i++) {
-            liczby[i-1]=new Para();
-            List<Powtorzenie> powtorzeniaNaTydzien = powtorzenia.getPowtorzeniaNaDzien(dzis.plusDays(i));
-            liczby[i-1].setLiczba(powtorzeniaNaTydzien.size());
-            powtorzeniaNaTydzien.clear();
-            liczby[i-1].setNazwa(dzis.plusDays(i).getDayOfWeek().name());
-        }
-        model.addAttribute("liczbaPow",liczby);
-        model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
-        return "pokarzPlan";
-    }
     private boolean isNotSameSession()
     {
         if (aktualnePytanie.getPowtorzenie()==null)

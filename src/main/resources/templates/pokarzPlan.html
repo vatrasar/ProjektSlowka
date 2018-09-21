@@ -28,16 +28,8 @@
             <th >liczba powtórzeń</th>
         </tr>
         <tr th:each="numer:${liczbaPow}">
-            <td th:if="${numer.getLiczba()>=30}" class="okropnie" style="text-align: center" th:text="${numer.translateDay()}"></td>
-            <td th:if="${numer.getLiczba()>=30}" class="okropnie" th:text="${numer.getLiczba()}"></td>
-            <td th:if="${numer.getLiczba()>=20 && numer.getLiczba()<30}" class="ciezko" style="text-align: center" th:text="${numer.translateDay()}"></td>
-            <td th:if="${numer.getLiczba()>=20 && numer.getLiczba()<30}" class="ciezko" th:text="${numer.getLiczba()}"></td>
-            <td th:if="${numer.getLiczba()>=10 && numer.getLiczba()<20}" class="srednio" style="text-align: center" th:text="${numer.translateDay()}"></td>
-            <td th:if="${numer.getLiczba()>=10 && numer.getLiczba()<20}" class="srednio" th:text="${numer.getLiczba()}"></td>
-            <td th:if="${numer.getLiczba()<10}" class="latwo" style="text-align: center" th:text="${numer.translateDay()}"></td>
-            <td th:if="${numer.getLiczba()<10}" class="latwo" th:text="${numer.getLiczba()}"></td>
-        </tr>
-
+            <td th:class="${classResolver.resolveClass(numer.getLiczba())}" style="text-align: center" th:text="${numer.translateDay()}"></td>
+            <td th:class="${classResolver.resolveClass(numer.getLiczba())}" th:text="${numer.getLiczba()}"></td>
     </table>
 </div>
 </body>

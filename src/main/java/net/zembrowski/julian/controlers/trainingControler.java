@@ -48,6 +48,8 @@ public class trainingControler {
         users.updateAktualnyUzytkownik();
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
 
+        model.addAttribute("powtorzono",false);
+        model.addAttribute("classResolver",HtmlClassResolver.dark);
         List<Powtorzenie>toLearn =powtorzenia.getRepetsToLearn();
         model.addAttribute("powtorzenia",toLearn);
 
@@ -234,6 +236,7 @@ public class trainingControler {
         //nizej to samo co w pokarz powtorzenia
         model.addAttribute("powtorzenia",toLearn);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
+       model.addAttribute("classResolver",HtmlClassResolver.dark);
     }
 
 

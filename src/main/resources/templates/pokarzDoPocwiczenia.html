@@ -8,18 +8,7 @@
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 
     <style>
-        .ciezko
-        {
-            color:red;
-        }
-        .srednio
-        {
-            color: goldenrod;
-        }
-        .latwo
-        {
-            color: chartreuse;
-        }
+
         .pozostalePow
         {
             color: cornflowerblue;
@@ -40,6 +29,7 @@
             text-align: center;
         }
     </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/colorsRepeteTrainning.css}">
 </head>
 <body>
 <div th:class="row" style="text-align: center;margin:5px;float: right">
@@ -51,9 +41,8 @@
 
 
 <div style="text-align: center;">
-    <p class="pozostalePow" th:if="${powtorzenia.size()<10}">Do nauczenia:<span class="latwo" th:text="${powtorzenia.size()}" /></p>
-    <p class="pozostalePow" th:if="${powtorzenia.size()>=10 && powtorzenia.size()<20}">Do nauczenia:<span class="srednio" th:text="${powtorzenia.size()}" /></p>
-    <p class="pozostalePow" th:if="${powtorzenia.size()>=20}">Do nauczenia:<span class="ciezko" th:text="${powtorzenia.size()}" /></p>
+    <p class="pozostalePow">Do nauczenia:<span th:class="${classResolver.resolveClass(powtorzenia.size())}" th:text="${powtorzenia.size()}" /></p>
+
 </div>
 <div th:class="container">
 
