@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 
 @Entity
 @Component
@@ -17,6 +18,7 @@ public class Pytanie {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private   int id;
     private String question;
+    @Column(nullable = true,columnDefinition = "varchar(2000)")
     private  String answer;
     @ManyToOne
    private Powtorzenie powtorzenie;

@@ -60,8 +60,17 @@ public class PowotrzenieRepository {
      */
     public List<Powtorzenie> getPowtorzeniaNaDzis(LocalDate dzis) {
 
-        return em.createQuery("select p from Powtorzenie p WHERE p.dzien<=:dzis AND p.wlasciciel=:akutalny order by nazwa,nastepne",Powtorzenie.class).setParameter("dzis",dzis).setParameter("akutalny",akutalnyUzytkownik.getLogin()).getResultList();
+        List<Powtorzenie> result=null;
+        while (true) {
+            try {
+                result = em.createQuery("select p from Powtorzenie p WHERE p.dzien<=:dzis AND p.wlasciciel=:akutalny order by nazwa,nastepne", Powtorzenie.class).setParameter("dzis", dzis).setParameter("akutalny", akutalnyUzytkownik.getLogin()).getResultList();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
+            break;
+        }
+        return result;
     }
 
     public Powtorzenie getPowtorzenie(Klucz klucz) {
