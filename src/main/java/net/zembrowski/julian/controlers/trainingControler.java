@@ -239,10 +239,11 @@ public class trainingControler {
 
 
     @RequestMapping(value = "/zaznacz")
-    public String zaz(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
+    public String zaz(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer,@RequestParam("pow") boolean succesRepete, Model model)
     {
         users.updateAktualnyUzytkownik();
         przygotujModel(model);
+        model.addAttribute("powtorzono",succesRepete);
         powtorzenia.setOpposedProblem(new Klucz(numer,nazwa,users.getActualUserLogin()));
          return "pokarzDoPocwiczenia";
 
