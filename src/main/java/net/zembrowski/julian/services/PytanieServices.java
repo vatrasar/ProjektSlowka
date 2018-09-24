@@ -99,6 +99,8 @@ public class PytanieServices {
 
             //dodanie nowego powtrzenia do bazy
             powtorzenia.persistPowtorzenie(powDlaBledow);
+            //set problem off
+            bledy.forEach(a->a.setProblem(false));
             //dodaj bledy do danego powtorzenia
             for (Pytanie modyfikowane : bledy) {
                 pytania.dodajDoPowtorzenia(modyfikowane, powDlaBledow);
@@ -279,9 +281,13 @@ public class PytanieServices {
     }
 
 
+
     public void updatePytanieProblem(boolean prob, Pytanie pytanie) {
 
-        pytanie.setProblem(prob);
-        pytania.upadatePytanie(pytanie);
+
+
+       Pytanie mergeQuestion=pytania.getPytanie(pytanie.getId());
+       mergeQuestion.setProblem(prob);
+        pytania.upadatePytanie(mergeQuestion);
     }
 }

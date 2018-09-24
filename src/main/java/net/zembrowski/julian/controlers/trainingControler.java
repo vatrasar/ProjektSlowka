@@ -279,4 +279,13 @@ public class trainingControler {
         actualQuestionsList=actualQuestionsList.stream().filter(a->a.isProblem()).collect(Collectors.toList());
         return "redirect:/cwicz";
     }
+    @RequestMapping("/dropPytanie")
+    public String dropPytanie(Model model,@RequestParam("id") int id)
+    {
+        Powtorzenie pow=pytania.getPytanie(id).getPowtorzenie();
+        pytania.deletePytanie(id);
+
+        actualQuestionsList.remove(0);
+        return "redirect:/cwicz?id="+pow.getNazwa()+"&pk="+pow.getNumer();
+    }
 }
