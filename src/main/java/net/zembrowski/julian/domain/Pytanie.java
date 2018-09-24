@@ -23,6 +23,8 @@ public class Pytanie {
     @ManyToOne
    private Powtorzenie powtorzenie;
     private Status status;
+    //true when was problem witch question
+    private boolean problem;
 
     public int getId() {
         return id;
@@ -64,12 +66,21 @@ public class Pytanie {
         this.status = status;
     }
 
+    public boolean isProblem() {
+        return problem;
+    }
+
+    public void setProblem(boolean problem) {
+        this.problem = problem;
+    }
+
     public void setPytanie(Pytanie nowe) {
         this.question = nowe.question;
         this.answer = nowe.answer;
         this.powtorzenie = nowe.powtorzenie;
         this.status = nowe.status;
         this.id=nowe.id;
+        this.problem=nowe.problem;
     }
 
 
@@ -95,6 +106,7 @@ public class Pytanie {
         answer=nowe.getAnswer();
         question=nowe.getQuestion();
         status=nowe.getStatus();
+        problem=nowe.problem;
     }
 
     /**

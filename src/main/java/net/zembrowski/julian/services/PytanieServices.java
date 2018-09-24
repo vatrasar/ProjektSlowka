@@ -162,12 +162,10 @@ public class PytanieServices {
 
         Pytanie stare=pytania.getPytanie(edytowane.getId());
         edytowane.setPowtorzenie(stare.getPowtorzenie());
-        Pytanie nowe=new Pytanie();
-        nowe.setPowtorzenie(edytowane.getPowtorzenie());
-        nowe.setQuestion(edytowane.getQuestion());
-        nowe.setAnswer(edytowane.getAnswer());
-        pytania.deletePytanie(edytowane.getId());
-        pytania.createPytanie(nowe);
+        edytowane.setStatus(stare.getStatus());
+        Pytanie nowe=new Pytanie(edytowane);
+        pytania.upadatePytanie(nowe);
+        
     }
 
 
