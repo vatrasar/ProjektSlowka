@@ -39,6 +39,11 @@ public class MenuControler {
         return "menu";
     }
 
+    /**
+     * Plan controler
+     * @param model
+     * @return
+     */
     @RequestMapping("/licznik")
     public String licz(Model model)
     {

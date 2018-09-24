@@ -64,7 +64,7 @@
                 <td class="problem" th:text="${pow.getNumer()}"></td>
                 <td class="problem" th:text="${pow.getNastepne()}"></td>
                 <td class="problem" th:text="${pow.getUtworzenie()}"></td>
-                <td th:if="${pow.isEmpty()==false}" class="problem" ><a th:href="${'/cwicz?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
+                <td th:if="${pow.isEmpty()==false}" class="problem" ><a th:href="${'/menuTraining?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
                 <td th:if="${pow.isEmpty()}" class="problem" >-</td>
                 <td class="problem" ><a th:href="${'/menuEdycji?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&source=training'}">edytuj</a></td>
                 <td class="problem" ><a th:href="${'/zaznacz?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&pow='+powtorzono}">odzaznacz</a></td>
@@ -77,7 +77,7 @@
                 <td th:text="${pow.getNumer()}"></td>
                 <td th:text="${pow.getNastepne()}"></td>
                 <td th:text="${pow.getUtworzenie()}"></td>
-                <td th:if="${pow.isEmpty()==false}"><a th:href="${'/cwicz?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
+                <td th:if="${pow.isEmpty()==false}"><a th:href="${'/menuTraining?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
                 <td th:if="${pow.isEmpty()}">-</td>
                 <td><a th:href="${'/menuEdycji?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&source=training'}">edytuj</a></td>
                 <td><a th:href="${'/zaznacz?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&pow='+powtorzono}">zaznacz</a></td>

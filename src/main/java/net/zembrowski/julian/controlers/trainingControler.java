@@ -1,5 +1,6 @@
 package net.zembrowski.julian.controlers;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.services.MediaSourceService;
 import net.zembrowski.julian.services.PowtorzenieServices;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -46,6 +48,7 @@ public class trainingControler {
    public String training(Model model)
     {
 
+
         users.updateAktualnyUzytkownik();
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
 
@@ -57,12 +60,14 @@ public class trainingControler {
         return "pokarzDoPocwiczenia";
     }
     @RequestMapping(value = "/cwicz")
-    public String work(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
+    public String work(Model model)
     {
 
 
-        Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
-        actualQuestionsList=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
+       if (isNotSameSession())
+       {
+           return "redirect:/training";
+       }
 
         //mieszanie pytań
         Collections.shuffle(actualQuestionsList);
@@ -110,8 +115,15 @@ public class trainingControler {
         return "odpowiedz";
     }
 
+    @RequestMapping(value = "menuTraining")
+   public String menuTraining(Model model,@RequestParam("id")String name,@RequestParam("pk") int number)
+    {
 
-
+        model.addAttribute("user",users.getActualUserLogin());
+        Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(number,name,users.getActualUserLogin()));
+        actualQuestionsList=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
+        return "trainingMenu";
+    }
     private void prepareModelForQuestion(Model model, Pytanie odpowiedz, Pytanie pytanie) {
         odpowiedz.setId(pytanie.getId());
         odpowiedz.setAnswer(pytanie.getAnswer());
@@ -255,5 +267,16 @@ public class trainingControler {
          return "pokarzDoPocwiczenia";
 
 
+    }
+
+    @RequestMapping(value = "retainProblems")
+    public String retainProblems()
+    {
+        if(isNotSameSession())
+        {
+            return "redirect:/training";
+        }
+        actualQuestionsList=actualQuestionsList.stream().filter(a->a.isProblem()).collect(Collectors.toList());
+        return "redirect:/cwicz";
     }
 }
