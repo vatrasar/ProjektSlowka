@@ -202,10 +202,10 @@ public class PytanieServices {
      * @param aktualne
      * @return
      */
-    public Status determineStatus(Integer zal, Pytanie aktualne) {
+    public Status determineStatus(String zal, Pytanie aktualne) {
 
 
-        if (zal==0)
+        if (zal.equals("Nie Umiem"))
         {
            return Status.NIEUMIEM;
         }
@@ -276,5 +276,12 @@ public class PytanieServices {
         powtorzeniaNaDzis.removeAll(toDrop);
 
 
+    }
+
+
+    public void updatePytanieProblem(boolean prob, Pytanie pytanie) {
+
+        pytanie.setProblem(prob);
+        pytania.upadatePytanie(pytanie);
     }
 }

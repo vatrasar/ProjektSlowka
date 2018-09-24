@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -93,10 +94,12 @@ public class trainingControler {
     @RequestMapping(value = "/cwiczOdp",method = RequestMethod.POST)
     public String cwiczOdpowiedz(Pytanie odpowiedz, Model model)
     {
+        odpowiedz.setProblem(actualQuestionsList.get(0).isProblem());
 
         //pole pytanie w odpowiedzi zawiera teraz odpowiedz uzytkownika
         model.addAttribute("pytanie",odpowiedz);
         model.addAttribute("isTraining",true);
+        model.addAttribute("isProblem",actualQuestionsList.get(0).isProblem());
         //add media
         if(actualQuestionsList.get(0).getStatus()==Status.UMIEM_JEDNA_STRONE)// test is use for question witch should to be reverse
             prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.QUESTION);
@@ -147,8 +150,8 @@ public class trainingControler {
             return false;
     }
 
-    @RequestMapping(value = "/cwiczPodsumowanie")
-    public String cwiczPodsumowanie(@RequestParam("zal") Integer zal, Model model)
+    @PostMapping(value = "/cwiczPodsumowanie")
+    public String cwiczPodsumowanie(@RequestParam("zal") String zal,Pytanie pytanie, Model model)
     {
 
         if (isNotSameSession())
@@ -156,7 +159,8 @@ public class trainingControler {
             return "redirect:/training";
         }
 
-        if (zal==0)//nie umiem
+        pytania.updatePytanieProblem(pytanie.isProblem(),actualQuestionsList.get(0));
+        if (zal.equals("Nie Umiem"))//nie umiem
         {
 
 

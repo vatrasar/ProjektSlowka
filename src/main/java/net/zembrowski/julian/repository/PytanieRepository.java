@@ -82,6 +82,7 @@ public class PytanieRepository {
         return em.createQuery("select p from Pytanie as p where powtorzenie=:pow",Pytanie.class).setParameter("pow",powtorzenie).getResultList();
     }
 
+    @Transactional
     public void upadatePytanie(Pytanie pyt) {
 
         em.merge(pyt);

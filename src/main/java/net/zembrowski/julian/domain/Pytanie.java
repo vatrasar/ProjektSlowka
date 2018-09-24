@@ -24,6 +24,7 @@ public class Pytanie {
    private Powtorzenie powtorzenie;
     private Status status;
     //true when was problem witch question
+    @Column(nullable = false,columnDefinition = "bit(1) default 0")
     private boolean problem;
 
     public int getId() {

@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -166,8 +167,8 @@ public class PowtarzanieControler {
             prepareModelForMedia(model,pytanie,MediaStatus.ANSWER);
         return "odpowiedz";
     }
-    @RequestMapping(value = "/robPowtorzeniePodsumowanie")
-    public String robPowtorzeniePodsumowanie(@RequestParam("zal") Integer zal, Model model)
+    @PostMapping(value = "/robPowtorzeniePodsumowanie")
+    public String robPowtorzeniePodsumowanie(@RequestParam("zal") String zal, Model model)
     {
         users.updateAktualnyUzytkownik();
         if (isNotSameSession())
