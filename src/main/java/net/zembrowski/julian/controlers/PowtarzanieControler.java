@@ -47,10 +47,11 @@ public class PowtarzanieControler {
     {
         users.updateAktualnyUzytkownik();
 
-        List<Powtorzenie>powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
+        List<Powtorzenie>powtorzeniaNaDzis=null;
 
         while(true)
         {
+            powtorzeniaNaDzis=powtorzenia.getPowtorzeniaNaDzis();
             try {
                 pytania.dropGhostRepetes(powtorzeniaNaDzis);
                 break;
