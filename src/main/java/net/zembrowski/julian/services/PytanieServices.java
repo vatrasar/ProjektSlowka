@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 @Scope("session")
@@ -147,6 +148,15 @@ public class PytanieServices {
     }
 
 
+    public boolean hasPowtorzenieProblems(Powtorzenie pow)
+    {
+        List<Pytanie>repeteQuests=pytania.getPytaniaOfPowtorzenie(pow);
+        repeteQuests=repeteQuests.stream().filter(a->a.isProblem()).collect(Collectors.toList());
+        if (repeteQuests.size()!=0)
+            return true;
+        else
+            return false;
+    }
 
     @Transactional
     public void zmienStatusPytania(Integer id, Status status) {

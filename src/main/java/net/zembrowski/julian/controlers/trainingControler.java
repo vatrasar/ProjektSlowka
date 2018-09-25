@@ -54,6 +54,7 @@ public class trainingControler {
 
         model.addAttribute("powtorzono",false);
         model.addAttribute("classResolver",HtmlClassResolver.dark);
+        model.addAttribute("pytService",pytania);
         List<Powtorzenie>toLearn =powtorzenia.getRepetsToLearn();
         model.addAttribute("powtorzenia",toLearn);
 
@@ -253,6 +254,7 @@ public class trainingControler {
         model.addAttribute("powtorzenia",toLearn);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
        model.addAttribute("classResolver",HtmlClassResolver.dark);
+       model.addAttribute("pytService",pytania);
     }
 
 
@@ -263,6 +265,7 @@ public class trainingControler {
         users.updateAktualnyUzytkownik();
         przygotujModel(model);
         model.addAttribute("powtorzono",succesRepete);
+
         powtorzenia.setOpposedProblem(new Klucz(numer,nazwa,users.getActualUserLogin()));
          return "pokarzDoPocwiczenia";
 

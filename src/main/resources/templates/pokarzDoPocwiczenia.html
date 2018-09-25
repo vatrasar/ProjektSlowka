@@ -19,14 +19,24 @@
         {
             background-color: red;
         }
-        .problem a
+        .problem,.hasProblem a
         {
-            color: gold;
+
             font-weight: bold;
+        }
+
+        .last
+        {
+            background-color: greenyellow;
         }
         td,th
         {
             text-align: center;
+        }
+
+        .hasProblem
+        {
+            background-color: lightpink;
         }
     </style>
     <link rel="stylesheet" type="text/css" th:href="@{/css/colorsRepeteTrainning.css}">
@@ -73,14 +83,14 @@
 
             </div>
             <div th:if="${pow.isProblems()!= true}">
-                <td th:text="${pow.getNazwa()}"></td>
-                <td th:text="${pow.getNumer()}"></td>
-                <td th:text="${pow.getNastepne()}"></td>
-                <td th:text="${pow.getUtworzenie()}"></td>
-                <td th:if="${pow.isEmpty()==false}"><a th:href="${'/menuTraining?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
-                <td th:if="${pow.isEmpty()}">-</td>
-                <td><a th:href="${'/menuEdycji?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&source=training'}">edytuj</a></td>
-                <td><a th:href="${'/zaznacz?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&pow='+powtorzono}">zaznacz</a></td>
+                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem" th:text="${pow.getNazwa()}"></td>
+                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem"  th:text="${pow.getNumer()}"></td>
+                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem"  th:text="${pow.getNastepne()}"></td>
+                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem"  th:text="${pow.getUtworzenie()}"></td>
+                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem"  th:if="${pow.isEmpty()==false}"><a th:href="${'/menuTraining?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
+                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem"  th:if="${pow.isEmpty()}">-</td>
+                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem" ><a th:href="${'/menuEdycji?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&source=training'}">edytuj</a></td>
+                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem" ><a th:href="${'/zaznacz?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&pow='+powtorzono}">zaznacz</a></td>
 
             </div>
         </tr>
