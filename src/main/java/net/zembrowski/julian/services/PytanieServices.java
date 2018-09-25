@@ -295,6 +295,8 @@ public class PytanieServices {
     public void updatePytanieProblem(boolean prob, Pytanie pytanie) {
 
 
+        pytanie.setProblem(prob);
+
 
        Pytanie mergeQuestion=pytania.getPytanie(pytanie.getId());
        mergeQuestion.setProblem(prob);
