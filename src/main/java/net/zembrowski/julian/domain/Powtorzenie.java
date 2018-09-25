@@ -159,12 +159,8 @@ public class Powtorzenie {
         if (o == null || getClass() != o.getClass()) return false;
         Powtorzenie that = (Powtorzenie) o;
         return getNumer() == that.getNumer() &&
-                getNastepne() == that.getNastepne() &&
                 Objects.equals(getNazwa(), that.getNazwa()) &&
-                Objects.equals(getWlasciciel(), that.getWlasciciel()) &&
-                Objects.equals(getUtworzenie(), that.getUtworzenie()) &&
-                Objects.equals(getDzien(), that.getDzien()) &&
-        Objects.equals(isEmpty(), that.isEmpty());
+                Objects.equals(getWlasciciel(), that.getWlasciciel());
     }
 
     public boolean isEmpty() {

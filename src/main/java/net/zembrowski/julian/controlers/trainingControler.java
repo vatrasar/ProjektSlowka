@@ -40,9 +40,10 @@ public class trainingControler {
 
     @Autowired
     MediaSourceService mediaSourceService;
-
     @Autowired
-    private Pytanie aktualnePytanie;
+    Pytanie aktualnePytanie;
+
+    Powtorzenie actualRepetition;
 
     @RequestMapping(value = "/training")
    public String training(Model model)
@@ -58,6 +59,11 @@ public class trainingControler {
         List<Powtorzenie>toLearn =powtorzenia.getRepetsToLearn();
         model.addAttribute("powtorzenia",toLearn);
 
+        if(actualRepetition==null)
+        {
+            actualRepetition=new Powtorzenie();
+        }
+        model.addAttribute("lastRepet",actualRepetition);
         return "pokarzDoPocwiczenia";
     }
     @RequestMapping(value = "/cwicz")
@@ -77,6 +83,7 @@ public class trainingControler {
         {
             przygotujModel(model);
             model.addAttribute("powtorzono",true);
+            model.addAttribute("lastRepet",actualRepetition);
             return "pokarzDoPocwiczenia";
         }
         actualQuestionsList=new ArrayList<>(actualQuestionsList);
@@ -123,6 +130,8 @@ public class trainingControler {
         model.addAttribute("user",users.getActualUserLogin());
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(number,name,users.getActualUserLogin()));
         actualQuestionsList=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
+        actualRepetition=wykonywane;
+
         return "trainingMenu";
     }
     private void prepareModelForQuestion(Model model, Pytanie odpowiedz, Pytanie pytanie) {
@@ -255,6 +264,8 @@ public class trainingControler {
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
        model.addAttribute("classResolver",HtmlClassResolver.dark);
        model.addAttribute("pytService",pytania);
+       model.addAttribute("lastRepet",actualRepetition);
+
     }
 
 
@@ -265,6 +276,7 @@ public class trainingControler {
         users.updateAktualnyUzytkownik();
         przygotujModel(model);
         model.addAttribute("powtorzono",succesRepete);
+
 
         powtorzenia.setOpposedProblem(new Klucz(numer,nazwa,users.getActualUserLogin()));
          return "pokarzDoPocwiczenia";
