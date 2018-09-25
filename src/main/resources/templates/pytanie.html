@@ -7,16 +7,25 @@
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" th:href="@{/css/mediaStyle.css}" type="text/css">
-
+    <link rel="stylesheet" th:href="@{/css/pytanieStyle.css}" type="text/css">
 </head>
 <body>
 <a th:href="${'/zmianaPytania?id='+pyt.getId() }">zmien pytanie</a>
-<h2 style="text-align: center;margin-top:25%">Pytanie:</h2>
+
 <div class="container">
+<header>
+    <h1 th:text="${pyt.getPowtorzenie().getNazwa()+' '+pyt.getPowtorzenie().getNumer()}"></h1>
+    <h5 >Data notatek:<span th:text="${pyt.powtorzenie.getUtworzenie()}"></span></h5>
+</header>
+<h2 class="textPytanie" >Pytanie:</h2>
 
+    <header>
+        <h1 th:text="${pyt.getPowtorzenie().getNazwa()+' '+pyt.getPowtorzenie().getNumer()}"></h1>
+        <h2 >Data notatek:<span th:text="${pyt.powtorzenie.getUtworzenie()}"></span></h2>
+    </header>
 
-    <div style="text-align: center;">
-        <p style="font-size: 50px"><span th:text="${pyt.question}"></span></p>
+    <div id="pytanieDiv" >
+        <p><span th:text="${pyt.question}"></span></p>
     </div>
     
 

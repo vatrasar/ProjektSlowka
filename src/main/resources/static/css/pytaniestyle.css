@@ -1,0 +1,35 @@
+#pytanieDiv
+{
+    text-align: center;
+}
+#pytanieDiv p
+{
+    font-size: 230%;
+
+}
+
+header
+{
+    text-align: center;
+}
+h5
+{
+    color: limegreen;
+    font-weight: bold;
+}
+header h1
+{
+    color: darkgray;
+}
+.textPytanie
+{
+    color: cornflowerblue;
+    text-align: center;
+    margin-top:10%
+}
+
+h1
+{
+    font-size: 500%;
+    margin-bottom: 2%;
+}
