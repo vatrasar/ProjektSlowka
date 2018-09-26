@@ -1,6 +1,7 @@
 package net.zembrowski.julian.controlers;
 
 import net.zembrowski.julian.domain.Klucz;
+import net.zembrowski.julian.domain.MediaStatus;
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Pytanie;
 import net.zembrowski.julian.services.PowtorzenieServices;
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.NoResultException;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 @Scope("session")
-public class editionControler {
+public class EditionControler {
 
     @Autowired
     UzytkownikService uytkownicy;
@@ -31,6 +34,12 @@ public class editionControler {
     PowtorzenieServices powtorzenia;
     @Autowired
     PytanieServices pytania;
+    @Autowired
+    TrainingControler trainingControler;
+
+
+
+
 
     @RequestMapping(value="/menuEdycji")
     public String menu(@RequestParam(name = "id")String nazwa, @RequestParam(name = "pk")int numer, Model model,@RequestParam(name = "source")String source)
@@ -71,6 +80,7 @@ public class editionControler {
         model.addAttribute("pytanie",new Pytanie());
         model.addAttribute("sukces",false);
         model.addAttribute("user",uytkownicy.getActualUserLogin());
+
         return  "addPytanieEdition";
     }
 
@@ -80,6 +90,9 @@ public class editionControler {
     {
         nowe.setPowtorzenie(akutalnePowtorzenie);
         pytania.createPytanie(nowe, plikiAns, plikiOdp);
+
+
+
         return  "redirect:/pytanieAdd";
     }
     @RequestMapping("/dropPow")
@@ -155,6 +168,53 @@ public class editionControler {
 
     }
 
+    @RequestMapping("showLast")
+    public String showLastQuestion(Model model)
+    {
+        Pytanie lastAddedQuestion= null;
+        try {
+            lastAddedQuestion = pytania.getLastAdded(akutalnePowtorzenie);
+        } catch (NoResultException e) {
 
+            return "redirect:/pytanieAdd";
+        }
+
+
+
+
+        trainingControler.prepareModelForQuestion(model,new Pytanie(),lastAddedQuestion);
+        trainingControler.prepareModelForMedia(model, lastAddedQuestion, MediaStatus.QUESTION);
+        return "lastQuest";
+    }
+
+    @PostMapping("showLast")
+    public String showLastAnswer(Model model)
+    {
+
+
+        Pytanie lastAddedQuestion=pytania.getLastAdded(akutalnePowtorzenie);
+
+        model.addAttribute("pytanie",lastAddedQuestion);
+        trainingControler.prepareModelForMedia(model, lastAddedQuestion, MediaStatus.ANSWER);
+        return "lastAnswer";
+    }
+
+
+    @RequestMapping("/dropPytanie")
+    public String dropPytanie(Model model,@RequestParam("id") int id)
+    {
+        Powtorzenie pow=pytania.getPytanie(id).getPowtorzenie();
+        pytania.deletePytanie(id);
+
+        trainingControler.getActualQuestionsList().remove(0);
+        return "redirect:/cwicz?id="+pow.getNazwa()+"&pk="+pow.getNumer();
+    }
+    @RequestMapping("/dropPytanieLast")
+    public String dropPytanieLast(Model model,@RequestParam("id") int id)
+    {
+
+        pytania.deletePytanie(id);
+        return "redirect:/pytanieAdd";
+    }
 
 }

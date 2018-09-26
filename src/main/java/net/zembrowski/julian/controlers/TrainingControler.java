@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @Scope("session")
-public class trainingControler {
+public class TrainingControler {
 
 
     @Autowired
@@ -134,7 +134,7 @@ public class trainingControler {
 
         return "trainingMenu";
     }
-    private void prepareModelForQuestion(Model model, Pytanie odpowiedz, Pytanie pytanie) {
+    public void prepareModelForQuestion(Model model, Pytanie odpowiedz, Pytanie pytanie) {
         odpowiedz.setId(pytanie.getId());
         odpowiedz.setAnswer(pytanie.getAnswer());
         model.addAttribute("odp",odpowiedz);
@@ -150,11 +150,11 @@ public class trainingControler {
      * @param currentQuestion
      * @param status
      */
-    private void prepareModelForMedia(Model model, Pytanie currentQuestion,final MediaStatus status) {
+    public void prepareModelForMedia(Model model, Pytanie currentQuestion,final MediaStatus status) {
         List<MediaSource>mediaForQuestion=mediaSourceService.getMediaForQuestion(currentQuestion);
-        Logger.getGlobal().warning(mediaForQuestion.size()+"poczatek mediow");
+
         List<List<MediaSource>>madiaGroups=mediaSourceService.groupByType(mediaForQuestion);
-        Logger.getGlobal().warning(madiaGroups.get(0).size()+"grupa img");
+
 
         mediaSourceService.filterWithStatus(madiaGroups,status);
 
@@ -284,6 +284,10 @@ public class trainingControler {
 
     }
 
+    public List<Pytanie> getActualQuestionsList() {
+        return actualQuestionsList;
+    }
+
     @RequestMapping(value = "retainProblems")
     public String retainProblems()
     {
@@ -294,13 +298,5 @@ public class trainingControler {
         actualQuestionsList=actualQuestionsList.stream().filter(a->a.isProblem()).collect(Collectors.toList());
         return "redirect:/cwicz";
     }
-    @RequestMapping("/dropPytanie")
-    public String dropPytanie(Model model,@RequestParam("id") int id)
-    {
-        Powtorzenie pow=pytania.getPytanie(id).getPowtorzenie();
-        pytania.deletePytanie(id);
 
-        actualQuestionsList.remove(0);
-        return "redirect:/cwicz?id="+pow.getNazwa()+"&pk="+pow.getNumer();
-    }
 }

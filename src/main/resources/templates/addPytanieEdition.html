@@ -7,9 +7,18 @@
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 
-
+    <style>
+        #show
+        {
+            float: right;
+            margin-right: 1%;
+            color: darkorchid;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
+<a id="show" th:href="@{/showLast}">ostanio dodane</a>
 <p th:if="${sukces}" style="color: green">Dodano Pytanie!</p>
 <h2 style="text-align: center;margin-bottom: 60px">REJESTRACJA PYTANIA</h2>
 <div class="container">

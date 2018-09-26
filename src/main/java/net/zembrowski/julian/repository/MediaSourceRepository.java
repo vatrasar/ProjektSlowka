@@ -36,6 +36,7 @@ public class MediaSourceRepository {
         return em.createQuery("SELECT m FROM MediaSource m where m.pytanie=:processingQuestion",MediaSource.class).setParameter("processingQuestion",pytanie).getResultList();
     }
 
+    @Transactional
     public int getMaxId() throws NullPointerException {
 
 

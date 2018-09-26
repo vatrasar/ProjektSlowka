@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.NoResultException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -38,10 +39,32 @@ public class PytanieServices {
     @Transactional
     public void createPytanie(Pytanie nowePytanie, MultipartFile[] plikiPyt, MultipartFile[] plikiOdp)
     {
+        upadateLastAdded(nowePytanie);
         pytania.createPytanie(nowePytanie);
+
 
         saveFiles(plikiOdp, MediaStatus.ANSWER,nowePytanie);
         saveFiles(plikiPyt, MediaStatus.QUESTION, nowePytanie);
+    }
+
+    private void upadateLastAdded(Pytanie newLast) {
+        newLast.setLastAdded(true);
+        Pytanie last= null;
+        try {
+            last = getLastAdded(newLast.getPowtorzenie());
+            last.setLastAdded(false);
+            pytania.upadatePytanie(last);
+        } catch (NoResultException e) {
+
+            return;
+        }
+
+
+    }
+
+    public Pytanie getLastAdded(Powtorzenie powtorzenie)throws javax.persistence.NoResultException {
+
+        return pytania.getLastAdded(powtorzenie);
     }
 
     /**

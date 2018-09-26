@@ -26,6 +26,8 @@ public class Pytanie {
     //true when was problem witch question
     @Column(nullable = false,columnDefinition = "bit(1) default 0")
     private boolean problem;
+    @Column(nullable = false,columnDefinition = "bit(1) default 0")
+    boolean lastAdded;
 
     public int getId() {
         return id;
@@ -119,5 +121,13 @@ public class Pytanie {
         question=temp;
 
         return this;
+    }
+
+    public boolean isLastAdded() {
+        return lastAdded;
+    }
+
+    public void setLastAdded(boolean lastAdded) {
+        this.lastAdded = lastAdded;
     }
 }

@@ -92,4 +92,9 @@ public class PytanieRepository {
 
         return em.createQuery("SELECT p from Pytanie p where p.powtorzenie=:obecne AND p.status=:stat",Pytanie.class).setParameter("obecne",wykonywane).setParameter("stat",Status.UMIEM_JEDNA_STRONE).getResultList();
     }
+
+    public Pytanie getLastAdded(Powtorzenie powtorzenie) throws javax.persistence.NoResultException {
+
+        return em.createQuery("SELECT p FROM Pytanie p where p.powtorzenie=:pow AND lastAdded=TRUE",Pytanie.class).setParameter("pow",powtorzenie).getSingleResult();
+    }
 }
