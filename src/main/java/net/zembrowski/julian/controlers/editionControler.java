@@ -51,7 +51,7 @@ public class editionControler {
             }
             uytkownicy.updateAktualnyUzytkownik();
             model.addAttribute("user",uytkownicy.getActualUserLogin());
-            uytkownicy.updateAktualnyUzytkownik();
+
             return "editionMenu";
         }
         else //dotyczy PokarzPowtorzeniaNaDzis(nie bedzie mozna dodawać nowych pytan

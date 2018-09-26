@@ -70,7 +70,11 @@ public class PowtarzanieControler {
     public String robPowtorzenie(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
     {
 
-        users.updateAktualnyUzytkownik();
+       if(users.updateAktualnyUzytkownik())
+       {
+           return "redirect:/pokarzPowtorzenia";
+       }
+
 
 
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
@@ -171,7 +175,10 @@ public class PowtarzanieControler {
     @PostMapping(value = "/robPowtorzeniePodsumowanie")
     public String robPowtorzeniePodsumowanie(@RequestParam("zal") String zal, Model model)
     {
-        users.updateAktualnyUzytkownik();
+        if(users.updateAktualnyUzytkownik())
+        {
+            return "redirect:/pokarzPowtorzenia";
+        }
         if (isNotSameSession())
         {
             return "redirect:/pokarzPowtorzenia";

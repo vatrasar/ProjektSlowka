@@ -43,6 +43,7 @@ public class Uzytkownik {
 
 
     public Uzytkownik() {
+        login="";
     }
 
     public Uzytkownik(String login, String haslo, boolean enabled) {

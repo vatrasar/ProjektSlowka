@@ -15,11 +15,28 @@ public class UzytkownikService {
 
     @Autowired
   private  RepositoryUzytkownik uzytkownicy;
-   public void updateAktualnyUzytkownik()
+
+    /**
+     *
+     * @return true when user changed and false if not
+     */
+   public boolean updateAktualnyUzytkownik()
     {
         User user =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        uzytkownicy.setActualUser(new Uzytkownik(user.getUsername()," ",true));
+        Uzytkownik old=uzytkownicy.getActualUser();
+        if(old.getLogin().equals(""))
+        {
+            uzytkownicy.setActualUser(new Uzytkownik(user.getUsername()," ",true));
+            return true;
+        }
+        else
+        {
+            uzytkownicy.setActualUser(new Uzytkownik(user.getUsername()," ",true));
+            return false;
+        }
+
+
     }
  public String getActualUserLogin()
     {
