@@ -8,6 +8,8 @@
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 
     <link rel="stylesheet" th:href="@{/css/mediaStyle.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/pre.css}" type="text/css">
+
     <style>
         p span
         {
@@ -21,17 +23,7 @@
         {
             color: darkgoldenrod;
         }
-        pre
-        {
-            text-align: left;
-            width: 70%;
-            margin-right: auto;
-            margin-left: auto;
-            border: none;
-            background-color: white;
-            font-size: 90%;
-            padding-left: 25%;
-        }
+
     </style>
 
 </head>
@@ -94,6 +86,6 @@
     </div>
 </form>
 </div>
-
+<script th:src="@{/scripts/betterPreLooks.js}"></script>
 </body>
 </html>

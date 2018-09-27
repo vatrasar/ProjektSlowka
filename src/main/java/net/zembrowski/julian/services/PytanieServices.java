@@ -198,6 +198,7 @@ public class PytanieServices {
         Pytanie stare=pytania.getPytanie(edytowane.getId());
         edytowane.setPowtorzenie(stare.getPowtorzenie());
         edytowane.setStatus(stare.getStatus());
+        edytowane.setLastAdded(stare.isLastAdded());
         Pytanie nowe=new Pytanie(edytowane);
         pytania.upadatePytanie(nowe);
         
