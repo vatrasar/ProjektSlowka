@@ -27,3 +27,25 @@ th
 {
     text-align: center;
 }
+
+.darkQ
+{
+    background-color:red;
+}
+.hardQ
+{
+    background-color: darkorange;
+}
+.mediumQ
+{
+    background-color: yellow;
+}
+.easyQ
+{
+    background-color: aqua;
+}
+
+.veryEasyQ
+{
+    background-color: chartreuse;
+}

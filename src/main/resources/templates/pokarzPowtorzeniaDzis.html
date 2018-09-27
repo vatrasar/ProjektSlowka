@@ -16,6 +16,9 @@
             font-size: 180%;
 
         }
+        a{
+            color: blue;
+        }
 
     </style>
 
@@ -51,11 +54,12 @@
 
         <tr th:each="pow:${powtorzenia}">
 
-            <td th:text="${pow.getNazwa()}"></td>
-            <td th:text="${pow.getNumer()}"></td>
-            <td th:text="${pow.getNastepne()}"></td>
-            <td th:text="${pow.getUtworzenie()}"></td>
-            <td><a th:href="${'/robPowtorzenie?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">rób</a></td>
+
+            <td th:class="${questionClassResolver.resolveClass(pytaniaService.getPytaniaPowtorzeniaNiesprawdzone(pow).size())}" th:text="${pow.getNazwa()}"></td>
+            <td th:class="${questionClassResolver.resolveClass(pytaniaService.getPytaniaPowtorzeniaNiesprawdzone(pow).size())}" th:text="${pow.getNumer()}"></td>
+            <td th:class="${questionClassResolver.resolveClass(pytaniaService.getPytaniaPowtorzeniaNiesprawdzone(pow).size())}" th:text="${pow.getNastepne()}"></td>
+            <td th:class="${questionClassResolver.resolveClass(pytaniaService.getPytaniaPowtorzeniaNiesprawdzone(pow).size())}" th:text="${pow.getUtworzenie()}"></td>
+            <td th:class="${questionClassResolver.resolveClass(pytaniaService.getPytaniaPowtorzeniaNiesprawdzone(pow).size())}"><a th:href="${'/robPowtorzenie?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">rób</a></td>
 
         </tr>
 

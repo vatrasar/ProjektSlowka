@@ -1,6 +1,5 @@
 package net.zembrowski.julian.controlers;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.services.MediaSourceService;
 import net.zembrowski.julian.services.PowtorzenieServices;
@@ -8,8 +7,6 @@ import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 
@@ -54,7 +50,7 @@ public class TrainingControler {
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
 
         model.addAttribute("powtorzono",false);
-        model.addAttribute("classResolver",HtmlClassResolver.dark);
+        model.addAttribute("classResolver", PowClassResolver.dark);
         model.addAttribute("pytService",pytania);
         List<Powtorzenie>toLearn =powtorzenia.getRepetsToLearn();
         model.addAttribute("powtorzenia",toLearn);
@@ -262,7 +258,7 @@ public class TrainingControler {
         //nizej to samo co w pokarz powtorzenia
         model.addAttribute("powtorzenia",toLearn);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
-       model.addAttribute("classResolver",HtmlClassResolver.dark);
+       model.addAttribute("classResolver", PowClassResolver.dark);
        model.addAttribute("pytService",pytania);
        model.addAttribute("lastRepet",actualRepetition);
 

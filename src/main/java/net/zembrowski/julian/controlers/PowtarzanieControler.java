@@ -5,11 +5,8 @@ import net.zembrowski.julian.services.MediaSourceService;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.UzytkownikService;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,14 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.print.attribute.standard.Media;
-import javax.print.attribute.standard.MediaPrintableArea;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @Controller
 @Scope("session")
@@ -62,7 +52,10 @@ public class PowtarzanieControler {
         }
         model.addAttribute("powtorzenia",powtorzeniaNaDzis);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
-        model.addAttribute("classResolver",HtmlClassResolver.dark);
+        model.addAttribute("classResolver", PowClassResolver.dark);
+
+        model.addAttribute("questionClassResolver",QuestionClassResolver.easy);
+        model.addAttribute("pytaniaService",pytania);
         return "pokarzPowtorzeniaDzis";
     }
 
@@ -155,7 +148,9 @@ public class PowtarzanieControler {
         List<Powtorzenie> powtorzeniaNaDzis = powtorzenia.getPowtorzeniaNaDzis();
         model.addAttribute("powtorzenia", powtorzeniaNaDzis);
         model.addAttribute("nazwaUzytkownika", users.getActualUserLogin());
-        model.addAttribute("classResolver",HtmlClassResolver.dark);
+        model.addAttribute("classResolver", PowClassResolver.dark);
+        model.addAttribute("questionClassResolver",QuestionClassResolver.easy);
+        model.addAttribute("pytaniaService",pytania);
     }
 
 

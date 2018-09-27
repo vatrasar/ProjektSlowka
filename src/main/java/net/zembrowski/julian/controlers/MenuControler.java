@@ -1,16 +1,11 @@
 package net.zembrowski.julian.controlers;
 
 
-import net.zembrowski.julian.domain.HtmlClassResolver;
-import net.zembrowski.julian.domain.Para;
-import net.zembrowski.julian.domain.Powtorzenie;
-import net.zembrowski.julian.domain.Uzytkownik;
+import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,7 +57,7 @@ public class MenuControler {
             liczby[i-1].setNazwa(dzis.plusDays(i).getDayOfWeek().name());
         }
         model.addAttribute("liczbaPow",liczby);
-        model.addAttribute("classResolver",HtmlClassResolver.dark);
+        model.addAttribute("classResolver", PowClassResolver.dark);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
         return "pokarzPlan";
     }
