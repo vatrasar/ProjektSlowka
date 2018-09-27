@@ -217,4 +217,11 @@ public class EditionControler {
         return "redirect:/pytanieAdd";
     }
 
+    @RequestMapping(value = "/zmianaPytania",method = RequestMethod.POST)
+    public String edycjaPytanie(Pytanie edytowane)
+    {
+        pytania.editPytanie(edytowane);
+        return "redirect:/training";
+    }
+
 }
