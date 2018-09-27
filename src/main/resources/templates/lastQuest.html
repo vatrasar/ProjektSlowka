@@ -54,8 +54,11 @@
         <input type="hidden" th:field="*{id}" />
         <input type="hidden" th:field="*{answer}" />
         <div th:class="row" style="text-align: center;margin-top: 20px">
+            <a th:href="@{/pytanieAdd}" style="color: darkolivegreen" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">dodaj nowe pytanie</a>
             <input th:class="btn-default" type="submit" value="sprawdz odpowiedz"/>
         </div>
+
+
         <div th:class="row" style="text-align: center;margin-top: 20px">
             <a th:href="@{/training}">wyjdz z potworzenia</a>
         </div>
