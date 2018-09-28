@@ -38,6 +38,8 @@ public class EditionControler {
     @Autowired
     TrainingControler trainingControler;
 
+    @Autowired
+    TagService tagService;
 
 
 
@@ -99,6 +101,7 @@ public class EditionControler {
     public String dropPow()
     {
         pytania.dropPytaniaOfPowtorzenie(akutalnePowtorzenie);
+        tagService.dropTagsOfRepetition(akutalnePowtorzenie);
         List<Powtorzenie>toLearn=trainingControler.getToLearn();
         int index=toLearn.indexOf(akutalnePowtorzenie);
         toLearn.remove(index);

@@ -134,8 +134,9 @@ public class PowotrzenieRepository {
         users.updateAktualnyUzytkownik();
         if(tag.getPowtorzenie()==null)
          return em.createQuery("SELECT p from Powtorzenie p join Pytanie py ON p=py.powtorzenie where py.id=:tagP and p.wlasciciel=:user",Powtorzenie.class).setParameter("tagP",tag.getPytanie().getId()).setParameter("user",users.getActualUserLogin()).getSingleResult();
-        else
-            return em.find(Powtorzenie.class,tag.getPowtorzenie());
-
+        else {
+            Klucz klucz=new Klucz(tag.getPowtorzenie());
+            return em.find(Powtorzenie.class, klucz);
+        }
     }
 }

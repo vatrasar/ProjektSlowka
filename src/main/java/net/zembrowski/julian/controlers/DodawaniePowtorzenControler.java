@@ -7,6 +7,7 @@ import net.zembrowski.julian.domain.Pytanie;
 import net.zembrowski.julian.services.PowtorzenieServices;
 
 import net.zembrowski.julian.services.PytanieServices;
+import net.zembrowski.julian.services.TagService;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -38,6 +39,8 @@ public class DodawaniePowtorzenControler {
 
     @Autowired
     PytanieServices pytania;
+    @Autowired
+    TagService tagService;
 
     @RequestMapping( value = "/dodaniePowtorzenia")
    public String dodaniePowtorzenia(Model model)
@@ -53,7 +56,7 @@ public class DodawaniePowtorzenControler {
         return "rejestracjaPowtorzenia";
     }
     @RequestMapping( value = "/dodaniePowtorzenia",method = RequestMethod.POST)
-    public String przyjeciePowtorzenia(Powtorzenie NowePowtorzenie,Model model)
+    public String przyjeciePowtorzenia(Powtorzenie NowePowtorzenie,Model model,@RequestParam("tagi")String tags)
     {
 
 
@@ -72,6 +75,8 @@ public class DodawaniePowtorzenControler {
 
         powtorzenia.persistPowtorzenie(NowePowtorzenie);
         powtorzenia.ustawJakoAktualne(NowePowtorzenie);
+
+        tagService.addRepetitionTags(tags,NowePowtorzenie);
 
         if (NowePowtorzenie.isEmpty())
         {

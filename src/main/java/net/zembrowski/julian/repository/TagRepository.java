@@ -1,5 +1,6 @@
 package net.zembrowski.julian.repository;
 
+import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Pytanie;
 import net.zembrowski.julian.domain.Tag;
 import net.zembrowski.julian.services.UzytkownikService;
@@ -44,6 +45,14 @@ public class TagRepository {
 
 
         return em.createQuery("SELECT t FROM Tag t where t.name=:nameWanted",Tag.class).setParameter("nameWanted",tagName).getResultList();
+
+
+    }
+
+    public List<Tag> getRepetitionTags(Powtorzenie akutalnePowtorzenie) {
+
+        return em.createQuery("SELECT t FROM Tag t where t.powtorzenie=:repetitionWanted",Tag.class).setParameter("repetitionWanted",akutalnePowtorzenie).getResultList();
+
 
 
     }

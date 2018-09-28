@@ -1,6 +1,7 @@
 package net.zembrowski.julian.services;
 
 
+import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Pytanie;
 import net.zembrowski.julian.domain.Tag;
 import net.zembrowski.julian.repository.TagRepository;
@@ -67,5 +68,31 @@ public class TagService {
         }
 
         return tagsList;
+    }
+
+    public void addRepetitionTags(String tags, Powtorzenie nowePowtorzenie) {
+
+
+        List<String>tagList= Arrays.asList(tags.split(" "));
+        for(String tag:tagList)
+        {
+
+            tagRepository.createTag(new Tag(tag,nowePowtorzenie));
+        }
+    }
+
+    public void dropTagsOfRepetition(Powtorzenie akutalnePowtorzenie) {
+
+        List<Tag>repetitionTags=getRepetitionTags(akutalnePowtorzenie);
+        for ( Tag tag:repetitionTags)
+        {
+            tagRepository.dropTag(tag);
+        }
+
+    }
+
+    private List<Tag> getRepetitionTags(Powtorzenie akutalnePowtorzenie) {
+
+        return tagRepository.getRepetitionTags(akutalnePowtorzenie);
     }
 }

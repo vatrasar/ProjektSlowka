@@ -18,6 +18,12 @@ public class Klucz implements Serializable {
         this.wlasciciel = wlasciciel;
     }
 
+    public Klucz(Powtorzenie powtorzenie) {
+        this.numer = powtorzenie.getNumer();
+        this.nazwa = powtorzenie.getNazwa();
+        this.wlasciciel = powtorzenie.getWlasciciel();
+    }
+
     public String getWlasciciel() {
 
         return wlasciciel;
