@@ -96,11 +96,11 @@ public class DodawaniePowtorzenControler {
 
     @PostMapping(value = "/dodajPytanie")
     @Transactional
-    public String dodajPytanie(Model model,Pytanie nowe,@RequestParam("odp")MultipartFile[]plikiOdp,@RequestParam("pyt")MultipartFile[]plikiPyt)
+    public String dodajPytanie(Model model,Pytanie nowe,@RequestParam("odp")MultipartFile[]plikiOdp,@RequestParam("pyt")MultipartFile[]plikiPyt,@RequestParam("tagi")String tags)
     {
 
         nowe.setPowtorzenie(akutalnePowtorzenie);
-        pytania.createPytanie(nowe,plikiPyt,plikiOdp);
+        pytania.createPytanie(nowe,plikiPyt,plikiOdp, tags);
         return  "redirect:/dodajPytanieSukces";
     }
 

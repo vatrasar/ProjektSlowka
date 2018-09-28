@@ -6,6 +6,7 @@ import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Pytanie;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.PytanieServices;
+import net.zembrowski.julian.services.TagService;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -36,6 +37,7 @@ public class EditionControler {
     PytanieServices pytania;
     @Autowired
     TrainingControler trainingControler;
+
 
 
 
@@ -86,12 +88,10 @@ public class EditionControler {
 
     @RequestMapping(value = "/pytanieAdd",method = RequestMethod.POST)
     @Transactional
-    public String dodajPytanie(Pytanie nowe,@RequestParam("odp")MultipartFile[]plikiOdp,@RequestParam("ans")MultipartFile[]plikiAns)
+    public String dodajPytanie(Pytanie nowe,@RequestParam("odp")MultipartFile[]plikiOdp,@RequestParam("ans")MultipartFile[]plikiAns,@RequestParam("tagi")String tags)
     {
         nowe.setPowtorzenie(akutalnePowtorzenie);
-        pytania.createPytanie(nowe, plikiAns, plikiOdp);
-
-
+        pytania.createPytanie(nowe, plikiAns, plikiOdp,tags);
 
         return  "redirect:/pytanieAdd";
     }
@@ -99,6 +99,9 @@ public class EditionControler {
     public String dropPow()
     {
         pytania.dropPytaniaOfPowtorzenie(akutalnePowtorzenie);
+        List<Powtorzenie>toLearn=trainingControler.getToLearn();
+        int index=toLearn.indexOf(akutalnePowtorzenie);
+        toLearn.remove(index);
         powtorzenia.dropPowotrzenie(akutalnePowtorzenie);
         return "redirect:/training";
     }

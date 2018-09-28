@@ -31,18 +31,20 @@ public class PytanieServices {
 
     @Autowired
     MediaSourceService mediaSourceService;
+    @Autowired
+    TagService tagService;
     private static String pathTarget="C:\\Users\\Vatrasar\\IdeaProjects\\julian\\target\\classes\\static\\programDane";//path to folder with video and img data in target. Without that Ia had to restart aplication to use my files
     private static String pathSrc="C:\\Users\\Vatrasar\\IdeaProjects\\julian\\src\\main\\resources\\static\\programDane";//path to folder with video and img data in src(to save data)
     //on google Drive
     private static String pathBackup="C:\\Users\\Vatrasar\\Dysk Google\\programDane";
 
     @Transactional
-    public void createPytanie(Pytanie nowePytanie, MultipartFile[] plikiPyt, MultipartFile[] plikiOdp)
+    public void createPytanie(Pytanie nowePytanie, MultipartFile[] plikiPyt, MultipartFile[] plikiOdp, String tags)
     {
         upadateLastAdded(nowePytanie);
         pytania.createPytanie(nowePytanie);
 
-
+        tagService.addQuestionTags(nowePytanie,tags);
         saveFiles(plikiOdp, MediaStatus.ANSWER,nowePytanie);
         saveFiles(plikiPyt, MediaStatus.QUESTION, nowePytanie);
     }
@@ -189,6 +191,7 @@ public class PytanieServices {
     @Transactional
     public void deletePytanie(int id) {
         mediaSourceService.dropMediaOfPytanie(pytania.getPytanie(id));
+        tagService.dropTagsOfPytanie(pytania.getPytanie(id));
         pytania.deletePytanie(id);
     }
 
