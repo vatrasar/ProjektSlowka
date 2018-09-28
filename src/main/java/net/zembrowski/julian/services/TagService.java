@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,5 +38,34 @@ public class TagService {
         {
             tagRepository.dropTag(tag);
         }
+    }
+
+    /**
+     * returns tags of All users!
+     * @param tags
+     * @return
+     */
+    public List<Tag> getTagList(String tags) {
+
+
+        List<String>tagsNamesList=Arrays.asList(tags.split(" "));
+        List<List<Tag>>tagsLists=new ArrayList<>();
+
+        for (String tagName:tagsNamesList)
+        {
+            tagsLists.add(tagRepository.getTagsByName(tagName));
+        }
+        List<Tag>tagsList= new ArrayList<>();
+
+        if(tagsLists.size()>0)
+        {
+            tagsList.addAll(tagsLists.get(0));
+        }
+        for(List<Tag>tagList:tagsLists)
+        {
+            tagsList.retainAll(tagList);
+        }
+
+        return tagsList;
     }
 }

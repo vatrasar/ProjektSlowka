@@ -42,21 +42,21 @@ public class SearchControler {
     }
 
     @PostMapping("/search")
-    public String searchResults(Model model, @RequestParam("name")String name, @RequestParam("date")String date)
+    public String searchResults(Model model,@RequestParam("tagi")String tags, @RequestParam("name")String name, @RequestParam("date")String date)
     {
 
 
-        setPowToLearn(name, date);
+        setPowToLearn(name, date,tags);
 
         return "redirect:/training";
     }
 
-    private void setPowToLearn(String name,String date) {
+    private void setPowToLearn(String name, String date, String tags) {
 
 
 
         List<List<Powtorzenie>>conditionsList=new ArrayList<>();
-        setConditionsLists(name, date, conditionsList);
+        setConditionsLists(name, date,tags, conditionsList);
 
         List<Powtorzenie>resultList;
         if (conditionsList.size()!=0)
@@ -79,9 +79,10 @@ public class SearchControler {
      * for each condition, function add to the list repetitions which fulfills that condition
      * @param name
      * @param date
+     * @param tags
      * @param powList
      */
-    private void setConditionsLists(String name, String date, List<List<Powtorzenie>> powList) {
+    private void setConditionsLists(String name, String date, String tags, List<List<Powtorzenie>> powList) {
 
         LocalDate repetitionDate=parseDate(date);
 
@@ -90,6 +91,10 @@ public class SearchControler {
         if(!date.equals(""))
         {
             powList.add(repetitions.getPowtorzeniaByDate(repetitionDate));
+        }
+        if(!tags.equals(""))
+        {
+            powList.add(repetitions.getPowtorzeniaByTags(tags));
         }
     }
 

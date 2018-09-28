@@ -3,6 +3,7 @@ package net.zembrowski.julian.services;
 
 import net.zembrowski.julian.domain.Klucz;
 import net.zembrowski.julian.domain.Powtorzenie;
+import net.zembrowski.julian.domain.Tag;
 import net.zembrowski.julian.repository.PowotrzenieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -26,6 +27,8 @@ public class PowtorzenieServices {
     @Autowired
     private Powtorzenie aktualnePowtorzenie;
 
+    @Autowired
+    private TagService tagService;
 
     public boolean isExist(Powtorzenie nowePowtorzenie) {
         return  powtorzenia.isExist(nowePowtorzenie);
@@ -148,5 +151,15 @@ public class PowtorzenieServices {
 
 
         return powtorzenia.getPowtorzeniaByDate(repetitionDate);
+    }
+
+    public List<Powtorzenie> getPowtorzeniaByTags(String tags) {
+        List<Tag>tagsList=tagService.getTagList(tags);
+        List<Powtorzenie>repetitionList=new ArrayList<>();
+        for(Tag tag: tagsList)
+        {
+            repetitionList.add(powtorzenia.getTagPow(tag));
+        }
+        return repetitionList;
     }
 }

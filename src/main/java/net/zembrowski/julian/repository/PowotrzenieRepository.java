@@ -3,6 +3,7 @@ package net.zembrowski.julian.repository;
 
 import net.zembrowski.julian.domain.Klucz;
 import net.zembrowski.julian.domain.Powtorzenie;
+import net.zembrowski.julian.domain.Tag;
 import net.zembrowski.julian.domain.Uzytkownik;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,6 +126,16 @@ public class PowotrzenieRepository {
     public List<Powtorzenie> getPowtorzeniaByDate(LocalDate repetitionDate) {
 
         return em.createQuery("SELECT p from Powtorzenie p where utworzenie=:wantedDate and wlasciciel=:user",Powtorzenie.class).setParameter("wantedDate",repetitionDate).setParameter("user",users.getActualUserLogin()).getResultList();
+
+    }
+
+    public Powtorzenie getTagPow(Tag tag) {
+
+        users.updateAktualnyUzytkownik();
+        if(tag.getPowtorzenie()==null)
+         return em.createQuery("SELECT p from Powtorzenie p join Pytanie py ON p=py.powtorzenie where py.id=:tagP and p.wlasciciel=:user",Powtorzenie.class).setParameter("tagP",tag.getPytanie().getId()).setParameter("user",users.getActualUserLogin()).getSingleResult();
+        else
+            return em.find(Powtorzenie.class,tag.getPowtorzenie());
 
     }
 }
