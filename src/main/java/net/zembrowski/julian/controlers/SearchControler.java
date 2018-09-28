@@ -5,6 +5,7 @@ import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.UzytkownikService;
+import org.apache.catalina.util.ResourceSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import sun.rmi.runtime.Log;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -65,7 +67,14 @@ public class SearchControler {
             resultList=new ArrayList<>();
         intersectionsOfLists(conditionsList, resultList);
 
+        retainUniqueRepetition(resultList);
         trainingControler.setToLearn(resultList);
+    }
+
+    private void retainUniqueRepetition(List<Powtorzenie> resultList) {
+        HashSet<Powtorzenie> resultSet=new ResourceSet<>(resultList);
+        resultList.clear();
+        resultList.addAll(resultSet);
     }
 
     private void intersectionsOfLists(List<List<Powtorzenie>> conditionsList, List<Powtorzenie> resultList) {

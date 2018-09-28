@@ -170,6 +170,12 @@ public class Powtorzenie {
                 Objects.equals(getWlasciciel(), that.getWlasciciel());
     }
 
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getNazwa(), getNumer(), getWlasciciel());
+    }
+
     public boolean isEmpty() {
         return empty;
     }
@@ -178,11 +184,7 @@ public class Powtorzenie {
         this.empty = empty;
     }
 
-    @Override
-    public int hashCode() {
 
-        return Objects.hash(getNazwa(), getNumer(), getWlasciciel(), getUtworzenie(), getDzien(), getNastepne());
-    }
 
     @Override
     public String toString() {

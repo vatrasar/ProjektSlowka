@@ -13,6 +13,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TagService {
@@ -46,7 +47,7 @@ public class TagService {
      * @param tags
      * @return
      */
-    public List<Tag> getTagList(String tags) {
+    public List<Powtorzenie> getTagsRepetitionList(String tags) {
 
 
         List<String>tagsNamesList=Arrays.asList(tags.split(" "));
@@ -56,18 +57,31 @@ public class TagService {
         {
             tagsLists.add(tagRepository.getTagsByName(tagName));
         }
-        List<Tag>tagsList= new ArrayList<>();
-
+        List<Powtorzenie>tagsRepetitionList=new ArrayList<>();
         if(tagsLists.size()>0)
         {
-            tagsList.addAll(tagsLists.get(0));
+
+            tagsRepetitionList=getTagRepetitionsList(tagsLists.get(0));
         }
         for(List<Tag>tagList:tagsLists)
         {
-            tagsList.retainAll(tagList);
+
+           List<Powtorzenie>tagRepetitionList= getTagRepetitionsList(tagList);
+           tagsRepetitionList.retainAll(tagRepetitionList);
+
         }
 
-        return tagsList;
+        return tagsRepetitionList;
+    }
+
+    private List<Powtorzenie> getTagRepetitionsList(List<Tag> tagList) {
+        return tagList.stream().map(a->{
+             Powtorzenie temp=a.getPowtorzenie();
+             if(temp==null)
+                 temp=a.getPytanie().getPowtorzenie();
+            return new Powtorzenie(temp.getNazwa(),temp.getWlasciciel(),temp.getNumer());
+
+         }).collect(Collectors.toList());
     }
 
     public void addRepetitionTags(String tags, Powtorzenie nowePowtorzenie) {

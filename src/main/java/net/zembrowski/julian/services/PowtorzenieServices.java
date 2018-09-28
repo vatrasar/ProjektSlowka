@@ -154,12 +154,8 @@ public class PowtorzenieServices {
     }
 
     public List<Powtorzenie> getPowtorzeniaByTags(String tags) {
-        List<Tag>tagsList=tagService.getTagList(tags);
-        List<Powtorzenie>repetitionList=new ArrayList<>();
-        for(Tag tag: tagsList)
-        {
-            repetitionList.add(powtorzenia.getTagPow(tag));
-        }
-        return repetitionList;
+
+
+        return tagService.getTagsRepetitionList(tags);
     }
 }
