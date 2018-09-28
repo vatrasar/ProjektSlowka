@@ -143,4 +143,10 @@ public class PowtorzenieServices {
     public List<Powtorzenie> getPowtorzeniaByName(String name) {
        return powtorzenia.getPowtorzeniaByName(name);
     }
+
+    public List<Powtorzenie> getPowtorzeniaByDate(LocalDate repetitionDate) {
+
+
+        return powtorzenia.getPowtorzeniaByDate(repetitionDate);
+    }
 }

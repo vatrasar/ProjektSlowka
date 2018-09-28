@@ -121,4 +121,10 @@ public class PowotrzenieRepository {
 
         return em.createQuery("SELECT p from Powtorzenie p where nazwa=:wantedName and wlasciciel=:user",Powtorzenie.class).setParameter("wantedName",name).setParameter("user",users.getActualUserLogin()).getResultList();
     }
+
+    public List<Powtorzenie> getPowtorzeniaByDate(LocalDate repetitionDate) {
+
+        return em.createQuery("SELECT p from Powtorzenie p where utworzenie=:wantedDate and wlasciciel=:user",Powtorzenie.class).setParameter("wantedDate",repetitionDate).setParameter("user",users.getActualUserLogin()).getResultList();
+
+    }
 }

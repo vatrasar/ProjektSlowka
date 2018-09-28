@@ -45,7 +45,7 @@ public class DodawaniePowtorzenControler {
 
         Powtorzenie nowe = new Powtorzenie();
 
-        nowe.setUtworzenie(LocalDate.now().minusDays(1));
+        nowe.setUtworzenie(LocalDate.now());
         nowe.setEmpty(true);
         nowe.setReverse(false);
         model.addAttribute("powtorzenie", nowe);
