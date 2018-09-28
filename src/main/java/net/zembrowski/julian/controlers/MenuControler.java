@@ -1,6 +1,7 @@
 package net.zembrowski.julian.controlers;
 
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.UzytkownikService;
@@ -60,6 +61,15 @@ public class MenuControler {
         model.addAttribute("classResolver", PowClassResolver.dark);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
         return "pokarzPlan";
+    }
+
+
+    @RequestMapping("/trainingMenu")
+    public String trainingMenu(Model model)
+    {
+        users.updateAktualnyUzytkownik();
+        model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
+        return "tMenu";
     }
 
 }

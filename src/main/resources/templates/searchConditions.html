@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <title>Julian</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+
+    <style>
+        form{
+
+            margin-right: 40%;
+            text-align: right;
+            /*margin-left: 30%;*/
+        }
+        #dni
+        {
+
+            text-align-last: right;
+
+        }
+
+    </style>
+
+</head>
+<body>
+<h2 style="text-align: center;margin-bottom: 60px">Wyszukiwanie powtórzeń</h2>
+<div class="container">
+    <form class="form-horizontal" th:action="@{/search}" th:method="post" th:object="${powtorzenie}">
+
+
+        <div class="form-group" >
+            <datalist id="opcje">
+                <option value="slowka">
+            </datalist>
+
+            <label class="control-label">nazwa powtórzenia<input class="form-control" th:step="1" name="name" id="movie" list="opcje" /></label>
+
+        </div>
+
+
+
+        <div th:class="row" style="margin-top: 20px">
+            <input th:class="btn-default" type="submit" value="szukaj"/>
+        </div>
+
+        <div th:class="row" style="margin-top: 20px">
+            <a th:href="@{/pokarzMenu}">wroć do menu głównego</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

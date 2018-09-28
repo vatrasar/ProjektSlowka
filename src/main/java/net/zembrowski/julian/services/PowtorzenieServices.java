@@ -139,4 +139,8 @@ public class PowtorzenieServices {
         powtorzenia.remove(powtorzenie);
 
     }
+
+    public List<Powtorzenie> getPowtorzeniaByName(String name) {
+       return powtorzenia.getPowtorzeniaByName(name);
+    }
 }

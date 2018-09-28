@@ -39,10 +39,31 @@ public class TrainingControler {
     @Autowired
     Pytanie aktualnePytanie;
 
-    Powtorzenie actualRepetition;
+   private   Powtorzenie actualRepetition;
 
+   private List<Powtorzenie>toLearn;
+
+    public TrainingControler() {
+        actualQuestionsList = null;
+        toLearn=null;
+    }
+
+    public List<Powtorzenie> getToLearn() {
+        return toLearn;
+    }
+
+    public void setToLearn(List<Powtorzenie> toLearn) {
+        this.toLearn = toLearn;
+    }
+
+    @RequestMapping(value = "/repetsForTomorrow")
+    public String repetsForTomorrow()
+    {
+        toLearn =powtorzenia.getRepetsToLearn();
+        return "redirect:/training";
+    }
     @RequestMapping(value = "/training")
-   public String training(Model model)
+   public String training(Model model) throws Exception
     {
 
 
@@ -52,14 +73,18 @@ public class TrainingControler {
         model.addAttribute("powtorzono",false);
         model.addAttribute("classResolver", PowClassResolver.dark);
         model.addAttribute("pytService",pytania);
-        List<Powtorzenie>toLearn =powtorzenia.getRepetsToLearn();
-        model.addAttribute("powtorzenia",toLearn);
+
 
         if(actualRepetition==null)
         {
             actualRepetition=new Powtorzenie();
         }
+        if (toLearn==null)
+        {
+            throw new Exception("toLearn is Empty!");
+        }
         model.addAttribute("lastRepet",actualRepetition);
+        model.addAttribute("powtorzenia",toLearn);
         return "pokarzDoPocwiczenia";
     }
     @RequestMapping(value = "/cwicz")
@@ -69,7 +94,7 @@ public class TrainingControler {
 
        if (isNotSameSession())
        {
-           return "redirect:/training";
+           return "redirect:/pokarzMenu";
        }
 
         //mieszanie pytań
@@ -174,7 +199,7 @@ public class TrainingControler {
 
         if (isNotSameSession())
         {
-            return "redirect:/training";
+            return "redirect:/pokarzMenu";
         }
 
         pytania.updatePytanieProblem(pytanie.isProblem(),actualQuestionsList.get(0));
@@ -254,7 +279,7 @@ public class TrainingControler {
    {
 
 
-        List<Powtorzenie>toLearn =powtorzenia.getRepetsToLearn();
+
         //nizej to samo co w pokarz powtorzenia
         model.addAttribute("powtorzenia",toLearn);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
@@ -270,14 +295,24 @@ public class TrainingControler {
     public String zaz(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer,@RequestParam("pow") boolean succesRepete, Model model)
     {
         users.updateAktualnyUzytkownik();
+
+        setOpposedProblemInToLearnList(nazwa, numer);
+
         przygotujModel(model);
         model.addAttribute("powtorzono",succesRepete);
 
 
         powtorzenia.setOpposedProblem(new Klucz(numer,nazwa,users.getActualUserLogin()));
+
          return "pokarzDoPocwiczenia";
 
 
+    }
+
+    private void setOpposedProblemInToLearnList(@RequestParam("id") String nazwa, @RequestParam("pk") Integer numer) {
+        int index=toLearn.indexOf(new Powtorzenie(nazwa,users.getActualUserLogin(),numer));
+        Powtorzenie before=toLearn.get(index);
+        before.setProblems(!before.isProblems());
     }
 
     public List<Pytanie> getActualQuestionsList() {
@@ -289,7 +324,7 @@ public class TrainingControler {
     {
         if(isNotSameSession())
         {
-            return "redirect:/training";
+            return "redirect:/pokarzMenu";
         }
         actualQuestionsList=actualQuestionsList.stream().filter(a->a.isProblem()).collect(Collectors.toList());
         return "redirect:/cwicz";

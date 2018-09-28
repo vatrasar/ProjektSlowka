@@ -116,4 +116,9 @@ public class PowotrzenieRepository {
     }
 
 
+    public List<Powtorzenie> getPowtorzeniaByName(String name) {
+        users.updateAktualnyUzytkownik();
+
+        return em.createQuery("SELECT p from Powtorzenie p where nazwa=:wantedName and wlasciciel=:user",Powtorzenie.class).setParameter("wantedName",name).setParameter("user",users.getActualUserLogin()).getResultList();
+    }
 }

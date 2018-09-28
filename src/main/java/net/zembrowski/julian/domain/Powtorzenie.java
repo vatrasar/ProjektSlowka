@@ -44,6 +44,13 @@ public class Powtorzenie {
 
     }
 
+    public Powtorzenie(String nazwa,String wlasciciel,int numer)
+    {
+
+        this.wlasciciel=wlasciciel;
+        this.nazwa=nazwa;
+        this.numer=numer;
+    }
     public boolean isReverse() {
         return reverse;
     }
