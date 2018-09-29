@@ -25,11 +25,17 @@ public class TagService {
 
     public void addQuestionTags(Pytanie nowePytanie, String tags) {
         List<String>tagList= Arrays.asList(tags.split(" "));
+        tagList = tagsNameToLowerCase(tagList);
         for(String tag:tagList)
         {
 
             tagRepository.createTag(new Tag(tag,nowePytanie));
         }
+    }
+
+    private List<String> tagsNameToLowerCase(List<String> tagList) {
+        tagList=tagList.stream().map(a->a.toLowerCase()).collect(Collectors.toList());
+        return tagList;
     }
 
     @Transactional
@@ -51,6 +57,7 @@ public class TagService {
 
 
         List<String>tagsNamesList=Arrays.asList(tags.split(" "));
+        tagsNamesList=tagsNameToLowerCase(tagsNamesList);
         List<List<Tag>>tagsLists=new ArrayList<>();
 
         for (String tagName:tagsNamesList)
