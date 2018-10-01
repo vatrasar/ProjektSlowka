@@ -123,8 +123,10 @@ public class PytanieServices {
             Powtorzenie powDlaBledow = new Powtorzenie();
             powDlaBledow.utworzPowDlaBledow(wykonywane, numer);
 
+
             //dodanie nowego powtrzenia do bazy
             powtorzenia.persistPowtorzenie(powDlaBledow);
+            tagService.copyGlobalTags(wykonywane,powDlaBledow);
             //set problem off
             bledy.forEach(a->a.setProblem(false));
             //dodaj bledy do danego powtorzenia

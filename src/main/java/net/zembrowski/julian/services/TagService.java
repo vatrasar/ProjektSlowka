@@ -116,4 +116,21 @@ public class TagService {
 
         return tagRepository.getRepetitionTags(akutalnePowtorzenie);
     }
+
+    public void copyGlobalTags(Powtorzenie source,final Powtorzenie destination) {
+
+
+
+        List<Tag>tags=getRepetitionTags(source);
+      tags=tags.stream().map(a->new Tag(a.getName(),destination)).collect(Collectors.toList());
+
+        for ( Tag tag:tags)
+        {
+            tagRepository.createTag(tag);
+        }
+
+
+    }
+
+
 }
