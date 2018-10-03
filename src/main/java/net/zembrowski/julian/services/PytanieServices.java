@@ -38,6 +38,11 @@ public class PytanieServices {
     //on google Drive
     private static String pathBackup="C:\\Users\\Vatrasar\\Dysk Google\\programDane";
 
+
+   public PytanieServices()
+   {
+
+   }
     @Transactional
     public void createPytanie(Pytanie nowePytanie, MultipartFile[] plikiPyt, MultipartFile[] plikiOdp, String tags)
     {

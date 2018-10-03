@@ -227,7 +227,7 @@ public class EditionControler {
     public String edycjaPytanie(Pytanie edytowane)
     {
         pytania.editPytanie(edytowane);
-        return "redirect:/training";
+        return "redirect:/pokarzMenu";
     }
 
 }
