@@ -338,4 +338,22 @@ public class PytanieServices {
     }
 
 
+    /**
+     *
+     * @param toLearn
+     * @return all questions with problem set on true.
+     */
+    public List<Pytanie> getProblematicQuestions(List<Powtorzenie> toLearn) {
+
+        List<Pytanie>result=new ArrayList<>();
+
+        for (Powtorzenie pow:toLearn)
+        {
+            List<Pytanie>questions=pytania.getPytaniaOfPowtorzenie(pow);
+            questions=questions.stream().filter(a->a.isProblem()).collect(Collectors.toList());
+
+            result.addAll(questions);
+        }
+        return result;
+    }
 }

@@ -62,6 +62,14 @@ public class TrainingControler {
         toLearn =powtorzenia.getRepetsToLearn();
         return "redirect:/training";
     }
+
+    @RequestMapping(value = "/problematicQuests")
+    public String problematicQuests(Model model)
+    {
+
+        actualQuestionsList=pytania.getProblematicQuestions(toLearn);
+        return "redirect:/cwicz";
+    }
     @RequestMapping(value = "/training")
    public String training(Model model) throws Exception
     {
