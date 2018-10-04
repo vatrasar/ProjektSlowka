@@ -1,6 +1,7 @@
 package net.zembrowski.julian.services;
 
 
+import com.sun.java.swing.plaf.windows.WindowsTreeUI;
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Pytanie;
 import net.zembrowski.julian.domain.Tag;
@@ -133,4 +134,16 @@ public class TagService {
     }
 
 
+    public String getQuestionTagsNames(Pytanie edytowane) {
+
+        List<Tag>tags=tagRepository.getTagsOfPytanie(edytowane);
+        return tags.stream().map(Tag::getName).collect(Collectors.joining(" "));
+
+    }
+
+    @Transactional
+    public void editTags(Pytanie question, String newTags) {
+        dropTagsOfPytanie(question);//remove old tags
+        addQuestionTags(question,newTags);
+    }
 }

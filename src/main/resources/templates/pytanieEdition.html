@@ -25,6 +25,10 @@
             <textarea th:field="*{answer}" class="form-control z-depth-1" id="odp"  rows="4"></textarea>
         </div>
 
+        <div th:class="form-group">
+            <label th:class="control-label">Tagi</label>
+            <input th:class="form-control" th:value="${tags}" type="text" name="newTags"/>
+        </div>
         <input type="hidden" th:field="*{id}" />
 
 

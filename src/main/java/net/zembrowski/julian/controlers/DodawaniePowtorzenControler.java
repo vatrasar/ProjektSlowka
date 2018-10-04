@@ -125,21 +125,4 @@ public class DodawaniePowtorzenControler {
         return "rejestracjaPowtorzeniaBlad";
     }
 
-    @RequestMapping("/zmianaPytania")
-    public String zmienPytanie(@RequestParam("id") int id, Model model)
-    {
-        Pytanie edytowane=new Pytanie(pytania.getPytanie(id));
-
-        model.addAttribute("pytanie",edytowane);
-        model.addAttribute("edition",true);
-       return "pytanieEdition";
-    }
-
-
-
-
-
-
-
-
 }

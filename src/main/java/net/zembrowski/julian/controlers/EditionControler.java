@@ -1,9 +1,6 @@
 package net.zembrowski.julian.controlers;
 
-import net.zembrowski.julian.domain.Klucz;
-import net.zembrowski.julian.domain.MediaStatus;
-import net.zembrowski.julian.domain.Powtorzenie;
-import net.zembrowski.julian.domain.Pytanie;
+import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.TagService;
@@ -222,11 +219,24 @@ public class EditionControler {
         pytania.deletePytanie(id);
         return "redirect:/pytanieAdd";
     }
+    @RequestMapping("/zmianaPytania")
+    public String zmienPytanie(@RequestParam("id") int id, Model model)
+    {
+        Pytanie edytowane=new Pytanie(pytania.getPytanie(id));
+
+        String tags=tagService.getQuestionTagsNames(edytowane);
+        model.addAttribute("pytanie",edytowane);
+        model.addAttribute("edition",true);
+        model.addAttribute("tags",tags);
+        return "pytanieEdition";
+    }
 
     @RequestMapping(value = "/zmianaPytania",method = RequestMethod.POST)
-    public String edycjaPytanie(Pytanie edytowane)
+    public String edycjaPytanie(Pytanie edytowane,@RequestParam("newTags")String newTags)
     {
+        tagService.editTags(pytania.getPytanie(edytowane.getId()),newTags);
         pytania.editPytanie(edytowane);
+
         return "redirect:/pokarzMenu";
     }
 
