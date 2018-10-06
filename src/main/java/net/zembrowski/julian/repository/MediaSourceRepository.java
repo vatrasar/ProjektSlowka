@@ -1,6 +1,6 @@
 package net.zembrowski.julian.repository;
 
-import jdk.internal.instrumentation.Logger;
+
 import net.zembrowski.julian.domain.MediaSource;
 import net.zembrowski.julian.domain.Pytanie;
 import org.hibernate.sql.Select;

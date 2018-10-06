@@ -16,9 +16,6 @@ public class JulianApplication  extends SpringBootServletInitializer{
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-
-
-
 		return builder.sources(JulianApplication.class);
 	}
 }
