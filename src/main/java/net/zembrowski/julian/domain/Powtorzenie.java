@@ -144,7 +144,8 @@ public class Powtorzenie {
                 break;
         }
         dzien=LocalDate.now();
-        dzien=dzien.plusDays(nastepne);
+        int nextRepete=nastepne+1;
+        dzien=dzien.plusDays(nextRepete);
     }
 
    public void utworzPowDlaBledow(Powtorzenie stare,int nowyNumer)
