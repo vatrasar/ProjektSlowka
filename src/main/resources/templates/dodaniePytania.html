@@ -17,16 +17,16 @@
 
         <div th:class="form-group">
             <label th:class="control-label">Pytanie</label>
-            <input th:class="form-control" type="text" th:field="*{question}"/>
+            <input accesskey="q" th:class="form-control" type="text" th:field="*{question}"/>
         </div>
         <div class="form-group shadow-textarea">
             <label for="odp">Odpowiedz</label>
-            <textarea th:field="*{answer}" class="form-control z-depth-1" id="odp"  rows="4"></textarea>
+            <textarea accesskey="a" th:field="*{answer}" class="form-control z-depth-1" id="odp"  rows="4"></textarea>
         </div>
 
         <div th:class="form-group">
             <label th:class="control-label">Tagi</label>
-            <input th:class="form-control" type="text" name="tagi"/>
+            <input accesskey="t" th:class="form-control" type="text" name="tagi"/>
         </div>
         <input type="hidden" th:field="*{id}" />
 
@@ -44,7 +44,7 @@
 
 
         <div th:class="row" style="text-align: center;margin-top: 20px">
-            <input  th:class="btn-default" type="submit" value="dodaj pytanie"/>
+            <input accesskey="s"  th:class="btn-default" type="submit" value="dodaj pytanie"/>
         </div>
 
 
