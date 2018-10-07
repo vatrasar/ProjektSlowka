@@ -215,9 +215,12 @@ public class TrainingControler {
         {
 
 
-            //przesówanie pytania na koniec listy
+            //przesówanie pytania
             Pytanie nowe=actualQuestionsList.remove(0);
-            actualQuestionsList.add(nowe);
+            if (actualQuestionsList.size()>10)
+                actualQuestionsList.add(10,nowe);//on 10 place
+            else
+                actualQuestionsList.add(nowe);//na koniec listy
 
         }
         else//umiem
