@@ -232,12 +232,15 @@ public class EditionControler {
     }
 
     @RequestMapping(value = "/zmianaPytania",method = RequestMethod.POST)
-    public String edycjaPytanie(Pytanie edytowane,@RequestParam("newTags")String newTags)
+    public String edycjaPytanie(Pytanie edytowane,@RequestParam("newTags")String newTags,@RequestParam("odp")MultipartFile[]plikiOdp,@RequestParam("ans")MultipartFile[]plikiQuest)
     {
         tagService.editTags(pytania.getPytanie(edytowane.getId()),newTags);
-        pytania.editPytanie(edytowane);
+        pytania.editPytanie(edytowane,plikiQuest,plikiOdp);
 
-        return "redirect:/pokarzMenu";
+        if (trainingControler.getActualQuestionsList()==null || trainingControler.getActualQuestionsList().isEmpty())
+            return "redirect:/pokarzMenu";
+        else
+           return "redirect:/cwiczNext";
     }
 
 }

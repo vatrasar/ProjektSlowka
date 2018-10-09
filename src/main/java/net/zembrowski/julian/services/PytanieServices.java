@@ -203,7 +203,7 @@ public class PytanieServices {
     }
 
     @Transactional
-    public void editPytanie(Pytanie edytowane) {
+    public void editPytanie(Pytanie edytowane, MultipartFile[] plikiQuest, MultipartFile[] plikiOdp) {
 
         Pytanie stare=pytania.getPytanie(edytowane.getId());
         edytowane.setPowtorzenie(stare.getPowtorzenie());
@@ -211,6 +211,10 @@ public class PytanieServices {
         edytowane.setLastAdded(stare.isLastAdded());
         Pytanie nowe=new Pytanie(edytowane);
         pytania.upadatePytanie(nowe);
+
+        saveFiles(plikiOdp, MediaStatus.ANSWER,nowe);
+        saveFiles(plikiQuest, MediaStatus.QUESTION, nowe);
+
         
     }
 

@@ -39,7 +39,7 @@ public class TrainingControler {
     @Autowired
     Pytanie aktualnePytanie;
 
-   private   Powtorzenie actualRepetition;
+   private Powtorzenie actualRepetition;
 
    private List<Powtorzenie>toLearn;
 
