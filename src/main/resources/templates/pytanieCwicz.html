@@ -14,16 +14,29 @@
     <style>
         #drop
         {
-            float: right;
+
             margin-right: 1%;
             color: red;
+            float: right;
+        }
+        #num
+        {
+            color: darkblue;
+            margin-right: 1%;
+            font-weight: normal;
+        }
+        .blod
+        {
+            color: greenyellow;
+            font-weight: bold;
+
         }
     </style>
 </head>
 <body>
 <a th:href="${'/zmianaPytania?id='+pyt.getId() }">zmien pytanie</a>
 <a id="drop" th:href="${'/dropPytanie?id='+pyt.getId() }">usuń pytanie</a>
-
+<p class="blod">pozaostało:<span id="num" th:text="${questionsNumber}"></span></p>
 <div class="container">
 
 

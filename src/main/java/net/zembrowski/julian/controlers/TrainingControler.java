@@ -123,6 +123,7 @@ public class TrainingControler {
         Pytanie pytanie=actualQuestionsList.get(0);
         prepareModelForQuestion(model,new Pytanie(),pytanie);
 
+
         //add media
         if(pytanie.getStatus()==Status.UMIEM_JEDNA_STRONE)// test is use for question witch should to be reverse
             prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);
@@ -170,6 +171,7 @@ public class TrainingControler {
         aktualnePytanie.setPytanie(pytanie);
         model.addAttribute("pyt",pytanie);
 
+        model.addAttribute("questionsNumber",actualQuestionsList.size());
         return;
     }
 
