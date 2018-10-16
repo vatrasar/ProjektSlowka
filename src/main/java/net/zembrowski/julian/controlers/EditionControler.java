@@ -243,4 +243,12 @@ public class EditionControler {
            return "redirect:/cwiczNext";
     }
 
+    @RequestMapping("/collectMarked")
+    public String collectMarked()
+    {
+        pytania.collectMarked(trainingControler.getToLearn());
+        return "/"
+
+    }
+
 }

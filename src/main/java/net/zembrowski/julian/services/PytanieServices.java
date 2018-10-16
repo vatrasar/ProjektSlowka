@@ -360,4 +360,22 @@ public class PytanieServices {
         }
         return result;
     }
+
+    public List<Pytanie> getQuestionsOfMarked(List<Powtorzenie> toLearn) {
+
+        toLearn=toLearn.stream().filter(Powtorzenie::isProblems).collect(Collectors.toList());
+        return getPytaniaOfRepetitions(toLearn);
+
+    }
+
+    private List<Pytanie> getPytaniaOfRepetitions(List<Powtorzenie> toLearn) {
+
+        List<Pytanie>result=new ArrayList<>();
+        for(Powtorzenie temp:toLearn)
+        {
+           result.addAll(getPytaniaPowtorzenia(temp));
+
+        }
+        return result;
+    }
 }

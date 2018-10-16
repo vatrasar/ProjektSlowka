@@ -219,8 +219,8 @@ public class TrainingControler {
 
             //przesówanie pytania
             Pytanie nowe=actualQuestionsList.remove(0);
-            if (actualQuestionsList.size()>10)
-                actualQuestionsList.add(10,nowe);//on 10 place
+            if (actualQuestionsList.size()>6)
+                actualQuestionsList.add(6,nowe);//on 6 place
             else
                 actualQuestionsList.add(nowe);//na koniec listy
 
@@ -340,6 +340,17 @@ public class TrainingControler {
             return "redirect:/pokarzMenu";
         }
         actualQuestionsList=actualQuestionsList.stream().filter(a->a.isProblem()).collect(Collectors.toList());
+        return "redirect:/cwicz";
+    }
+
+    /**
+     * injects questions from marked repetitions and then redirect to training
+     * @return
+     */
+    @RequestMapping("/trainingMarked")
+    public String trainingMarked()
+    {
+        actualQuestionsList=pytania.getQuestionsOfMarked(toLearn);
         return "redirect:/cwicz";
     }
 
