@@ -158,4 +158,13 @@ public class PowtorzenieServices {
 
         return tagService.getTagsRepetitionList(tags);
     }
+
+    @Transactional
+    public void dropRepetitions(List<Powtorzenie> toDrop) {
+
+        for(Powtorzenie temp:toDrop)
+        {
+            dropPowotrzenie(temp);
+        }
+    }
 }

@@ -247,7 +247,7 @@ public class EditionControler {
     public String collectMarked()
     {
         pytania.collectMarked(trainingControler.getToLearn());
-        return "/"
+        return "redirect:/repetsForTomorrow";
 
     }
 

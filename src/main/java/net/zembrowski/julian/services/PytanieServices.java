@@ -235,6 +235,12 @@ public class PytanieServices {
         return pytania.getPytaniaOfPowtorzenie(powtorzenie);
     }
 
+    /**
+     * it's only to upadte data in database, not to add new questions!
+     * to add new question use create question
+     * @param nowe
+     * @param pytaniaStaregoPowtorzenia
+     */
     public void addPytaniaToPowtorzenie(Powtorzenie nowe, List<Pytanie> pytaniaStaregoPowtorzenia) {
 
         for(Pytanie pyt:pytaniaStaregoPowtorzenia)
@@ -377,5 +383,25 @@ public class PytanieServices {
 
         }
         return result;
+    }
+
+    /**
+     * get questions from marked repetitions, adds all of them
+     * to first repetition an then remove the rest of marked repetitions
+     * @param toLearn
+     */
+    public void collectMarked(List<Powtorzenie> toLearn) {
+
+        if (toLearn==null || toLearn.isEmpty()) {
+            return;
+        }
+        toLearn=toLearn.stream().filter(Powtorzenie::isProblems).collect(Collectors.toList());
+        List<Pytanie> questions = getPytaniaOfRepetitions(toLearn);
+       Powtorzenie firstRepetition=toLearn.get(0);
+       addPytaniaToPowtorzenie(firstRepetition,questions);
+
+       toLearn.remove(0);
+       powtorzenia.dropRepetitions(toLearn);
+
     }
 }
