@@ -43,15 +43,21 @@ public class PytanieServices {
    {
 
    }
-    @Transactional
+
     public void createPytanie(Pytanie nowePytanie, MultipartFile[] plikiPyt, MultipartFile[] plikiOdp, String tags)
     {
-        upadateLastAdded(nowePytanie);
-        pytania.createPytanie(nowePytanie);
+        try {
+            upadateLastAdded(nowePytanie);
+            pytania.createPytanie(nowePytanie);
 
-        tagService.addQuestionTags(nowePytanie,tags);
-        saveFiles(plikiOdp, MediaStatus.ANSWER,nowePytanie);
-        saveFiles(plikiPyt, MediaStatus.QUESTION, nowePytanie);
+            tagService.addQuestionTags(nowePytanie, tags);
+            saveFiles(plikiOdp, MediaStatus.ANSWER, nowePytanie);
+            saveFiles(plikiPyt, MediaStatus.QUESTION, nowePytanie);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void upadateLastAdded(Pytanie newLast) {
@@ -88,10 +94,9 @@ public class PytanieServices {
                 continue;
             }
             Path sciezkaSrc= Paths.get(path,(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()));
-            Path sciezkaTarget= Paths.get(path,(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()));
             Path sciezkaBackup=Paths.get(pathBackup,(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()));
             try {
-                Files.write(sciezkaTarget,plik.getBytes());
+
                 Files.write(sciezkaSrc,plik.getBytes());
                 Files.write(sciezkaBackup,plik.getBytes());
                 mediaSourceService.persistanceMediaSource(new MediaSource("/programDane"+"/"+(mediaSourceService.getMaxId()+1)+plik.getOriginalFilename().substring(plik.getOriginalFilename().length()-4,plik.getOriginalFilename().length()),nowePytanie,status));

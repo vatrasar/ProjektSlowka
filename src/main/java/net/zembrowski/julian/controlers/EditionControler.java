@@ -86,7 +86,6 @@ public class EditionControler {
     }
 
     @RequestMapping(value = "/pytanieAdd",method = RequestMethod.POST)
-    @Transactional
     public String dodajPytanie(Pytanie nowe,@RequestParam("odp")MultipartFile[]plikiOdp,@RequestParam("ans")MultipartFile[]plikiAns,@RequestParam("tagi")String tags)
     {
         nowe.setPowtorzenie(akutalnePowtorzenie);
