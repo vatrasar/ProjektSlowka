@@ -171,7 +171,10 @@ public class TrainingControler {
         aktualnePytanie.setPytanie(pytanie);
         model.addAttribute("pyt",pytanie);
 
-        model.addAttribute("questionsNumber",actualQuestionsList.size());
+        if(actualQuestionsList!=null)
+            model.addAttribute("questionsNumber",actualQuestionsList.size());
+        else
+            model.addAttribute("questionsNumber",1);
         return;
     }
 

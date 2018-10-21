@@ -138,6 +138,7 @@ public class PowtorzenieServices {
     @Transactional
     public void dropPowotrzenie(Powtorzenie powtorzenie) {
 
+        tagService.dropTagsOfRepetition(powtorzenie);
 
         powtorzenia.remove(powtorzenie);
 
