@@ -123,12 +123,20 @@ public class TrainingControler {
         Pytanie pytanie=actualQuestionsList.get(0);
         prepareModelForQuestion(model,new Pytanie(),pytanie);
 
+        if (pytanie.isNotion())
+        {
+            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);
+            return "notionTrening";
+        }
+
 
         //add media
-        if(pytanie.getStatus()==Status.UMIEM_JEDNA_STRONE)// test is use for question witch should to be reverse
+        if(pytanie.getStatus()==Status.UMIEM_JEDNA_STRONE)// test is using for question witch should to be reverse
             prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);
         else
             prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.QUESTION);
+
+
 
 
         return "pytanieCwicz";
@@ -152,6 +160,7 @@ public class TrainingControler {
 
         return "odpowiedz";
     }
+
 
     @RequestMapping(value = "menuTraining")
    public String menuTraining(Model model,@RequestParam("id")String name,@RequestParam("pk") int number)
@@ -260,6 +269,7 @@ public class TrainingControler {
     }
 
 
+
     @RequestMapping(value = "/cwiczNext")
     public String workNext(Model model)
     {
@@ -280,6 +290,11 @@ public class TrainingControler {
         Pytanie pytanie=actualQuestionsList.get(0);
         prepareModelForQuestion(model,new Pytanie(),pytanie);
 
+        if (pytanie.isNotion())
+        {
+            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);
+            return "notionTrening";
+        }
         //add media
         if(pytanie.getStatus()==Status.UMIEM_JEDNA_STRONE)// test is use for question witch should to be reverse
             prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);

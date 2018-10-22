@@ -110,9 +110,17 @@ public class PowtarzanieControler {
 
         //pytanie to pytanie odpowiedz to odpowiedz
         prepareModelForQuestion(model, new Pytanie(), wykonywanePytania.get(0));
-        //add media
-        prepareModelForMedia(model, wykonywanePytania.get(0),MediaStatus.QUESTION);
-        return "pytanie";
+
+        if(wykonywanePytania.get(0).isNotion()) {
+            //add media
+            prepareModelForMedia(model, wykonywanePytania.get(0),MediaStatus.ANSWER);
+            return "notion";
+        }
+        else {
+            //add media
+            prepareModelForMedia(model, wykonywanePytania.get(0),MediaStatus.QUESTION);
+            return "pytanie";
+        }
     }
 
     /**
@@ -166,6 +174,24 @@ public class PowtarzanieControler {
         else
             prepareModelForMedia(model,pytanie,MediaStatus.ANSWER);
         return "odpowiedz";
+    }
+
+    @RequestMapping(value = "/doNotion")
+    public String doNotion(Model model)
+    {
+        if(users.updateAktualnyUzytkownik())
+        {
+            return "redirect:/pokarzPowtorzenia";
+        }
+        if (isNotSameSession())
+        {
+            return "redirect:/pokarzPowtorzenia";
+        }
+        Status status=Status.UMIEM;
+
+        pytania.zmienStatusPytania(aktualnePytanie.getId(),status);
+
+        return "redirect:/robPowtorzenie?id="+aktualnePytanie.getPowtorzenie().getNazwa()+"&pk="+aktualnePytanie.getPowtorzenie().getNumer();
     }
     @PostMapping(value = "/robPowtorzeniePodsumowanie")
     public String robPowtorzeniePodsumowanie(@RequestParam("zal") String zal, Model model)

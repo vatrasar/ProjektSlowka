@@ -28,6 +28,16 @@ public class Pytanie {
     private boolean problem;
     @Column(nullable = false,columnDefinition = "bit(1) default 0")
     boolean lastAdded;
+    @Column(nullable = false,columnDefinition = "bit(1) default 0")
+    boolean notion;
+
+    public boolean isNotion() {
+        return notion;
+    }
+
+    public void setNotion(boolean notion) {
+        this.notion = notion;
+    }
 
     public int getId() {
         return id;
@@ -84,6 +94,7 @@ public class Pytanie {
         this.status = nowe.status;
         this.id=nowe.id;
         this.problem=nowe.problem;
+        this.notion=nowe.notion;
     }
 
 
@@ -110,6 +121,7 @@ public class Pytanie {
         question=nowe.getQuestion();
         status=nowe.getStatus();
         problem=nowe.problem;
+        this.notion=nowe.notion;
     }
 
     /**

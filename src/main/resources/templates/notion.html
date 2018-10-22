@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <title>Julian</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/mediaStyle.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/pytanieStyle.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/pre.css}" type="text/css">
+</head>
+<body>
+<a th:href="${'/zmianaPytania?id='+pyt.getId() }">zmien pytanie</a>
+
+<div class="container" style="text-align: center;font-size: 25px">
+    <header>
+        <h1 th:text="${pyt.getPowtorzenie().getNazwa()+' '+pyt.getPowtorzenie().getNumer()}"></h1>
+        <h5 >Data notatek:<span th:text="${pyt.powtorzenie.getUtworzenie()}"></span></h5>
+    </header>
+    <h2 class="textPytanie" >notatka:</h2>
+
+
+
+    <div>
+
+        <pre id="preOdp" th:text="${pyt.getAnswer()}"></pre>
+
+        <script>
+            var elemen=document.getElementById("preOdp")
+            var tekst=elemen.textContent;
+
+
+            if(tekst.indexOf("\n")==-1)
+            {
+                elemen.parentNode.removeChild(elemen);
+
+                document.write("<p>"+tekst+"</p>");
+
+
+            }
+
+        </script>
+    </div>
+
+
+
+    <section th:each="a:${mediaImg}">
+        <img th:src="${a.getPath()}">
+    </section>
+
+    <section th:each="z:${mediaAudio}">
+        <audio th:src="${z.getPath()}" controls></audio>
+    </section>
+
+
+    <section th:each="k:${mediaVideo}">
+        <video th:src="${k.getPath()}" controls></video>
+    </section>
+
+    <div th:class="row" style="text-align: center;margin-top: 20px">
+        <a class="btn btn-secondary btn-lg active" role="button" aria-pressed="true" th:href="@{/doNotion}">następne</a>
+    </div>
+
+    <div th:class="row" style="text-align: center;margin-top: 20px">
+        <a th:href="@{/pokarzMenu}">wroć do menu głównego</a>
+    </div>
+</div>
+</body>
+</html>
