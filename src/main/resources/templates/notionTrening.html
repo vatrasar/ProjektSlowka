@@ -29,13 +29,11 @@
     </header>
     <h2 class="textPytanie" >notatka:</h2>
 
-
-
     <div>
         <pre id="preOdp" th:text="${pyt.getAnswer()}"></pre>
 
         <script>
-            var elemen=document.getElementById("preOdp")
+            var elemen=document.getElementById("preOdp");
             var tekst=elemen.textContent;
 
 
@@ -78,5 +76,6 @@
         <a th:href="@{/pokarzMenu}">wroć do menu głównego</a>
     </div>
 </div>
+<script th:src="@{/scripts/betterPreLooks.js}"></script>
 </body>
 </html>
