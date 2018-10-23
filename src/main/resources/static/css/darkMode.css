@@ -1,0 +1,56 @@
+body
+{
+    background-color: black;
+    color: wheat;
+
+}
+button, input[type=submit]
+{
+    background-color: darkcyan;
+}
+
+caption
+{
+    color: brown;
+}
+
+a{
+    color: darkgray;
+}
+a:hover
+{
+    color: yellow;
+}
+th
+{
+    background-color:blue;
+}
+td{
+    color: black;
+    background-color: cornsilk;
+}
+
+
+table a:hover
+{
+    color: gold;
+}
+
+table a
+{
+    font-weight: bold;
+    color: cadetblue;
+}
+
+table tr td:hover
+{
+    background-color: brown;
+}
+.problem a
+{
+    color: aliceblue;
+}
+.lastProblem a
+{
+    color: cadetblue;
+}
