@@ -409,4 +409,21 @@ public class PytanieServices {
        powtorzenia.dropRepetitions(toLearn);
 
     }
+
+    public List<Pytanie> getQuestionsByTagName(String tags, List<Pytanie> actualQuestionsList) {
+
+        final List<String>listOfTagsNames=tagService.slicingForTagNames(tags);
+      return   actualQuestionsList.stream().filter(a->{
+            String tagsNames=tagService.getQuestionTagsNames(a);
+            for (final String tag:listOfTagsNames)
+            {
+                if(tagsNames.indexOf(tag)!=-1)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }).collect(Collectors.toList());
+
+    }
 }

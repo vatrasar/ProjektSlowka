@@ -372,4 +372,7 @@ public class TrainingControler {
         return "redirect:/cwicz";
     }
 
+    public void setActualQuestionsList(List<Pytanie> actualQuestionsList) {
+        this.actualQuestionsList = actualQuestionsList;
+    }
 }

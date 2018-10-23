@@ -1,7 +1,9 @@
 package net.zembrowski.julian.controlers;
 
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.zembrowski.julian.domain.Powtorzenie;
+import net.zembrowski.julian.domain.Pytanie;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.UzytkownikService;
@@ -33,6 +35,8 @@ public class SearchControler {
     PowtorzenieServices repetitions;
     @Autowired
     TrainingControler trainingControler;
+    @Autowired
+    PytanieServices questionsseServices;
 
     @RequestMapping("/search")
     public String search(Model model)
@@ -114,6 +118,25 @@ public class SearchControler {
         LocalDate repetitionDate;DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         repetitionDate=LocalDate.parse(date,formatter);
         return repetitionDate;
+    }
+
+    @RequestMapping("/serchQuestionsFromRepetition")
+    public String serchQuestionsFromRepetitionModel(Model model)
+    {
+
+        users.updateAktualnyUzytkownik();
+        model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
+
+
+        return "typeTagName";
+    }
+    @PostMapping("/serchQuestionsFromRepetition" )
+    public String serchQuestionsFromRepetition(@RequestParam("tags") String tags)
+    {
+
+
+       trainingControler.setActualQuestionsList(questionsseServices.getQuestionsByTagName(tags,trainingControler.getActualQuestionsList()));
+        return "redirect:/cwicz";
     }
 }
 

@@ -146,4 +146,13 @@ public class TagService {
         dropTagsOfPytanie(question);//remove old tags
         addQuestionTags(question,newTags);
     }
+
+    /**
+     * slicing String with tags names for tags names and save it to the list
+     * @param tags
+     * @return
+     */
+    public List<String> slicingForTagNames(String tags) {
+        return Arrays.asList(tags.split(" "));
+    }
 }
