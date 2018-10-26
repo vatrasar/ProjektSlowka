@@ -39,7 +39,7 @@ table a:hover
 table a
 {
     font-weight: bold;
-    color: cadetblue;
+    color: slateblue;
 }
 
 table tr td:hover
@@ -53,4 +53,15 @@ table tr td:hover
 .lastProblem a
 {
     color: cadetblue;
+}
+.btn-lg
+{
+    background-color: darkslategray;
+
+    border-color: red;
+}
+
+.btn:hover
+{
+    color: gold
 }
