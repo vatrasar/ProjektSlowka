@@ -45,7 +45,7 @@ public class MediaSourceService {
 
         mediaGroups.add(getGroup("jpg png gif svg",mediaForQuestion));
         mediaGroups.add(getGroup("mp3 m4a",mediaForQuestion));
-        mediaGroups.add(getGroup("mp4",mediaForQuestion));
+        mediaGroups.add(getGroup("mp4 avi",mediaForQuestion));
         if(isNotCorrectFormat(mediaGroups,mediaForQuestion))
             throw new IllegalArgumentException("incorrect format of media!");
         return mediaGroups;
