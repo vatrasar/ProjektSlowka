@@ -65,9 +65,9 @@
 
     <form class="form-horizontal" th:action="@{/cwiczOdp}" th:method="post" th:object="${odp}">
 
-        <div th:class="form-group">
-            <label th:class="control-label">Odpowiedz:</label>
-            <input th:autocomplete="off" th:class="form-control" placeholder="Wpisz odpowiedz" th:field="*{question}" />
+        <div class="form-group shadow-textarea">
+            <label th:class="control-label" for="odp">Odpowiedz</label>
+            <textarea accesskey="a" th:field="*{question}" class="form-control z-depth-1" id="odp"  rows="4"></textarea>
         </div>
 
         <input type="hidden" th:field="*{id}" />

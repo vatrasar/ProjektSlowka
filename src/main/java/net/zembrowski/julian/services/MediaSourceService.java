@@ -31,7 +31,7 @@ public class MediaSourceService {
     }
 
     /**
-     * Groups media for three groups:first is for img,secound for audion and last for video
+     * Groups media in three groups:first is for img,secound for audion and last for video
      * @param mediaForQuestion
      *
      * @return
