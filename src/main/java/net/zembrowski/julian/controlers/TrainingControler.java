@@ -75,7 +75,11 @@ public class TrainingControler {
     {
 
 
-        users.updateAktualnyUzytkownik();
+       if(users.updateAktualnyUzytkownik())
+       {
+           return "redirect:/pokarzMenu";
+       }
+
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
 
         model.addAttribute("powtorzono",false);
