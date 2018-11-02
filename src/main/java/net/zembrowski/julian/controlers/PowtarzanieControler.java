@@ -32,6 +32,9 @@ public class PowtarzanieControler {
     @Autowired
     Pytanie aktualnePytanie;
 
+    Powtorzenie wykonywane;
+
+
     @RequestMapping(value = "/pokarzPowtorzenia")
     public String pokarzPowtorzenia(Model model)
     {
@@ -59,6 +62,14 @@ public class PowtarzanieControler {
         return "pokarzPowtorzeniaDzis";
     }
 
+    /**
+     * inject to wykonywane actual repetition and next redirect
+     * to fucntion witch makes normal repete steps
+     * @param nazwa
+     * @param numer
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/robPowtorzenie")
     public String robPowtorzenie(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer, Model model)
     {
@@ -70,8 +81,24 @@ public class PowtarzanieControler {
 
 
 
-        Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
-        //jesli powtorzenie zostało oznaczone(rozmyślnie) jako puste
+
+        wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
+       return  "redirect:/proceseRepetition";
+    }
+
+    /**
+     * check
+     * a)is repetition empty
+     * b)if not empty actualize actual question
+     *next it start repeat question
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/proceseRepetition")
+    public String proceseRepetition(Model model)
+    {
+
+
         if (wykonywane.isEmpty())
         {
             aktualnePytanie.setPowtorzenie(wykonywane);
@@ -122,6 +149,7 @@ public class PowtarzanieControler {
             return "pytanie";
         }
     }
+
 
     /**
      * add media only with MediaStatus like in status arg
@@ -208,7 +236,7 @@ public class PowtarzanieControler {
 
         pytania.zmienStatusPytania(aktualnePytanie.getId(),status);
 
-        return "redirect:/robPowtorzenie?id="+aktualnePytanie.getPowtorzenie().getNazwa()+"&pk="+aktualnePytanie.getPowtorzenie().getNumer();
+        return "redirect:/proceseRepetition";
     }
 
     @RequestMapping(value = "/robPowtorzeniePodsumowaniePustego")

@@ -42,6 +42,12 @@
             <input type="file" id="mediaPytania" name="ans" multiple>
         </div>
 
+        <div class="form-check" >
+            <input class="form-check-input" type="checkbox" value="true" th:field="*{notion}" id="reversed" checked>
+            <label class="form-check-label" for="reversed">
+                notatka
+            </label>
+        </div>
 
         <div th:class="row"  style="text-align: center;margin-top: 20px">
             <input th:required="required"  th:class="btn-default" type="submit" value="edycja pytania"/>
