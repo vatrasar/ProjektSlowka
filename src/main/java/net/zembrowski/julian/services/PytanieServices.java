@@ -9,11 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.NoResultException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -36,7 +40,7 @@ public class PytanieServices {
 
     private static String path="programDane/";//path to folder with video and img data in src(to save data)
     //on google Drive
-    private static String pathBackup="C:\\Users\\Vatrasar\\Dysk Google\\programDane";
+    private static String pathBackup=null;
 
 
    public PytanieServices()
@@ -87,6 +91,12 @@ public class PytanieServices {
      * @param nowePytanie
      */
     private void saveFiles(MultipartFile[] pliki, MediaStatus status, Pytanie nowePytanie) {
+
+       if(pathBackup==null)
+       {
+           pathBackup=getBackupDirectory();
+       }
+
         for (MultipartFile plik:pliki)
         {
             if (plik.getOriginalFilename().length()<4)//if name of file isn't right(mostly when there is no file)
@@ -111,6 +121,25 @@ public class PytanieServices {
 
 
         }
+    }
+
+    private String getBackupDirectory() {
+
+
+        try {
+            Scanner in=new Scanner(new File("backupDirectory.txt"));
+            String result=in.nextLine();
+
+            Logger.getGlobal().warning(result);
+            in.close();
+            return result;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return "";
     }
 
     public List<Pytanie> getPytaniaPowtorzeniaNiesprawdzone(Powtorzenie wykonywane) {

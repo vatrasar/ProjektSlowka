@@ -20,7 +20,7 @@
 mvnw.cmd
 mvnw
 programDane
-
+backupDirectory.txt
 ### NetBeans ###
 /nbproject/private/
 /build/
