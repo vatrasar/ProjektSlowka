@@ -32,7 +32,7 @@ public class PowtarzanieControler {
     @Autowired
     Pytanie aktualnePytanie;
 
-    Powtorzenie wykonywane;
+
 
 
     @RequestMapping(value = "/pokarzPowtorzenia")
@@ -82,7 +82,7 @@ public class PowtarzanieControler {
 
 
 
-        wykonywane=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
+       powtorzenia.ustawJakoAktualne(powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin())));
        return  "redirect:/proceseRepetition";
     }
 
@@ -99,6 +99,7 @@ public class PowtarzanieControler {
     {
 
 
+        Powtorzenie wykonywane=powtorzenia.getAktualnePowtorzenie();
         if (wykonywane.isEmpty())
         {
             aktualnePytanie.setPowtorzenie(wykonywane);
@@ -219,7 +220,7 @@ public class PowtarzanieControler {
 
         pytania.zmienStatusPytania(aktualnePytanie.getId(),status);
 
-        return "redirect:/robPowtorzenie?id="+aktualnePytanie.getPowtorzenie().getNazwa()+"&pk="+aktualnePytanie.getPowtorzenie().getNumer();
+        return "redirect:/proceseRepetition";
     }
     @PostMapping(value = "/robPowtorzeniePodsumowanie")
     public String robPowtorzeniePodsumowanie(@RequestParam("zal") String zal, Model model)

@@ -57,6 +57,10 @@ public class PowtorzenieServices {
         return powtorzenia.getPowtorzeniaNaDzis(dzis);
     }
 
+    public Powtorzenie getAktualnePowtorzenie() {
+        return aktualnePowtorzenie;
+    }
+
     public Powtorzenie getPowtorzenie(Klucz klucz) {
 
        return powtorzenia.getPowtorzenie(klucz);
