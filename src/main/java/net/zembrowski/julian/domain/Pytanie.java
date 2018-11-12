@@ -31,6 +31,10 @@ public class Pytanie {
     @Column(nullable = false,columnDefinition = "bit(1) default 0")
     boolean notion;
 
+    public Pytanie(Powtorzenie repetition) {
+        powtorzenie=repetition;
+    }
+
     public boolean isNotion() {
         return notion;
     }

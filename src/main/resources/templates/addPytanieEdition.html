@@ -14,13 +14,28 @@
             margin-right: 1%;
             color: darkorchid;
             font-weight: bold;
+            margin-bottom: 5%;
+        }
+        h1,h2,h3,h4
+        {
+            text-align: center;
+
+        }
+        h1{
+            color: darkgrey;
+        }
+
+        #dol
+        {
+            margin-bottom: 60px;
         }
     </style>
 </head>
 <body>
 <a id="show" th:href="@{/showLast}">ostanio dodane</a>
-<p th:if="${sukces}" style="color: green">Dodano Pytanie!</p>
-<h2 style="text-align: center;margin-bottom: 60px">REJESTRACJA PYTANIA</h2>
+<p>Rozmiar powtórzenia:<span th:text="${repetitionSize}"></span></p>
+<h1 th:text="${pytanie.getPowtorzenie().getNazwa()+' '+pytanie.getPowtorzenie().getNumer()}"></h1>
+<h4 style=>REJESTRACJA PYTANIA</h4>
 <div class="container">
     <form class="form-horizontal" th:action="@{/pytanieAdd}" th:method="post" enctype="multipart/form-data" th:object="${pytanie}">
 
