@@ -25,8 +25,20 @@ public class HtmlClassResolverExercises{
         {
             if(name.contains("problem"))
                 name="lastProblem";
+            else
+                name="last";
         }
         return name;
+    }
+
+    public String getTextForMarked(Powtorzenie repetition)
+    {
+        if (repetition.isProblems())
+        {
+            return "odznacz";
+        }
+        else
+            return "zaznacz";
     }
 
 }
