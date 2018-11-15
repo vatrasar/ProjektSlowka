@@ -81,39 +81,17 @@
 
         </tr>
         <tr  th:each="pow:${powtorzenia}">
-            <div th:if="${pow.isProblems() && !pow.equals(lastRepet)}">
-                <td class="problem" th:text="${pow.getNazwa()}"></td>
-                <td class="problem" th:text="${pow.getNumer()}"></td>
-                <td class="problem" th:text="${pow.getNastepne()}"></td>
-                <td class="problem" th:text="${pow.getUtworzenie()}"></td>
-                <td th:if="${pow.isEmpty()==false}" class="problem" ><a th:href="${'/menuTraining?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
-                <td th:if="${pow.isEmpty()}" class="problem" >-</td>
-                <td class="problem" ><a th:href="${'/menuEdycji?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&source=training'}">edytuj</a></td>
-                <td class="problem" ><a th:href="${'/zaznacz?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&pow='+powtorzono}">odzaznacz</a></td>
+            <div>
+                <td th:class="${classResolverExercises.resolveClass(pow,pytService.getPytaniaPowtorzenia(pow).size(),pytService.hasPowtorzenieProblems(pow),lastRepet)}" th:text="${pow.getNazwa()}"></td>
+                <td th:class="${classResolverExercises.resolveClass(pow,pytService.getPytaniaPowtorzenia(pow).size(),pytService.hasPowtorzenieProblems(pow),lastRepet)}"  th:text="${pow.getNumer()}"></td>
+                <td th:class="${classResolverExercises.resolveClass(pow,pytService.getPytaniaPowtorzenia(pow).size(),pytService.hasPowtorzenieProblems(pow),lastRepet)}"  th:text="${pow.getNastepne()}"></td>
+                <td th:class="${classResolverExercises.resolveClass(pow,pytService.getPytaniaPowtorzenia(pow).size(),pytService.hasPowtorzenieProblems(pow),lastRepet)}"  th:text="${pow.getUtworzenie()}"></td>
+                <td th:if="${pow.isEmpty()==false}" th:class="${classResolverExercises.resolveClass(pow,pytService.getPytaniaPowtorzenia(pow).size(),pytService.hasPowtorzenieProblems(pow),lastRepet)}"  ><a th:href="${'/menuTraining?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
+                <td th:if="${pow.isEmpty()}" th:class="${classResolverExercises.resolveClass(pow,pytService.getPytaniaPowtorzenia(pow).size(),pytService.hasPowtorzenieProblems(pow),lastRepet)}"  >-</td>
+                <td th:class="${classResolverExercises.resolveClass(pow,pytService.getPytaniaPowtorzenia(pow).size(),pytService.hasPowtorzenieProblems(pow),lastRepet)}"  ><a th:href="${'/menuEdycji?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&source=training'}">edytuj</a></td>
+                <td th:class="${classResolverExercises.resolveClass(pow,pytService.getPytaniaPowtorzenia(pow).size(),pytService.hasPowtorzenieProblems(pow),lastRepet)}"  ><a th:href="${'/zaznacz?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&pow='+powtorzono}">odzaznacz</a></td>
 
 
-
-            </div>
-            <div th:if="${pow.isProblems()!= true && !pow.equals(lastRepet)}">
-                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem" th:text="${pow.getNazwa()}"></td>
-                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem"  th:text="${pow.getNumer()}"></td>
-                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem"  th:text="${pow.getNastepne()}"></td>
-                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem"  th:text="${pow.getUtworzenie()}"></td>
-                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem"  th:if="${pow.isEmpty()==false}"><a th:href="${'/menuTraining?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
-                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem"  th:if="${pow.isEmpty()}">-</td>
-                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem" ><a th:href="${'/menuEdycji?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&source=training'}">edytuj</a></td>
-                <td class="" th:classappend="${pytService.hasPowtorzenieProblems(pow)}?hasProblem" ><a th:href="${'/zaznacz?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&pow='+powtorzono}">zaznacz</a></td>
-
-            </div>
-            <div th:if="${pow.equals(lastRepet)}">
-                <td class="" th:classappend="${pow.isProblems()}?lastProblem:last" th:text="${pow.getNazwa()}"></td>
-                <td class="" th:classappend="${pow.isProblems()}?lastProblem:last"  th:text="${pow.getNumer()}"></td>
-                <td class="" th:classappend="${pow.isProblems()}?lastProblem:last"  th:text="${pow.getNastepne()}"></td>
-                <td class="" th:classappend="${pow.isProblems()}?lastProblem:last"  th:text="${pow.getUtworzenie()}"></td>
-                <td class="" th:classappend="${pow.isProblems()}?lastProblem:last"  th:if="${pow.isEmpty()==false}"><a th:href="${'/menuTraining?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
-                <td class="" th:classappend="${pow.isProblems()}?lastProblem:last"  th:if="${pow.isEmpty()}">-</td>
-                <td class="" th:classappend="${pow.isProblems()}?lastProblem:last" ><a th:href="${'/menuEdycji?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&source=training'}">edytuj</a></td>
-                <td class="" th:classappend="${pow.isProblems()}?lastProblem:last" ><a th:href="${'/zaznacz?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&pow='+powtorzono}">zaznacz</a></td>
 
             </div>
         </tr>

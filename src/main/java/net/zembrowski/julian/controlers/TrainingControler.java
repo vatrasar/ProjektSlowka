@@ -85,7 +85,7 @@ public class TrainingControler {
         model.addAttribute("powtorzono",false);
         model.addAttribute("classResolver", PowClassResolver.dark);
         model.addAttribute("pytService",pytania);
-
+        model.addAttribute("classResolverExercises",new HtmlClassResolverExercises());
 
         if(actualRepetition==null)
         {
@@ -321,6 +321,7 @@ public class TrainingControler {
        model.addAttribute("classResolver", PowClassResolver.dark);
        model.addAttribute("pytService",pytania);
        model.addAttribute("lastRepet",actualRepetition);
+       model.addAttribute("classResolverExercises",new HtmlClassResolverExercises());
 
     }
 
