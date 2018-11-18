@@ -16,10 +16,7 @@ public class HtmlClassResolverExercises{
         }
         if(repetition.isProblems())
         {
-            if(name.equals("hasProblem"))
-                name=name+"problem";
-            else
-                name="problem";
+            name="problem";
         }
         if(repetition.equals(last))
         {
