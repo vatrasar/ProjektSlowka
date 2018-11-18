@@ -153,27 +153,24 @@ public class PytanieServices {
     public void zatwierdzWykonaniePowtorzenia(Powtorzenie wykonywane) {
 
         List<Pytanie>bledy=pytania.getBledy(wykonywane);
-
+        //set problem off
+        bledy.forEach(a->a.setProblem(false));
+        List<Pytanie>hardQuestions=pytania.getHardQuestions(bledy);//question is hard when has bad statistics
         if(bledy.size()!=0) {
             //uzyskanie numeru jakie powinno miec powtorzenie z bledami
             int numer = 1 + powtorzenia.getMaxNumer(wykonywane.getNazwa());
 
-            //tworzymy nowe powtorzenie dla bledów
-            Powtorzenie powDlaBledow = new Powtorzenie();
-            powDlaBledow.utworzPowDlaBledow(wykonywane, numer);
 
+            if(!hardQuestions.isEmpty())
+            {
 
-            //dodanie nowego powtrzenia do bazy
-            powtorzenia.persistPowtorzenie(powDlaBledow);
-            tagService.copyGlobalTags(wykonywane,powDlaBledow);
-            //set problem off
-            bledy.forEach(a->a.setProblem(false));
-            //dodaj bledy do danego powtorzenia
-            for (Pytanie modyfikowane : bledy) {
-                pytania.dodajDoPowtorzenia(modyfikowane, powDlaBledow);
-
+                int numberForHard=numer+1;
+                bledy.removeAll(hardQuestions);
+                createRepetitionForFaults(wykonywane, hardQuestions, numberForHard, true);
             }
-            pytania.nadajStatusNiesprawdzone(powDlaBledow);
+
+            //tworzymy nowe powtorzenie dla bledów
+            createRepetitionForFaults(wykonywane, bledy, numer, false);
 
         }
         wykonywane.refaktoryzujPowtorzenie();
@@ -181,6 +178,27 @@ public class PytanieServices {
         pytania.nadajStatusNiesprawdzone(wykonywane);
 
 
+    }
+
+    private void pushStatistic(Pytanie a, int next) {
+        a.pushStatistic(next);
+        pytania.upadatePytanie(a);
+    }
+
+    private Powtorzenie createRepetitionForFaults(Powtorzenie oldRepetition, List<Pytanie> questions, int idNumber, boolean hard) {
+        final int next=oldRepetition.getNastepne();
+        questions.forEach(a->pushStatistic(a,next));
+        Powtorzenie repetiotionForFaults = new Powtorzenie();
+        repetiotionForFaults.utworzPowDlaBledow(oldRepetition, idNumber, hard);
+        powtorzenia.persistPowtorzenie(repetiotionForFaults);
+        tagService.copyGlobalTags(oldRepetition, repetiotionForFaults);
+        //dodaj bledy do danego powtorzenia
+        for (Pytanie modyfikowane : questions) {
+            pytania.dodajDoPowtorzenia(modyfikowane, repetiotionForFaults);
+
+        }
+        pytania.nadajStatusNiesprawdzone(repetiotionForFaults);
+        return repetiotionForFaults;
     }
 
     /**
@@ -201,7 +219,7 @@ public class PytanieServices {
 
             //tworzymy nowe powtorzenie dla bledów
             Powtorzenie powDlaBledow = new Powtorzenie();
-            powDlaBledow.utworzPowDlaBledow(wykonywane, numer);
+            powDlaBledow.utworzPowDlaBledow(wykonywane, numer,false);
 
             powDlaBledow.setEmpty(true);
             //dodanie nowego powtrzenia do bazy
@@ -455,4 +473,5 @@ public class PytanieServices {
         }).collect(Collectors.toList());
 
     }
+
 }

@@ -38,18 +38,30 @@ public class Powtorzenie {
     //when is true you will have to ask for question and then ask for answer (two ways repete)
     @Column(nullable = false, columnDefinition = "bit(1) default 0")
     private boolean reverse;
+    @Column(nullable = false, columnDefinition = "bit(1) default 0")
+    private boolean hard;
 
   public Powtorzenie()
     {
 
+        hard=false;
     }
 
-    public Powtorzenie(String nazwa,String wlasciciel,int numer)
+    public boolean isHard() {
+        return hard;
+    }
+
+    public void setHard(boolean hard) {
+        this.hard = hard;
+    }
+
+    public Powtorzenie(String nazwa, String wlasciciel, int numer)
     {
 
         this.wlasciciel=wlasciciel;
         this.nazwa=nazwa;
         this.numer=numer;
+        hard=false;
     }
     public boolean isReverse() {
         return reverse;
@@ -122,33 +134,42 @@ public class Powtorzenie {
     /*dodaje odpowiednia liczbe dni do numeru.ustala date kiedy ma byc przeprowadzone nastepne powtorzenie*/
     public void refaktoryzujPowtorzenie() {
 
-        switch (nastepne)
+        if(isHard() && nastepne==10)
         {
-            case 1:
-                nastepne=3;
-                break;
-            case 3:
-                nastepne=10;
-                break;
-            case 10:
-                nastepne=30;
-                break;
-            case 30:
-                nastepne=90;
-                break;
-            case 180:
-                nastepne=360;
-                break;
-            case 360:
-                nastepne=360;
-                break;
+            nastepne=20;
+        }
+        else {
+
+            switch (nastepne) {
+                case 1:
+                    nastepne = 3;
+                    break;
+                case 3:
+                    nastepne = 10;
+                    break;
+                case 10:
+                    nastepne = 30;
+                    break;
+                case 20:
+                    nastepne = 30;
+                    break;
+                case 30:
+                    nastepne = 90;
+                    break;
+                case 180:
+                    nastepne = 360;
+                    break;
+                case 360:
+                    nastepne = 360;
+                    break;
+            }
         }
         dzien=LocalDate.now();
         int nextRepete=nastepne+1;
         dzien=dzien.plusDays(nextRepete);
     }
 
-   public void utworzPowDlaBledow(Powtorzenie stare,int nowyNumer)
+   public void utworzPowDlaBledow(Powtorzenie stare,int nowyNumer,boolean hard)
    {
        this.setNazwa(stare.getNazwa());
        this.setDzien(LocalDate.now().plusDays(1));
@@ -158,6 +179,7 @@ public class Powtorzenie {
        this.setNastepne(1);
        this.setUtworzenie(stare.getUtworzenie());
        this.setReverse(stare.reverse);
+       this.setHard(hard);
    }
 
 

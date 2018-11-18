@@ -30,9 +30,26 @@ public class Pytanie {
     boolean lastAdded;
     @Column(nullable = false,columnDefinition = "bit(1) default 0")
     boolean notion;
+    @OneToOne
+    Statistics statistics;
 
+    public boolean isHard()
+    {
+        if(statistics.getThirty()>=1)
+            return true;
+        else
+            return false;
+    }
     public Pytanie(Powtorzenie repetition) {
         powtorzenie=repetition;
+    }
+
+    public Statistics getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(Statistics statistics) {
+        this.statistics = statistics;
     }
 
     public boolean isNotion() {
@@ -99,6 +116,7 @@ public class Pytanie {
         this.id=nowe.id;
         this.problem=nowe.problem;
         this.notion=nowe.notion;
+        this.statistics=nowe.statistics;
     }
 
 
@@ -126,6 +144,7 @@ public class Pytanie {
         status=nowe.getStatus();
         problem=nowe.problem;
         this.notion=nowe.notion;
+        this.statistics=nowe.statistics;
     }
 
     /**
@@ -145,5 +164,14 @@ public class Pytanie {
 
     public void setLastAdded(boolean lastAdded) {
         this.lastAdded = lastAdded;
+    }
+
+    public void pushStatistic(int next) {
+        switch (next)
+        {
+            case 30:
+                statistics.pushThirty();
+        }
+
     }
 }

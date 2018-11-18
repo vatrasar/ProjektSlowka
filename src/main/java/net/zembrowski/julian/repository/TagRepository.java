@@ -14,6 +14,7 @@ import java.util.List;
 
 @Repository
 public class TagRepository {
+
     @PersistenceContext
    private EntityManager em;
 
@@ -54,6 +55,7 @@ public class TagRepository {
         return em.createQuery("SELECT t FROM Tag t where t.powtorzenie=:repetitionWanted",Tag.class).setParameter("repetitionWanted",akutalnePowtorzenie).getResultList();
 
 
-
     }
+
+
 }

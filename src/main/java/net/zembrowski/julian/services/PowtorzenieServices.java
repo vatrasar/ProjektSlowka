@@ -48,6 +48,7 @@ public class PowtorzenieServices {
         aktualnePowtorzenie.setUtworzenie(noweAktualne.getUtworzenie());
         aktualnePowtorzenie.setEmpty(noweAktualne.isEmpty());
         aktualnePowtorzenie.setReverse(noweAktualne.isReverse());
+        aktualnePowtorzenie.setHard(noweAktualne.isHard());
 
     }
 
