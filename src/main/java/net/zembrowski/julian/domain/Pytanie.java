@@ -35,7 +35,7 @@ public class Pytanie {
 
     public boolean isHard()
     {
-        if(statistics.getThirty()>=1)
+        if(statistics.getThirty()>=1 || statistics.getTen()>=1)
             return true;
         else
             return false;
@@ -167,11 +167,8 @@ public class Pytanie {
     }
 
     public void pushStatistic(int next) {
-        switch (next)
-        {
-            case 30:
-                statistics.pushThirty();
-        }
+        statistics.pushStat(next);
+
 
     }
 }

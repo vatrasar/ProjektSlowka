@@ -12,15 +12,18 @@ public class Statistics {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
-    int thirty;
+    private int thirty;
+    private int ten;
 
-    public Statistics(int id, int thirty) {
+    public Statistics(int id, int thirty,int ten) {
         this.id = id;
         this.thirty = thirty;
+        this.ten=ten;
     }
 
     public Statistics() {
         thirty=0;
+        ten=0;
     }
 
     public int getId() {
@@ -36,9 +39,23 @@ public class Statistics {
         return thirty;
     }
 
-    public void pushThirty() {
-
-        thirty++;
+    public int getTen() {
+        return ten;
     }
 
+    /**
+     * add +1 to weight of appropriate statistic
+     * @param next
+     */
+    public void pushStat(int next) {
+        switch (next)
+        {
+            case 30:
+                thirty++;
+                break;
+            case 10:
+                ten++;
+                break;
+        }
+    }
 }

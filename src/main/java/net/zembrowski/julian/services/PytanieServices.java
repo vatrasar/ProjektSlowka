@@ -156,18 +156,17 @@ public class PytanieServices {
         //set problem off
         bledy.forEach(a->a.setProblem(false));
         List<Pytanie>hardQuestions=pytania.getHardQuestions(bledy);//question is hard when has bad statistics
+        //uzyskanie numeru jakie powinno miec powtorzenie z bledami
+        int numer = 1 + powtorzenia.getMaxNumer(wykonywane.getNazwa());
+        if(!hardQuestions.isEmpty())
+        {
+
+            int numberForHard=numer+1;
+            bledy.removeAll(hardQuestions);
+            createRepetitionForFaults(wykonywane, hardQuestions, numberForHard, true);
+        }
+
         if(bledy.size()!=0) {
-            //uzyskanie numeru jakie powinno miec powtorzenie z bledami
-            int numer = 1 + powtorzenia.getMaxNumer(wykonywane.getNazwa());
-
-
-            if(!hardQuestions.isEmpty())
-            {
-
-                int numberForHard=numer+1;
-                bledy.removeAll(hardQuestions);
-                createRepetitionForFaults(wykonywane, hardQuestions, numberForHard, true);
-            }
 
             //tworzymy nowe powtorzenie dla bledów
             createRepetitionForFaults(wykonywane, bledy, numer, false);

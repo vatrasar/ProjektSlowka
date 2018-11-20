@@ -134,9 +134,37 @@ public class Powtorzenie {
     /*dodaje odpowiednia liczbe dni do numeru.ustala date kiedy ma byc przeprowadzone nastepne powtorzenie*/
     public void refaktoryzujPowtorzenie() {
 
-        if(isHard() && nastepne==10)
+        if(isHard())
         {
-            nastepne=20;
+            switch (nastepne) {
+                case 1:
+                    nastepne = 3;
+                    break;
+                case 3:
+                    nastepne = 6;
+                    break;
+                case 6:
+                    nastepne=10;
+                    break;
+                case 10:
+                    nastepne = 20;
+                    break;
+                case 20:
+                    nastepne = 30;
+                    break;
+                case 30:
+                    nastepne = 90;
+                    break;
+                case 90:
+                    nastepne = 180;
+                    break;
+                case 180:
+                    nastepne = 360;
+                    break;
+                case 360:
+                    nastepne = 360;
+                    break;
+            }
         }
         else {
 
@@ -155,6 +183,9 @@ public class Powtorzenie {
                     break;
                 case 30:
                     nastepne = 90;
+                    break;
+                case 90:
+                    nastepne = 180;
                     break;
                 case 180:
                     nastepne = 360;
