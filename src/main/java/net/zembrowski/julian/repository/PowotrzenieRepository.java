@@ -64,7 +64,7 @@ public class PowotrzenieRepository {
         List<Powtorzenie> result=null;
         while (true) {
             try {
-                result = em.createQuery("select p from Powtorzenie p WHERE p.dzien<=:dzis AND p.wlasciciel=:akutalny order by nazwa,nastepne", Powtorzenie.class).setParameter("dzis", dzis).setParameter("akutalny", akutalnyUzytkownik.getLogin()).getResultList();
+                result = em.createQuery("select p from Powtorzenie p WHERE p.dzien<=:dzis AND p.wlasciciel=:akutalny order by nastepne,utworzenie DESC,nazwa", Powtorzenie.class).setParameter("dzis", dzis).setParameter("akutalny", akutalnyUzytkownik.getLogin()).getResultList();
             } catch (Exception e) {
                 e.printStackTrace();
             }
