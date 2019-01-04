@@ -139,4 +139,6 @@ public class PowotrzenieRepository {
             return em.find(Powtorzenie.class, klucz);
         }
     }
+
+
 }

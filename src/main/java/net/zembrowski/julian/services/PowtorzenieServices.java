@@ -173,4 +173,15 @@ public class PowtorzenieServices {
             dropPowotrzenie(temp);
         }
     }
+
+    /**
+     * archives akutalnePowturzenie. Set next repetition for 1000_000 days from now
+     * @param akutalnePowtorzenie
+     */
+    @Transactional
+    public void archPow(Powtorzenie akutalnePowtorzenie) {
+        akutalnePowtorzenie.setNastepne(1000_000);
+        akutalnePowtorzenie.setDzien(akutalnePowtorzenie.getDzien().plusDays(1000_000));
+        powtorzenia.updatePowtorzenie(akutalnePowtorzenie);
+    }
 }

@@ -104,7 +104,12 @@ public class EditionControler {
         powtorzenia.dropPowotrzenie(akutalnePowtorzenie);
         return "redirect:/training";
     }
-
+    @RequestMapping("/archPow")
+    public String archPow()
+    {
+        powtorzenia.archPow(akutalnePowtorzenie);
+        return "redirect:/repetsForTomorrow";
+    }
     @RequestMapping("/edit")
     public String edit(Model model)
     {
