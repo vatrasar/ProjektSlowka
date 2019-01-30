@@ -83,7 +83,9 @@ public class PytanieRepository {
      */
     public void deletePytanie(int id) {
         Pytanie deleteQuestion=em.find(Pytanie.class,id);
-        em.remove(deleteQuestion.getStatistics());
+        Statistics statistics=deleteQuestion.getStatistics();
+        if(statistics!=null)
+            em.remove(deleteQuestion.getStatistics());
         em.remove(deleteQuestion);
     }
 
