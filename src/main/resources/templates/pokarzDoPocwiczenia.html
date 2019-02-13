@@ -62,7 +62,7 @@
 </div>
 
 <p style="font-weight: bold">zalogowany jako:<span style="font-weight: normal;color: cornflowerblue;" th:text="${nazwaUzytkownika}"></span></p>
-<p th:if="${powtorzono}" style="color: green">Powtorzenie zakonczone!</p>
+<p id="repetitionEnd" th:if="${powtorzono}" style="color: green">Powtorzenie zakonczone!</p>
 
 
 <div style="text-align: center;">
@@ -107,5 +107,6 @@
         <a style="margin-right: auto;margin-left: auto" href="/collectMarked" class="btn btn-secondary btn-lg active">scal oznaczone</a>
     </div>
 </div>
+<script th:src="@{/scripts/hideStatement.js}"></script>
 </body>
 </html>
