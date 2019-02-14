@@ -12,22 +12,22 @@
 <body>
 <h2 style="text-align: center;margin-bottom: 60px">Edycja Pytania</h2>
 <div class="container">
-    <form class="form-horizontal" th:action="@{/zmianaPytania}" enctype="multipart/form-data" th:method="post" th:object="${pytanie}">
+    <form th:class="form-horizontal" th:action="@{/zmianaPytania}" enctype="multipart/form-data" th:method="post" th:object="${pytanie}">
 
         <div th:class="form-group">
             <label th:class="control-label">Pytanie</label>
-            <input th:class="form-control" type="text" th:field="*{question}"/>
+            <input class="form-control question" type="text" th:field="*{question}"/>
         </div>
 
 
         <div class="form-group shadow-textarea">
-            <label th:class="control-label" for="odp">Odpowiedz</label>
+            <label class="control-label" for="odp">Odpowiedz</label>
             <textarea th:field="*{answer}" class="form-control z-depth-1" id="odp"  rows="4"></textarea>
         </div>
 
-        <div th:class="form-group">
+        <div class="form-group">
             <label th:class="control-label">Tagi</label>
-            <input th:class="form-control" th:value="${tags}" type="text" name="newTags"/>
+            <input class="form-control" th:value="${tags}" type="text" name="newTags"/>
         </div>
         <input type="hidden" th:field="*{id}" />
 
@@ -39,10 +39,10 @@
 
         <div th:class="form-group">
             <label for="mediaPytania">pytanie</label>
-            <input type="file" id="mediaPytania" name="ans" multiple>
+            <input class="question" type="file" id="mediaPytania" name="ans" multiple>
         </div>
 
-        <div class="form-check" >
+        <div th:class="form-check" >
             <input class="form-check-input" type="checkbox" value="true" th:field="*{notion}" id="reversed" checked>
             <label class="form-check-label" for="reversed">
                 notatka
@@ -59,5 +59,6 @@
 
     </form>
 </div>
+<script th:src="@{/scripts/questionScript.js}"></script>
 </body>
 </html>
