@@ -14,15 +14,21 @@
 
 </head>
 <body>
-<form class="form-horizontal">
+<h1 style="text-align: center">Logowanie</h1>
+<div class="container">
+<form th:action="@{/login}" method="POST"  class="form-horizontal">
     <div class="form-group">
         <label for="log">Login</label>
-        <input id="log" class="form-control" type="text">
+        <input name="username" id="log" class="form-control" type="text">
     </div>
     <div class="form-group">
-        <label for="pas"></label>
-        <input  class="control-label" id="pas" type="password">
+        <label for="pas">Hasło</label>
+        <input name="password"  class="form-control" id="pas" type="password">
     </div>
-
+    <p style="color:red" th:if="${error}">Uwaga błędne dane, spróbuj ponownie</p>
+    <div style="text-align: center">
+    <input  type="submit" class="btn btn-primary" value="Zatwierdź">
+    </div>
 </form>
+</div>
 </body>

@@ -24,7 +24,7 @@ public class MenuControler {
     @Autowired
     PowtorzenieServices powtorzenia;
 
-    @RequestMapping(value = "/pokarzMenu")
+    @RequestMapping(value = {"/pokarzMenu", "/"})
    public String wyswietlMenu(Model model)
     {
 
