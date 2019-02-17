@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 @Controller
 @Scope("session")
-public class EditionControler {
+public class EditionController {
 
     @Autowired
     UzytkownikService uytkownicy;

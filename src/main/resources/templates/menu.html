@@ -7,32 +7,31 @@
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/styleMenu.css}" />
-
     <link rel="stylesheet" th:href="@{/css/darkMode.css}" type="text/css">
-
-
+    <link rel="stylesheet" th:href="@{/css/menuButtons.css}" type="text/css">
 
 </head>
 <body>
+
 <p style="font-weight: bold">zalogowany jako:<span th:text="${nazwaUzytkownika}"></span></p>
 <div th:class="container">
 
     <table th:class="table" border="1" style="width: 30%" >
         <caption style="text-align: center;font-weight: bold;font-size: 25px">GłÓWNE MENU</caption>
         <tr>
-            <td><a th:href="@{/dodaniePowtorzenia}">Dodaj Powtorzenie</a></td>
+            <td class="shine"><a th:href="@{/dodaniePowtorzenia}">Dodaj Powtorzenie</a></td>
         </tr>
         <tr>
-            <td><a th:href="@{/pokarzPowtorzenia}">Powtarzaj</a></td>
+            <td class="shine"><a th:href="@{/pokarzPowtorzenia}">Powtarzaj</a></td>
         </tr>
         <tr>
-            <td><a th:href="@{/licznik}">Plan tygodnia</a></td>
+            <td class="shine"><a th:href="@{/licznik}">Plan tygodnia</a></td>
         </tr>
         <tr>
-            <td><a th:href="@{/trainingMenu}">Ucz sie</a></td>
+            <td class="shine"> <a th:href="@{/trainingMenu}">Ucz sie</a></td>
         </tr>
         <tr>
-            <td><a th:href="@{/rejestruj}">Zarejestruj</a></td>
+            <td class="shine"><a th:href="@{/rejestruj}">Zarejestruj</a></td>
         </tr>
         <tr>
             <td><a th:href="@{/login}">Login</a></td>

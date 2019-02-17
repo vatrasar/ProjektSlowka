@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @Scope("session")
-public class MenuControler {
+public class MenuController {
 
     @Autowired
     UzytkownikService users;

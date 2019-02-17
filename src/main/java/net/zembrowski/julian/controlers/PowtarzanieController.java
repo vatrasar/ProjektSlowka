@@ -18,7 +18,7 @@ import java.util.List;
 
 @Controller
 @Scope("session")
-public class PowtarzanieControler {
+public class PowtarzanieController {
 
     @Autowired
     UzytkownikService users;

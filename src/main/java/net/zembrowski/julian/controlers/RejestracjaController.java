@@ -17,7 +17,7 @@ import javax.naming.Context;
 
 @Controller
 @Scope("session")
-public class RejestracjaControler {
+public class RejestracjaController {
 
     @Autowired
     UzytkownikService uzytkownicy;
