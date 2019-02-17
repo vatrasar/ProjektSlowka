@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 public class UzytkownikService {
 
     @Autowired
-  private  RepositoryUzytkownik uzytkownicy;
+    private  RepositoryUzytkownik uzytkownicy;
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
     /**
      *
@@ -38,12 +41,13 @@ public class UzytkownikService {
 
 
     }
- public String getActualUserLogin()
+    public String getActualUserLogin()
     {
         return uzytkownicy.getActualUser().getLogin();
     }
     public void addUzytkownik(Uzytkownik nowyUzytkownik)
     {
+        nowyUzytkownik.setHaslo(encoder.encode(nowyUzytkownik.getHaslo()));
         uzytkownicy.createUzytkonik(nowyUzytkownik);
     }
 

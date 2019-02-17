@@ -9,19 +9,24 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 import javax.sql.DataSource;
 
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConf extends WebSecurityConfigurerAdapter {
 
     @Autowired
     DataSource dataSource;
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
 
     @Override
@@ -34,11 +39,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
                 .formLogin().defaultSuccessUrl("/pokarzMenu");
     }
 
-    @SuppressWarnings("deprecation")
-    @Bean
-    public static NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-    }
+
 
     @Autowired
     public void securityUsers(AuthenticationManagerBuilder auth) throws Exception {
@@ -46,7 +47,8 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery("SELECT login,haslo,enabled FROM Uzytkownik WHERE login = ?")
-                .authoritiesByUsernameQuery("SELECT username,role FROM Role WHERE username = ?");
+                .authoritiesByUsernameQuery("SELECT username,role FROM Role WHERE username = ?")
+                .passwordEncoder(encoder);
 
 
     }
