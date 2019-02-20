@@ -2,25 +2,26 @@
 
 ## Wstęp
 Obecnie jest to mój największy projekt. Początkowo miała to być prosta aplikacja na zaliczenie przedmiotu na studiach.
-Okazała się ona dla mnie na tyle pomocna w nauce, że używałem ją przez następne pół roku, stale ją przy tym rozwijając.
+Okazała się ona dla mnie na tyle pomocna w nauce że używałem ją przez następne pół roku, stale przy tym rozwijając.
 
 ## Wykorzystane technologie
-1. spring boot
+* Java 1.8
+* spring boot
 * spring mvc
 * spring security
 * JPA
-2. Maven
-3. HTML
-4. CSS
-5. javaScript
-6. jQuery
-7. Thymeleaf
-8. Java 1.8
+* Maven
+* HTML
+* CSS
+* javaScript
+* jQuery
+* Thymeleaf
+
 
 
 ## Zastosowanie
 Program służy do organizacji i przeprowadzania powtórzeń materiału którego chcemy się nauczyć (np. słówek). Pozwala
-dodać powtórzenie oraz pytania które mają się w nim znaleźć. Następnie
+dodać powtórzenie oraz pytania (i odpowiedzi do nich) które mają się w nim znaleźć. Następnie
 program ustala którego dnia ma zostać przeprowadzone powtórzenie. W czasie
 przeprowadzania powtórzenia program wyświetla użytkownikowi pytanie i
 pozwala wpisać odpowiedz. Następnie użytkownik decyduje czy jego
@@ -33,6 +34,7 @@ zobaczymy po 10 dniach.
 
 
 Program pozwala dodatkowo na:
+### Do pytań i odpowiedzi można dodawać multimedia: filmy, zdjęcia oraz dźwięki 
 
 ### Tworzenie pustych powtórzeń
 Czyli powtórzenia które nie ma żadnych pytań. Takie powtórzenia mogą pomóc w planowaniu powtórzeń do których nie potrzeba pytań 
@@ -40,7 +42,7 @@ Czyli powtórzenia które nie ma żadnych pytań. Takie powtórzenia mogą pomó
 ### Tworzenie notatek
 Notatka może znaleźć się w dowolnym powtórzeniu. Nie posiada ona pytania lecz samą odpowiedz.
 ### Edycje powtórzeń 
-* zmienić wszystkie właściwości powtórzenia (takie jak nazwa, data notatek itp)
+* zmianę wszystkie właściwości powtórzenia (takie jak nazwa, data notatek itp)
 * dodawanie lub usuwanie pytań
 * modyfikowanie treści pytań
 
@@ -57,7 +59,7 @@ Można wyszukać pytania i powtórzenia. Za kryteria można brać nazwę powtór
 Opcja nauki rożni się od powtarzania tym, że podczas powtarzania nasze odpowiedzi mają konsekwencje. Jeżeli w danym pytaniu naciśniemy 'Umiem' to 'poziom' tego pytania zostanie zwiększony. Natomiast jeżeli zaznaczymy opcje 'nie umiem' to poziom pytania zostanie zresetowany i będziemy musieli je znowu powtarzać już następnego dnia.
 
 W wypadku nauki nie ma żadnych konsekwencji. Możemy  wielokrotnie przerabiać to samo powtórzenie tego samego dnia.
-### Zaznaczenie problematycznych
+### Zaznaczenie problematycznych pytań
 Przydaje się gdy uczyliśmy się 100 pytań, a 10 z nich sprawiło nam problemy. Dzięki zaznaczaniu problemów możemy później łatwo do nich wrócić i dokładniej przerobić.
 
 ### Operowanie na zbiorach powtórzeniach
@@ -66,4 +68,4 @@ Przydaje się gdy uczyliśmy się 100 pytań, a 10 z nich sprawiło nam problemy
 * ćwiczenie problematycznych pytań ze wszystkich wyszukanych powtórzeń razem
 
 ## Uwaga
-W projekcie wystepują zarówno polskie jak i angielskie nazwy zmiennych/plików. Wynika to z faktu że pczątkowo miał to być  mały projekt studencki. Z tego względu na początku używałem polskich nazw, teraz staram się używać wyłącznie angielskich. 
+W projekcie występują zarówno polskie jak i angielskie nazwy zmiennych/plików. Wynika to z faktu że początkowo miał to być  mały projekt studencki. Z tego względu na początku używałem polskich nazw, teraz staram się używać wyłącznie angielskich. 
