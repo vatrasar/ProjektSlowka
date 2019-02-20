@@ -2,7 +2,21 @@
 
 ## Wstęp
 Obecnie jest to mój największy projekt. Początkowo miała to być prosta aplikacja na zaliczenie przedmiotu na studiach.
-Okazała się ona dla mnie na tyle pomocna w nauce że używałem ją przez następne pół roku, stale ja przy tym rozwijając.
+Okazała się ona dla mnie na tyle pomocna w nauce, że używałem ją przez następne pół roku, stale ją przy tym rozwijając.
+
+## Wykorzystane technologie
+1. spring boot
+* spring mvc
+* spring security
+* JPA
+2. Maven
+3. HTML
+4. CSS
+5. javaScript
+6. jQuery
+7. Thymeleaf
+8. Java 1.8
+
 
 ## Zastosowanie
 Program służy do organizacji i przeprowadzania powtórzeń materiału którego chcemy się nauczyć (np. słówek). Pozwala
@@ -14,19 +28,19 @@ odpowiedz była poprawna czy nie. Jeśli któraś odpowiedz była niepoprawna
 program utworzy nowe powtórzenie z błędami które będzie przewidziane na
 następny dzień. Powtórzenie z pozostałymi pytaniami jest wtedy przeniesione
 na kolejny poziom. Poziomy to:1, 3, 10, 30, 90, 180, 360 dni. Działa to tak że np. pytanie na które dobrze odpowiedzieliśmy po 
-3 dniach nastepnym razem 
+3 dniach następnym razem 
 zobaczymy po 10 dniach.
 
 
-Program pozwala dodaktowo na:
+Program pozwala dodatkowo na:
 
 ### Tworzenie pustych powtórzeń
-Czyli powtórzenia które nie ma żadnych pytań. Takie powtórzenia mogą pomoć w planowaniu powtórzeń do których nie potrzeba pytań 
+Czyli powtórzenia które nie ma żadnych pytań. Takie powtórzenia mogą pomóc w planowaniu powtórzeń do których nie potrzeba pytań 
 (np. układów tanecznych)
 ### Tworzenie notatek
-Notatka może znalezc się w dowolnym powtorzeniu. Nie posiada ona pytania lecz samą odpowiedz.
+Notatka może znaleźć się w dowolnym powtórzeniu. Nie posiada ona pytania lecz samą odpowiedz.
 ### Edycje powtórzeń 
-* zmienić wszystkie właściwości powtorzenia (takie jak nazwa, data notatek itp)
+* zmienić wszystkie właściwości powtórzenia (takie jak nazwa, data notatek itp)
 * dodawanie lub usuwanie pytań
 * modyfikowanie treści pytań
 
@@ -37,16 +51,19 @@ Można wyszukać pytania i powtórzenia. Za kryteria można brać nazwę powtór
  Po archiwizacji powtórzenie nie jest uwzględniane w harmonogramie a jednocześnie możemy je nadal wyszukać. 
  
  ### Sprawdzanie planu powtórzeń
- Plan pokazuje ile będziemy mieli powtórze w ciągu 7 najbliższych dni.
+ Plan pokazuje ile będziemy mieli powtórzeń w ciągu 7 najbliższych dni.
 
 ### Nauke 
-Opcja nauki rózni się od powtarzania tym, że podczas powtarzania nasze odpowiedzi mają konsekwencje. Jeżeli w danym pytaniu naciśniemy 'Umiem' to 'poziom' tego pytania zostanie zwiekszony. Natomiast jeżeli zaznaczymy opcje 'nie umiem' to poziom pytania zostanie zresetowany i będziemy musieli je znowu powtarzać juz następnego dnia.
+Opcja nauki rożni się od powtarzania tym, że podczas powtarzania nasze odpowiedzi mają konsekwencje. Jeżeli w danym pytaniu naciśniemy 'Umiem' to 'poziom' tego pytania zostanie zwiększony. Natomiast jeżeli zaznaczymy opcje 'nie umiem' to poziom pytania zostanie zresetowany i będziemy musieli je znowu powtarzać już następnego dnia.
 
 W wypadku nauki nie ma żadnych konsekwencji. Możemy  wielokrotnie przerabiać to samo powtórzenie tego samego dnia.
 ### Zaznaczenie problematycznych
-Przydaje się gdy uczyliśmy się 100 pytań, a 10 z nich sprawiło nam problemy. Dzięki zaznaczaniu problemów możemy pózniej łatwo do nich wrócić i dokładniej przerobić.
+Przydaje się gdy uczyliśmy się 100 pytań, a 10 z nich sprawiło nam problemy. Dzięki zaznaczaniu problemów możemy później łatwo do nich wrócić i dokładniej przerobić.
 
 ### Operowanie na zbiorach powtórzeniach
 * scalanie wielu powtórzeń w jedno
 * ćwiczenie wielu powtórzeń razem (ale bez scalania)
 * ćwiczenie problematycznych pytań ze wszystkich wyszukanych powtórzeń razem
+
+## Uwaga
+W projekcie wystepują zarówno polskie jak i angielskie nazwy zmiennych/plików. Wynika to z faktu że pczątkowo miał to być  mały projekt studencki. Z tego względu na początku używałem polskich nazw, teraz staram się używać wyłącznie angielskich. 
