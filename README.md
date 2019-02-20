@@ -45,3 +45,8 @@ Opcja nauki rózni się od powtarzania tym, że podczas powtarzania nasze odpowi
 W wypadku nauki nie ma żadnych konsekwencji. Możemy  wielokrotnie przerabiać to samo powtórzenie tego samego dnia.
 ### Zaznaczenie problematycznych
 Przydaje się gdy uczyliśmy się 100 pytań, a 10 z nich sprawiło nam problemy. Dzięki zaznaczaniu problemów możemy pózniej łatwo do nich wrócić i dokładniej przerobić.
+
+### Operowanie na zbiorach powtórzeniach
+* scalanie wielu powtórzeń w jedno
+* ćwiczenie wielu powtórzeń razem (ale bez scalania)
+* ćwiczenie problematycznych pytań ze wszystkich wyszukanych powtórzeń razem
