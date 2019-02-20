@@ -72,4 +72,10 @@ public class MenuController {
         return "tMenu";
     }
 
+    @RequestMapping(value ="/hello")
+    public String powitanie(Model model)
+    {
+
+        return "hello";
+    }
 }

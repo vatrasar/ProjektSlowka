@@ -16,6 +16,7 @@
         <div class="form-group">
             <label th:class="control-label">login</label>
             <input th:required="required"  th:class="form-control" type="text" th:field="*{login}"/>
+            <p th:if="${error}" style="color: red;">uzytkownik juz istnieje!</p>
         </div>
         <div class="form-group">
             <label th:class="control-label">hasło</label>
@@ -25,6 +26,9 @@
             <input th:class="btn-default" type="submit" value="rejestruj"/>
         </div>
     </form>
+    <div th:class="row" style="text-align: center;margin-top: 20px">
+        <a th:href="@{/hello}">wróć do ekranu statowego</a>
+    </div>
 </div>
 </body>
 </html>

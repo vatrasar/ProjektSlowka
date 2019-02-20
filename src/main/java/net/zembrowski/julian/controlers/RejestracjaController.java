@@ -1,6 +1,7 @@
 package net.zembrowski.julian.controlers;
 
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Uzytkownik;
 import net.zembrowski.julian.repository.RoleRepository;
@@ -28,12 +29,14 @@ public class RejestracjaController {
 
 
     @RequestMapping(value ="/rejestruj",method = RequestMethod.POST)
-    public String dojajUzytkownika(Uzytkownik nowyUzytkownik)
+    public String dojajUzytkownika(Uzytkownik nowyUzytkownik,Model model)
     {
         nowyUzytkownik.setEnabled(true);
          if(uzytkownicy.isExist(nowyUzytkownik))
          {
-             return "redirect:/rejestrujPoBledzie";
+             model.addAttribute("error",true);
+             model.addAttribute("urzytek",new Uzytkownik());
+             return "rejestracja";
          }
 
         uzytkownicy.addUzytkownik(nowyUzytkownik);
@@ -52,19 +55,7 @@ public class RejestracjaController {
         return "rejestracja";
     }
 
-    @RequestMapping(value ="/rejestrujPoBledzie")
-    public String rejestrujPoBledzie(Model model)
-    {
 
-        model.addAttribute("urzytek",new Uzytkownik());
-        return "rejestracjaPoBledzie";
-    }
-
-    @RequestMapping(value ="/hello")
-    public String powitanie(Model model)
-    {
-        return "hello";
-    }
 
 
 

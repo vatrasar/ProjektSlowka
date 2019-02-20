@@ -68,10 +68,7 @@ public class DodawaniePowtorzenControler {
 
 
         NowePowtorzenie.setDzien(akutalnaData.plusDays(NowePowtorzenie.getNastepne()));
-        if(powtorzenia.isExist(NowePowtorzenie))
-        {
-            return "redirect:/rejestracjaPowtorzeniaBlad";
-        }
+
 
         powtorzenia.persistPowtorzenie(NowePowtorzenie);
         powtorzenia.ustawJakoAktualne(NowePowtorzenie);
@@ -84,16 +81,10 @@ public class DodawaniePowtorzenControler {
             return "podsumowanieDodanegoPowtorzenia";
         }
         else
-        return "redirect:/pytanieAdd";
+            return "redirect:/pytanieAdd";
     }
 
 
-    @RequestMapping( value = "/rejestracjaPowtorzeniaBlad")
-    public String dodaniePowtorzeniaBlad(Model model)
-    {
 
-        model.addAttribute("powtorzenie",new Powtorzenie());
-        return "rejestracjaPowtorzeniaBlad";
-    }
 
 }
