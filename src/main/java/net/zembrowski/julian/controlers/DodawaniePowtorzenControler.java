@@ -84,38 +84,9 @@ public class DodawaniePowtorzenControler {
             return "podsumowanieDodanegoPowtorzenia";
         }
         else
-        return "redirect:/dodajPytanie";
+        return "redirect:/pytanieAdd";
     }
 
-
-
-    @RequestMapping(value = "/dodajPytanie")
-    public String rejestrujPytanie(Model model)
-    {
-
-        model.addAttribute("pytanie",new Pytanie());
-        model.addAttribute("sukces",false);
-        return  "dodaniePytania";
-    }
-
-
-    @PostMapping(value = "/dodajPytanie")
-    @Transactional
-    public String dodajPytanie(Model model,Pytanie nowe,@RequestParam("odp")MultipartFile[]plikiOdp,@RequestParam("pyt")MultipartFile[]plikiPyt,@RequestParam("tagi")String tags)
-    {
-
-        nowe.setPowtorzenie(akutalnePowtorzenie);
-        pytania.createPytanie(nowe,plikiPyt,plikiOdp, tags);
-        return  "redirect:/dodajPytanieSukces";
-    }
-
-    @RequestMapping(value = "/dodajPytanieSukces")
-    public String rejestrujPytanieSukces(Model model)
-    {
-        model.addAttribute("pytanie",new Pytanie());
-        model.addAttribute("sukces",true);
-        return  "dodaniePytania";
-    }
 
     @RequestMapping( value = "/rejestracjaPowtorzeniaBlad")
     public String dodaniePowtorzeniaBlad(Model model)

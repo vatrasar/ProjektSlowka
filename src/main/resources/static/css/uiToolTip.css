@@ -1,0 +1,8 @@
+.ui-helper-hidden-accessible { display:none; }
+
+.ui-tooltip{
+    background: orange;
+    color: black;
+    text-align: center;
+
+}
