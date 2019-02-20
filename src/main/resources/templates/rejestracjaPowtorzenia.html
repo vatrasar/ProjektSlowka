@@ -7,6 +7,7 @@
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" th:href="@{/css/darkMode.css}" type="text/css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <style>
         form{
 
@@ -22,7 +23,7 @@
         }
 
     </style>
-
+    <link rel="stylesheet" th:href="@{/css/uiToolTip.css}" type="text/css">
 </head>
 <body>
 <h2 style="text-align: center;margin-bottom: 60px">REJESTRACJA POWTORZENIA</h2>
@@ -50,6 +51,7 @@
         </div>
         <div class="form-group">
 
+            <img style="padding-right: 7%" src="/img/tip.png" data-toggle="tooltip"  title="Po ilu dniach ma być kolejne powtorzenie ">
             <label for="dni" class="control-label">Po ilu dniach nastepne powtorzenie</label>
             <div style="margin-left: 90%">
                 <select class="form-control" id="dni"  th:field="*{nastepne}">
@@ -64,6 +66,7 @@
             </div>
         </div>
         <div class="form-check" >
+            <img style="padding-right: 7%" src="/img/tip.png" data-toggle="tooltip"  title="Powtórzenie bez pytań (słoży do planowania powtorzeń a nie ich przeprowadzania )">
             <input class="form-check-input" type="checkbox" value="true" th:field="*{empty}" id="pusty" checked>
             <label class="form-check-label" for="pusty">
                 puste
@@ -71,6 +74,9 @@
         </div>
 
         <div class="form-check" >
+            <img style="padding-right: 7%" src="/img/tip.png" data-toggle="tooltip"  title="Każde pytanie zadawane jest dwa razy. Najpierw pytanie jest pytaniem a odpowiedz odpowiedzią a pózniej na odwrót.
+Jest to opcja przydatna w nauce słówek">
+
             <input class="form-check-input" type="checkbox" value="true" th:field="*{reverse}" id="reversed" checked>
             <label class="form-check-label" for="reversed">
                 w dwie strony
@@ -87,5 +93,10 @@
         </div>
     </form>
 </div>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 </body>
 </html>
