@@ -93,7 +93,7 @@
                 <td th:if="${pow.isEmpty()==false}" th:class="${classResolverExercises.resolveClass(pow,pytService.getPytaniaPowtorzenia(pow).size(),pytService.hasPowtorzenieProblems(pow),lastRepet) }" class="shine"  ><a th:href="${'/menuTraining?id='+pow.getNazwa()+'&pk='+pow.getNumer()}">cwicz</a></td>
                 <td th:if="${pow.isEmpty()}" th:class="${classResolverExercises.resolveClass(pow,pytService.getPytaniaPowtorzenia(pow).size(),pytService.hasPowtorzenieProblems(pow),lastRepet)}"  >-</td>
                 <td th:class="${classResolverExercises.resolveClass(pow,pytService.getPytaniaPowtorzenia(pow).size(),pytService.hasPowtorzenieProblems(pow),lastRepet)}" ><a th:href="${'/menuEdycji?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&source=training'}">edytuj</a></td>
-                <td th:class="${classResolverExercises.resolveClass(pow,pytService.getPytaniaPowtorzenia(pow).size(),pytService.hasPowtorzenieProblems(pow),lastRepet)} " ><a th:href="${'/zaznacz?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&pow='+powtorzono}" th:text="${classResolverExercises.getTextForMarked(pow)}"></a></td>
+                <td th:class="${classResolverExercises.resolveClass(pow,pytService.getPytaniaPowtorzenia(pow).size(),pytService.hasPowtorzenieProblems(pow),lastRepet)} " ><a class="toMark" th:href="${'/zaznacz?id='+pow.getNazwa()+'&pk='+pow.getNumer()+'&pow='+powtorzono}" th:text="${classResolverExercises.getTextForMarked(pow)}"></a></td>
 
             </div>
         </tr>
@@ -109,5 +109,6 @@
     </div>
 </div>
 <script th:src="@{/scripts/hideStatement.js}"></script>
+<script th:src="@{/scripts/toMark.js}"></script>
 </body>
 </html>

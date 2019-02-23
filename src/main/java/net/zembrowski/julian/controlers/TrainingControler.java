@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -327,8 +324,8 @@ public class TrainingControler {
 
 
 
-    @RequestMapping(value = "/zaznacz")
-    public String zaz(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer,@RequestParam("pow") boolean succesRepete, Model model)
+    @RequestMapping(value = "/zaznacz",method = RequestMethod.GET)
+    public @ResponseBody String zaz(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer,@RequestParam("pow") boolean succesRepete, Model model)
     {
         users.updateAktualnyUzytkownik();
 
@@ -339,9 +336,9 @@ public class TrainingControler {
 
 
         powtorzenia.setOpposedProblem(new Klucz(numer,nazwa,users.getActualUserLogin()));
-
-         return "pokarzDoPocwiczenia";
-
+        HtmlClassResolverExercises classResolver=new HtmlClassResolverExercises();
+        Powtorzenie repetition=powtorzenia.getPowtorzenie(new Klucz(numer,nazwa,users.getActualUserLogin()));
+       return classResolver.resolveClass(repetition,pytania.getPytaniaPowtorzenia(repetition).size(),pytania.hasPowtorzenieProblems(repetition),actualRepetition);
 
     }
 
