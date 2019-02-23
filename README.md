@@ -15,6 +15,7 @@ Okazała się ona dla mnie na tyle pomocna w nauce że używałem ją przez nast
 * CSS
 * javaScript
 * jQuery
+* ajax
 * Thymeleaf
 
 
