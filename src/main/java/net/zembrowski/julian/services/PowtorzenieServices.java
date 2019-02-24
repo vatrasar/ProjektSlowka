@@ -30,6 +30,15 @@ public class PowtorzenieServices {
     @Autowired
     private TagService tagService;
     private List<Powtorzenie>toLearn;
+    private Powtorzenie actualRepetition;
+    public PowtorzenieServices() {
+        this.toLearn = null;
+        this.actualRepetition=null;
+    }
+
+    public Powtorzenie getActualRepetition() {
+        return actualRepetition;
+    }
 
     public boolean isExist(Powtorzenie nowePowtorzenie) {
         return  powtorzenia.isExist(nowePowtorzenie);
@@ -199,5 +208,9 @@ public class PowtorzenieServices {
 
     public void setToLearn(List<Powtorzenie> resultList) {
         toLearn=resultList;
+    }
+
+    public void injectActualRepetition(Powtorzenie processed) {
+        actualRepetition=processed;
     }
 }

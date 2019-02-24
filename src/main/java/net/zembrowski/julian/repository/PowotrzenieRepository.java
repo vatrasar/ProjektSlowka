@@ -30,6 +30,7 @@ public class PowotrzenieRepository {
     @Autowired
     UzytkownikService users;
 
+
     public boolean isExist(Powtorzenie nowePowtorzenie)
     {
 

@@ -34,7 +34,7 @@ public class TrainingControler {
     @Autowired
     Pytanie aktualnePytanie;
 
-   private Powtorzenie actualRepetition;
+
 
 
 
@@ -63,8 +63,7 @@ public class TrainingControler {
    public String training(Model model) throws Exception
     {
 
-
-
+        Powtorzenie actualRepetition=powtorzenia.getActualRepetition();
        if(users.updateAktualnyUzytkownik())
        {
            return "redirect:/pokarzMenu";
@@ -93,7 +92,7 @@ public class TrainingControler {
     public String work(Model model)
     {
 
-
+        Powtorzenie actualRepetition=powtorzenia.getActualRepetition();
        if (isNotSameSession())
        {
            return "redirect:/pokarzMenu";
@@ -163,7 +162,7 @@ public class TrainingControler {
         model.addAttribute("user",users.getActualUserLogin());
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(number,name,users.getActualUserLogin()));
         pytania.injectUnverified(wykonywane);
-        actualRepetition=wykonywane;
+        powtorzenia.injectActualRepetition(wykonywane);
 
         return "trainingMenu";
     }
@@ -308,7 +307,7 @@ public class TrainingControler {
    {
 
 
-
+       Powtorzenie actualRepetition=powtorzenia.getActualRepetition();
         //nizej to samo co w pokarz powtorzenia
         model.addAttribute("powtorzenia",powtorzenia.getActualRepetitions());
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
@@ -324,6 +323,7 @@ public class TrainingControler {
     @RequestMapping(value = "/zaznacz",method = RequestMethod.GET)
     public @ResponseBody String zaz(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer,@RequestParam("pow") boolean succesRepete, Model model)
     {
+        Powtorzenie actualRepetition=powtorzenia.getActualRepetition();
         users.updateAktualnyUzytkownik();
 
         setOpposedProblemInToLearnList(nazwa, numer);

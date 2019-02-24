@@ -152,11 +152,11 @@ public class PytanieServices {
 
     /**
      * inject Unverified questions to actualQuestinsList
-     * @param processing
+     * @param processed
      */
-    public void injectUnverified(Powtorzenie processing) {
+    public void injectUnverified(Powtorzenie processed) {
 
-        actualQuestionsList=pytania.getPytaniaPowtorzeniaNiesprawdzone(processing);
+        actualQuestionsList=pytania.getPytaniaPowtorzeniaNiesprawdzone(processed);
 
 
     }
