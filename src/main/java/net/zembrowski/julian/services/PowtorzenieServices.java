@@ -29,6 +29,7 @@ public class PowtorzenieServices {
 
     @Autowired
     private TagService tagService;
+    private List<Powtorzenie>toLearn;
 
     public boolean isExist(Powtorzenie nowePowtorzenie) {
         return  powtorzenia.isExist(nowePowtorzenie);
@@ -183,5 +184,9 @@ public class PowtorzenieServices {
         akutalnePowtorzenie.setNastepne(1000_000);
         akutalnePowtorzenie.setDzien(akutalnePowtorzenie.getDzien().plusDays(1000_000));
         powtorzenia.updatePowtorzenie(akutalnePowtorzenie);
+    }
+
+    public List<Powtorzenie> getActualRepetitions() {
+        return toLearn;
     }
 }

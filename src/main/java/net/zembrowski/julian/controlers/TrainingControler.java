@@ -29,8 +29,6 @@ public class TrainingControler {
     @Autowired
     PytanieServices pytania;
 
-    private  List<Pytanie>actualQuestionsList;
-
     @Autowired
     MediaSourceService mediaSourceService;
     @Autowired
@@ -41,7 +39,7 @@ public class TrainingControler {
    private List<Powtorzenie>toLearn;
 
     public TrainingControler() {
-        actualQuestionsList = null;
+
         toLearn=null;
     }
 
@@ -64,7 +62,8 @@ public class TrainingControler {
     public String problematicQuests(Model model)
     {
 
-        actualQuestionsList=pytania.getProblematicQuestions(toLearn);
+        pytania.injectProblematic();
+
         return "redirect:/cwicz";
     }
     @RequestMapping(value = "/training")
@@ -107,7 +106,9 @@ public class TrainingControler {
        }
 
         //mieszanie pytań
+        List<Pytanie>actualQuestionsList=pytania.getActualQuestionsList();
         Collections.shuffle(actualQuestionsList);
+
         //jesli w powtorzeniu nie ma zadnych pytan to nic sie nie dzieje
         if (actualQuestionsList.isEmpty())
         {
@@ -116,10 +117,6 @@ public class TrainingControler {
             model.addAttribute("lastRepet",actualRepetition);
             return "pokarzDoPocwiczenia";
         }
-        actualQuestionsList=new ArrayList<>(actualQuestionsList);
-
-
-
 
         Pytanie pytanie=actualQuestionsList.get(0);
         prepareModelForQuestion(model,new Pytanie(),pytanie);
@@ -146,6 +143,7 @@ public class TrainingControler {
     @RequestMapping(value = "/cwiczOdp",method = RequestMethod.POST)
     public String cwiczOdpowiedz(Pytanie odpowiedz, Model model)
     {
+        List<Pytanie>actualQuestionsList=pytania.getActualQuestionsList();
         odpowiedz.setProblem(actualQuestionsList.get(0).isProblem());
 
         //pole pytanie w odpowiedzi zawiera teraz odpowiedz uzytkownika
@@ -167,14 +165,16 @@ public class TrainingControler {
    public String menuTraining(Model model,@RequestParam("id")String name,@RequestParam("pk") int number)
     {
 
+
         model.addAttribute("user",users.getActualUserLogin());
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(number,name,users.getActualUserLogin()));
-        actualQuestionsList=pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
+        pytania.injectUnverified(wykonywane);
         actualRepetition=wykonywane;
 
         return "trainingMenu";
     }
     public void prepareModelForQuestion(Model model, Pytanie odpowiedz, Pytanie pytanie) {
+        List<Pytanie>actualQuestionsList=pytania.getActualQuestionsList();
         odpowiedz.setId(pytanie.getId());
         odpowiedz.setAnswer(pytanie.getAnswer());
         model.addAttribute("odp",odpowiedz);
@@ -210,6 +210,7 @@ public class TrainingControler {
 
     private boolean isNotSameSession()
     {
+        List<Pytanie>actualQuestionsList=pytania.getActualQuestionsList();
         if (actualQuestionsList==null)
             return true;
         else
@@ -220,6 +221,7 @@ public class TrainingControler {
     public String cwiczPodsumowanie(@RequestParam("zal") String zal,Pytanie pytanie, Model model)
     {
 
+        List<Pytanie>actualQuestionsList=pytania.getActualQuestionsList();
         if (isNotSameSession())
         {
             return "redirect:/pokarzMenu";
@@ -276,6 +278,7 @@ public class TrainingControler {
     {
 
 
+        List<Pytanie>actualQuestionsList=pytania.getActualQuestionsList();
         //jesli wszystko jest juz nauczone to konczysz powtarzaie
         if (actualQuestionsList.isEmpty())
         {
@@ -348,10 +351,12 @@ public class TrainingControler {
         before.setProblems(!before.isProblems());
     }
 
-    public List<Pytanie> getActualQuestionsList() {
-        return actualQuestionsList;
-    }
 
+
+    /**
+     * Only questions with problems will be in repetition
+     * @return
+     */
     @RequestMapping(value = "retainProblems")
     public String retainProblems()
     {
@@ -359,7 +364,7 @@ public class TrainingControler {
         {
             return "redirect:/pokarzMenu";
         }
-        actualQuestionsList=actualQuestionsList.stream().filter(a->a.isProblem()).collect(Collectors.toList());
+        pytania.retainProblems();
         return "redirect:/cwicz";
     }
 
@@ -370,11 +375,10 @@ public class TrainingControler {
     @RequestMapping("/trainingMarked")
     public String trainingMarked()
     {
-        actualQuestionsList=pytania.getQuestionsOfMarked(toLearn);
+
+        pytania.injectMarked();
         return "redirect:/cwicz";
     }
 
-    public void setActualQuestionsList(List<Pytanie> actualQuestionsList) {
-        this.actualQuestionsList = actualQuestionsList;
-    }
+
 }

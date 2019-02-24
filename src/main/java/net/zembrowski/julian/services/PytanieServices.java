@@ -38,6 +38,7 @@ public class PytanieServices {
     @Autowired
     TagService tagService;
 
+    private  List<Pytanie>actualQuestionsList;
     private static String path="programDane/";//path to folder with video and img data in src(to save data)
     //on google Drive
     private static String pathBackup=null;
@@ -45,7 +46,7 @@ public class PytanieServices {
 
    public PytanieServices()
    {
-
+       actualQuestionsList=null;
    }
 
     public void createPytanie(Pytanie nowePytanie, MultipartFile[] plikiPyt, MultipartFile[] plikiOdp, String tags)
@@ -145,6 +146,17 @@ public class PytanieServices {
     public List<Pytanie> getPytaniaPowtorzeniaNiesprawdzone(Powtorzenie wykonywane) {
 
        return pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
+
+
+    }
+
+    /**
+     * inject Unverified questions to actualQuestinsList
+     * @param processing
+     */
+    public void injectUnverified(Powtorzenie processing) {
+
+        actualQuestionsList=pytania.getPytaniaPowtorzeniaNiesprawdzone(processing);
 
 
     }
@@ -418,11 +430,25 @@ public class PytanieServices {
         return result;
     }
 
+    /**
+     * inject problematic questions to actualQuestionsList
+     */
+    public void injectProblematic() {
+        actualQuestionsList=getProblematicQuestions(powtorzenia.getActualRepetitions());
+    }
+
     public List<Pytanie> getQuestionsOfMarked(List<Powtorzenie> toLearn) {
 
         toLearn=toLearn.stream().filter(Powtorzenie::isProblems).collect(Collectors.toList());
         return getPytaniaOfRepetitions(toLearn);
 
+    }
+
+    /**
+     * inject marked questions to actualQuestionsList
+     */
+    public void injectMarked() {
+        actualQuestionsList=getQuestionsOfMarked(powtorzenia.getRepetsToLearn());
     }
 
     private List<Pytanie> getPytaniaOfRepetitions(List<Powtorzenie> toLearn) {
@@ -473,4 +499,20 @@ public class PytanieServices {
 
     }
 
+    public List<Pytanie> getActualQuestionsList() {
+        return actualQuestionsList;
+    }
+
+    /**
+     * eliminate questions without problems from actualQuestionsList
+     */
+    public void retainProblems() {
+        actualQuestionsList=actualQuestionsList.stream().filter(a->a.isProblem()).collect(Collectors.toList());
+    }
+
+
+    public void setActualQuestionsList(List<Pytanie> newActualQuestionsList) {
+
+        actualQuestionsList=newActualQuestionsList;
+    }
 }

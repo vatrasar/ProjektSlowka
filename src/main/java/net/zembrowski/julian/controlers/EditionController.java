@@ -213,7 +213,7 @@ public class EditionController {
         Powtorzenie pow=pytania.getPytanie(id).getPowtorzenie();
         pytania.deletePytanie(id);
 
-        trainingControler.getActualQuestionsList().remove(0);
+        pytania.getActualQuestionsList().remove(0);
         return "redirect:/cwicz?id="+pow.getNazwa()+"&pk="+pow.getNumer();
     }
     @RequestMapping("/dropPytanieLast")
@@ -241,7 +241,7 @@ public class EditionController {
         tagService.editTags(pytania.getPytanie(edytowane.getId()),newTags);
         pytania.editPytanie(edytowane,plikiQuest,plikiOdp);
 
-        if (trainingControler.getActualQuestionsList()==null || trainingControler.getActualQuestionsList().isEmpty())
+        if (pytania.getActualQuestionsList()==null || pytania.getActualQuestionsList().isEmpty())
             return "redirect:/pokarzMenu";
         else
            return "redirect:/cwiczNext";

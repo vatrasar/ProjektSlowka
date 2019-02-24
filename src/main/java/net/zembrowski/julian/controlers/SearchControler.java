@@ -135,7 +135,8 @@ public class SearchControler {
     {
 
 
-       trainingControler.setActualQuestionsList(questionsseServices.getQuestionsByTagName(tags,trainingControler.getActualQuestionsList()));
+        questionsseServices.setActualQuestionsList(questionsseServices.getQuestionsByTagName(tags,questionsseServices.getActualQuestionsList()));
+
         return "redirect:/cwicz";
     }
 }
