@@ -75,13 +75,20 @@ public class PowtorzenieServices {
     }
 
 
-    public List<Powtorzenie> getRepetsToLearn() {
+    private List<Powtorzenie> getRepetsForTomorrow() {
         LocalDate jutro=LocalDate.now().plusDays(1);
         List<Powtorzenie>naJutro=powtorzenia.getPowtorzeniaNaDzis(jutro);
        onlyAfterOneDayStays(naJutro);
         return naJutro;
     }
 
+    /**
+     * inject repetitions for tomorrow to toLearn pool
+     */
+    public void injectRepetitionsForTomorrow()
+    {
+        toLearn=getRepetsForTomorrow();
+    }
     private void onlyAfterOneDayStays(List<Powtorzenie>pow)
     {
         List<Powtorzenie>usuwane=new ArrayList<>();
@@ -188,5 +195,9 @@ public class PowtorzenieServices {
 
     public List<Powtorzenie> getActualRepetitions() {
         return toLearn;
+    }
+
+    public void setToLearn(List<Powtorzenie> resultList) {
+        toLearn=resultList;
     }
 }

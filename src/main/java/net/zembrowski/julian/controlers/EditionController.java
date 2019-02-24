@@ -98,7 +98,7 @@ public class EditionController {
     {
         pytania.dropPytaniaOfPowtorzenie(akutalnePowtorzenie);
         tagService.dropTagsOfRepetition(akutalnePowtorzenie);
-        List<Powtorzenie>toLearn=trainingControler.getToLearn();
+        List<Powtorzenie>toLearn=powtorzenia.getActualRepetitions();
         int index=toLearn.indexOf(akutalnePowtorzenie);
         toLearn.remove(index);
         powtorzenia.dropPowotrzenie(akutalnePowtorzenie);
@@ -250,7 +250,7 @@ public class EditionController {
     @RequestMapping("/collectMarked")
     public String collectMarked()
     {
-        pytania.collectMarked(trainingControler.getToLearn());
+        pytania.collectMarked(powtorzenia.getActualRepetitions());
         return "redirect:/repetsForTomorrow";
 
     }

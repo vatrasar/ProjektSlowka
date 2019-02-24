@@ -36,25 +36,18 @@ public class TrainingControler {
 
    private Powtorzenie actualRepetition;
 
-   private List<Powtorzenie>toLearn;
+
 
     public TrainingControler() {
 
-        toLearn=null;
+
     }
 
-    public List<Powtorzenie> getToLearn() {
-        return toLearn;
-    }
-
-    public void setToLearn(List<Powtorzenie> toLearn) {
-        this.toLearn = toLearn;
-    }
 
     @RequestMapping(value = "/repetsForTomorrow")
     public String repetsForTomorrow()
     {
-        toLearn =powtorzenia.getRepetsToLearn();
+        powtorzenia.injectRepetitionsForTomorrow();
         return "redirect:/training";
     }
 
@@ -69,6 +62,7 @@ public class TrainingControler {
     @RequestMapping(value = "/training")
    public String training(Model model) throws Exception
     {
+
 
 
        if(users.updateAktualnyUzytkownik())
@@ -87,12 +81,12 @@ public class TrainingControler {
         {
             actualRepetition=new Powtorzenie();
         }
-        if (toLearn==null)
+        if (powtorzenia.getActualRepetitions()==null)
         {
             throw new Exception("toLearn is Empty!");
         }
         model.addAttribute("lastRepet",actualRepetition);
-        model.addAttribute("powtorzenia",toLearn);
+        model.addAttribute("powtorzenia",powtorzenia.getActualRepetitions());
         return "pokarzDoPocwiczenia";
     }
     @RequestMapping(value = "/cwicz")
@@ -316,7 +310,7 @@ public class TrainingControler {
 
 
         //nizej to samo co w pokarz powtorzenia
-        model.addAttribute("powtorzenia",toLearn);
+        model.addAttribute("powtorzenia",powtorzenia.getActualRepetitions());
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
        model.addAttribute("classResolver", PowClassResolver.dark);
        model.addAttribute("pytService",pytania);
@@ -346,6 +340,8 @@ public class TrainingControler {
     }
 
     private void setOpposedProblemInToLearnList(@RequestParam("id") String nazwa, @RequestParam("pk") Integer numer) {
+
+        List<Powtorzenie>toLearn=powtorzenia.getActualRepetitions();
         int index=toLearn.indexOf(new Powtorzenie(nazwa,users.getActualUserLogin(),numer));
         Powtorzenie before=toLearn.get(index);
         before.setProblems(!before.isProblems());

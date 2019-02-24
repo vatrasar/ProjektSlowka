@@ -72,7 +72,7 @@ public class SearchControler {
         intersectionsOfLists(conditionsList, resultList);
 
         retainUniqueRepetition(resultList);
-        trainingControler.setToLearn(resultList);
+        repetitions.setToLearn(resultList);
     }
 
     private void retainUniqueRepetition(List<Powtorzenie> resultList) {

@@ -448,7 +448,7 @@ public class PytanieServices {
      * inject marked questions to actualQuestionsList
      */
     public void injectMarked() {
-        actualQuestionsList=getQuestionsOfMarked(powtorzenia.getRepetsToLearn());
+        actualQuestionsList=getQuestionsOfMarked(powtorzenia.getActualRepetitions());
     }
 
     private List<Pytanie> getPytaniaOfRepetitions(List<Powtorzenie> toLearn) {
