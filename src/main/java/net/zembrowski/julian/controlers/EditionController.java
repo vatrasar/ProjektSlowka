@@ -171,7 +171,7 @@ public class EditionController {
             return "podsumowanieDodanegoPowtorzenia";
         }
         else
-            return "redirect:/dodajPytanie";
+            return "redirect:/pytanieAdd";
 
     }
 

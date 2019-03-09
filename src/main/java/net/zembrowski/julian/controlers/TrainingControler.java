@@ -62,7 +62,6 @@ public class TrainingControler {
     @RequestMapping(value = "/training")
    public String training(Model model) throws Exception
     {
-
         Powtorzenie actualRepetition=powtorzenia.getActualRepetition();
        if(users.updateAktualnyUzytkownik())
        {
