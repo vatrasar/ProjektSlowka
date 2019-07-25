@@ -1,7 +1,7 @@
 package net.zembrowski.julian.domain;
 
 
-import javafx.scene.shape.Path;
+
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;

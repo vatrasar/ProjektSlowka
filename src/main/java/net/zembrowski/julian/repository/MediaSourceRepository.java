@@ -3,11 +3,11 @@ package net.zembrowski.julian.repository;
 
 import net.zembrowski.julian.domain.MediaSource;
 import net.zembrowski.julian.domain.Pytanie;
-import org.hibernate.sql.Select;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import sun.rmi.runtime.Log;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

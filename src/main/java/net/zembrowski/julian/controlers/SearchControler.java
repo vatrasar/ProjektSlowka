@@ -1,7 +1,7 @@
 package net.zembrowski.julian.controlers;
 
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
+
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Pytanie;
 import net.zembrowski.julian.services.PowtorzenieServices;
@@ -15,7 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import sun.rmi.runtime.Log;
+
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

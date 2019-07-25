@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 
 @Repository
 @Scope("session")
-public class RepositoryUzytkownik {
+public class  RepositoryUzytkownik {
 
     @PersistenceContext
     private EntityManager em;

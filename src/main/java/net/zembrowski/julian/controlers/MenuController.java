@@ -1,7 +1,7 @@
 package net.zembrowski.julian.controlers;
 
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
+
 import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.UzytkownikService;
