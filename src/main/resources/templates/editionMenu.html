@@ -51,14 +51,14 @@
 
     $("#toDelete").on('click',function(event)
     {
-        event.preventDefault();
+
         if(confirm("Czy napewno chcesz usunąć?"))
         {
 
         }
         else
         {
-            this.preventDefault();
+            event.preventDefault();
         }
 
     })
