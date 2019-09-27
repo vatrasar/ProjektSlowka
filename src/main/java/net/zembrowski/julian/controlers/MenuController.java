@@ -78,4 +78,12 @@ public class MenuController {
 
         return "hello";
     }
+
+    @RequestMapping(value ="/addMenu")
+    public String addMenu(Model model)
+    {
+        users.updateAktualnyUzytkownik();
+        model.addAttribute("user",users.getActualUserLogin());
+        return "addMenu";
+    }
 }

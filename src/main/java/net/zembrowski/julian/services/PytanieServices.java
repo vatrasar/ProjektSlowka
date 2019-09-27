@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -514,5 +515,21 @@ public class PytanieServices {
     public void setActualQuestionsList(List<Pytanie> newActualQuestionsList) {
 
         actualQuestionsList=newActualQuestionsList;
+    }
+
+    public void addQuestionsList(Powtorzenie akutalnePowtorzenie, String questionsList) {
+        StringTokenizer list=new StringTokenizer(questionsList, "\n");
+        ArrayList<String>elementsList=new ArrayList<>();
+        while (list.hasMoreTokens())
+        {
+            elementsList.add(list.nextToken());
+        }
+
+        elementsList.stream().forEach((String element)->{
+            String[]questionAndAnswer=element.split(",");
+            Pytanie newQuestion=new Pytanie(akutalnePowtorzenie,questionAndAnswer[1],questionAndAnswer[0]);
+            pytania.createPytanie(newQuestion);
+                });
+
     }
 }

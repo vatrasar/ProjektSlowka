@@ -134,7 +134,14 @@ public class Pytanie {
     public Pytanie() {
 
     }
-
+    public Pytanie(Powtorzenie repetiotion,String answer,String question)
+    {
+      notion=false;
+      problem=false;
+      powtorzenie=repetiotion;
+      this.answer=answer;
+      this.question=question;
+    }
     public Pytanie(Pytanie nowe)
     {
         id=nowe.getId();

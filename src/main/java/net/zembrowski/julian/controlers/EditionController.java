@@ -85,6 +85,29 @@ public class EditionController {
         return  "addPytanieEdition";
     }
 
+    @RequestMapping(value = "/takeQuestionsList")
+    public String takeQuestionsList(String questionsList,Model model)
+    {
+        uytkownicy.updateAktualnyUzytkownik();
+        model.addAttribute("user",uytkownicy.getActualUserLogin());
+        model.addAttribute("questionsList", new Pytanie());
+        return  "takeQuestionsList";
+    }
+
+
+
+    @PostMapping(value = "/addQuestionsFromList")
+    public String addQuestionsFromList(Pytanie questionsList,Model model)
+    {
+        uytkownicy.updateAktualnyUzytkownik();
+        model.addAttribute("user",uytkownicy.getActualUserLogin());
+        pytania.addQuestionsList(akutalnePowtorzenie,questionsList.getAnswer());
+        model.addAttribute("questionsList",new Pytanie());
+        model.addAttribute("sucessAdd",true);
+        return  "takeQuestionsList";
+
+    }
+
     @RequestMapping(value = "/pytanieAdd",method = RequestMethod.POST)
     public String dodajPytanie(Pytanie nowe,@RequestParam("odp")MultipartFile[]plikiOdp,@RequestParam("ans")MultipartFile[]plikiAns,@RequestParam("tagi")String tags)
     {
@@ -110,6 +133,7 @@ public class EditionController {
         powtorzenia.archPow(akutalnePowtorzenie);
         return "redirect:/repetsForTomorrow";
     }
+
     @RequestMapping("/edit")
     public String edit(Model model)
     {

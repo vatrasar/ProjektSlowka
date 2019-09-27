@@ -41,6 +41,15 @@ table a
     font-weight: bold;
     color: slateblue;
 }
+#toDelete{
+    text-decoration: none;
+}
+
+table a:visited
+{
+    color: slateblue;
+    text-decoration: none;
+}
 
 table tr td:hover
 {

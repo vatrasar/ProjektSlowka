@@ -7,7 +7,10 @@
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/styleMenu.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/test.css}" />
     <link rel="stylesheet" th:href="@{/css/darkMode.css}" type="text/css">
+
+
 </head>
 <body>
 
@@ -19,7 +22,7 @@
     <caption style="text-align: center;font-weight: bold;font-size: 25px;margin-bottom: 10%">MENU EDYCJI</caption>
     <tr th:if="${puste==false}">
         <td>
-            <a  th:href="@{/pytanieAdd}">DODAJ PYTANIA</a>
+            <a  th:href="@{/addMenu}">DODAJ PYTANIA</a>
         </td>
     </tr>
     <tr>
@@ -29,7 +32,7 @@
     </tr>
     <tr>
         <td>
-            <a  th:href="@{/dropPow}">USUŃ POWTÓRZENIE</a>
+            <a  th:href="@{/dropPow}" id="toDelete">USUŃ POWTÓRZENIE</a>
         </td>
     </tr>
     <tr>
@@ -44,5 +47,21 @@
         <a th:href="@{/pokarzMenu}">wroć do menu głównego</a>
     </div>
 </div>
+<script>
+
+    $("#toDelete").on('click',function(event)
+    {
+        event.preventDefault();
+        if(confirm("Czy napewno chcesz usunąć?"))
+        {
+
+        }
+        else
+        {
+            this.preventDefault();
+        }
+
+    })
+</script>
 </body>
 </html>
