@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -225,11 +226,18 @@ public class TrainingControler {
 
 
             //przesówanie pytania
-            Pytanie nowe=actualQuestionsList.remove(0);
-            if (actualQuestionsList.size()>6)
-                actualQuestionsList.add(6,nowe);//on 6 place
-            else
-                actualQuestionsList.add(nowe);//na koniec listy
+            Pytanie nowe=actualQuestionsList.get(0);;
+            actualQuestionsList.removeIf(toDelete->toDelete.getId()==nowe.getId());
+
+            if (actualQuestionsList.size()>2 && actualQuestionsList.size()>9)
+            {
+                actualQuestionsList.add(2,nowe);
+            }
+            if(actualQuestionsList.size()>=8)
+                actualQuestionsList.add(8,nowe);
+            else //6 positions from last placement or on the end of list
+                actualQuestionsList.add(Math.max(actualQuestionsList.size(),6),nowe);
+
 
         }
         else//umiem
@@ -239,12 +247,14 @@ public class TrainingControler {
             {
                 if (przetwarzany.getStatus()==Status.NIESPRAWDZONE) //umiem w jedna strone
                 {
-
-                    przetwarzany.setStatus(Status.UMIEM_JEDNA_STRONE);
-                    przetwarzany.reverse();
-                    //przesuwanie na koniec listy
                     actualQuestionsList.remove(0);
-                    actualQuestionsList.add(przetwarzany);
+                    if(!actualQuestionsList.contains(przetwarzany))
+                    {//question was added 6 positions from last bad answer
+                        przetwarzany.setStatus(Status.UMIEM_JEDNA_STRONE);
+                        przetwarzany.reverse();
+                        //przesuwanie na koniec listy
+                        actualQuestionsList.add(przetwarzany);
+                    }
 
                 }
                 else //usuwanie pytania które umiesz z listy
@@ -263,6 +273,17 @@ public class TrainingControler {
         return "redirect:/cwiczNext";
     }
 
+    private boolean isGhostQuestion(List<Pytanie> actualQuestionsList) {
+
+        //ghost question is add 2 postions from last bad answer
+        if (actualQuestionsList.size()<=5)
+            return false;
+
+        for(Pytanie processed:actualQuestionsList.subList(5,Math.min(11,actualQuestionsList.size())))
+            if(processed.getId()==actualQuestionsList.get(0).getId())
+                return true;
+        return false;
+    }
 
 
     @RequestMapping(value = "/cwiczNext")

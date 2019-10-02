@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
+import java.util.Objects;
 
 @Entity
 @Component
@@ -177,5 +178,26 @@ public class Pytanie {
         statistics.pushStat(next);
 
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pytanie pytanie = (Pytanie) o;
+        return id == pytanie.id &&
+                problem == pytanie.problem &&
+                lastAdded == pytanie.lastAdded &&
+                notion == pytanie.notion &&
+                Objects.equals(question, pytanie.question) &&
+                Objects.equals(answer, pytanie.answer) &&
+                Objects.equals(powtorzenie, pytanie.powtorzenie) &&
+                status == pytanie.status &&
+                Objects.equals(statistics, pytanie.statistics);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, question, answer, powtorzenie, status, problem, lastAdded, notion, statistics);
     }
 }
