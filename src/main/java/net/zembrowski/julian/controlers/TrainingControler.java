@@ -236,7 +236,7 @@ public class TrainingControler {
             if(actualQuestionsList.size()>=8)
                 actualQuestionsList.add(8,nowe);
             else //6 positions from last placement or on the end of list
-                actualQuestionsList.add(Math.max(actualQuestionsList.size(),6),nowe);
+                actualQuestionsList.add(Math.min(actualQuestionsList.size(),6),nowe);
 
 
         }
