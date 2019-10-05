@@ -1,0 +1,69 @@
+
+.animate, .btn, .btn-border-o:before, .btn-border-o:after, .btn-border:before, .btn-border:after, .btn-border-rev-o:before, .btn-border-rev-o:after, .btn-border-rev:before, .btn-border-rev:after, .btn-fill-vert-o:before, .btn-fill-vert-o:after, .btn-fill-vert:before, .btn-fill-vert:after, .btn-fill-horz-o:before, .btn-fill-horz-o:after, .btn-fill-horz:before, .btn-fill-horz:after {
+    transition: all 0.8s;
+}
+.btn {
+    display: inline-block;
+    line-height: 35px;
+    margin: 8px;
+    padding: 3% 6%;
+    font-size: 250%;
+    position: relative;
+    opacity: .999;
+    border-radius: 3px;
+}
+
+
+
+.btn-border-rev {
+    background-color: dodgerblue;
+    border: 1px solid #e5e5e5;
+    color: black;
+}
+
+.btn-border-rev:before, .btn-border-rev:after {
+    content: '';
+    border-style: solid;
+    position: absolute;
+    z-index: 5;
+    border-radius: 3px;
+    box-sizing: content-box;
+}
+.btn-border-rev:before {
+    width: 0;
+    height: 100%;
+    border-width: 1px 0 1px 0;
+    top: -1px;
+    right: 0;
+}
+.btn-border-rev:after {
+    width: 100%;
+    height: 0;
+    border-width: 0 1px 0 1px;
+    bottom: 0;
+    left: -1px;
+    transition-delay: 0.05s;
+}
+.btn-border-rev:hover {
+    background-color: transparent;
+}
+.btn-border-rev:hover:before {
+    width: 100%;
+}
+.btn-border-rev:hover:after {
+    height: 100%;
+}
+.btn-border-rev.btn-green:before, .btn-border-rev.btn-green:after {
+    border-color: #2ecc71;
+}
+.btn-border-rev.btn-green:hover {
+    color: #2ecc71;
+}
+
+
+.btn-border-rev.btn-red:before, .btn-border-rev.btn-red:after {
+    border-color: darkred;
+}
+.btn-border-rev.btn-red:hover {
+    color: darkred;
+}

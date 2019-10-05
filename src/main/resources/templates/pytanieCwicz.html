@@ -10,7 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/mediaStyle.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/pytanieStyle.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/darkMode.css}" type="text/css">
-
+    <link rel="stylesheet" th:href="@{/css/buttons.css}" type="text/css">
     <style>
         #drop
         {
@@ -37,13 +37,14 @@
 <a th:href="${'/zmianaPytania?id='+pyt.getId() }">zmien pytanie</a>
 <a id="drop" th:href="${'/dropPytanie?id='+pyt.getId() }">usuń pytanie</a>
 <p class="blod">pozaostało:<span id="num" style="color: cornflowerblue" th:text="${questionsNumber}"></span></p>
-<div class="container">
+<header>
+    <h1 th:text="${pyt.getPowtorzenie().getNazwa()+' '+pyt.getPowtorzenie().getNumer()}"></h1>
+    <h5 >Data notatek:<span th:text="${pyt.powtorzenie.getUtworzenie()}"></span></h5>
+</header>
+<div id="questionPage" class="container">
 
 
-    <header>
-        <h1 th:text="${pyt.getPowtorzenie().getNazwa()+' '+pyt.getPowtorzenie().getNumer()}"></h1>
-        <h5 >Data notatek:<span th:text="${pyt.powtorzenie.getUtworzenie()}"></span></h5>
-    </header>
+
     <h2 class="textPytanie">Pytanie:</h2>
 
     <div id="pytanieDiv" >
@@ -80,5 +81,52 @@
         </div>
     </form>
 </div>
+
+
+<div id="answerPage" class="container" style="text-align: center;font-size: 25px">
+    <div>
+        <p id="odpowiedz">poprawna odpowiedz:</p>
+        <pre class="Odp" ></pre>
+
+
+    </div>
+
+    <section th:each="a:${mediaImg}">
+        <img th:src="${a.getPath()}">
+    </section>
+
+    <section th:each="z:${mediaAudio}">
+        <audio th:src="${z.getPath()}" controls></audio>
+    </section>
+
+
+    <section th:each="k:${mediaVideo}">
+        <video th:src="${k.getPath()}" controls></video>
+    </section>
+
+    <div>
+        <p>twoja odpowiedz:</p>
+        <pre class="Odp"></pre>
+    </div>
+    <form th:action="@{/cwiczPodsumowanie}"   class="form-horizontal" method="post">
+
+
+        <div  th:class="form-group">
+
+            <div class="form-check" >
+                <input class="form-check-input"  type="checkbox" name="prob" id="pus">
+                <label class="form-check-label" for="pus">
+                    problemy
+                </label>
+            </div>
+            <button type="submit" class="btn btn-green btn-border-rev" th:formaction="@{/cwiczPodsumowanie}"  style="margin-right: 20px" name="zal" value="Umiem">✔</button>
+            <button type="submit" class="btn btn-red btn-border-rev" th:formaction="@{/cwiczPodsumowanie}" style="margin-left: 20px" name="zal" value="Nie Umiem">✖</button>
+        </div>
+    </form>
+</div>
+
+<script th:src="@{/scripts/porcessRepetition.js}"></script>
+<script th:src="@{/scripts/deteremineAnswerTagName.js}"></script>
+<script th:src="@{/scripts/betterPreLooks.js}"></script>
 </body>
 </html>
