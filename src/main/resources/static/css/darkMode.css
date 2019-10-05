@@ -74,3 +74,21 @@ table tr td:hover
 {
     color: gold
 }
+
+.form-control
+{
+    background-color: darkred;
+    color: white;
+    font-size: large;
+
+}
+.form-control:focus
+{
+    border-color: deepskyblue;
+}
+
+.form-control[disabled], fieldset[disabled] .form-control
+{
+    background-color:cadetblue;
+}
+
