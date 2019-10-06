@@ -1,16 +1,18 @@
-var elements=document.getElementsByClassName("Odp");
-for(var i=0;i<elements.length;i++)
-{
-    var elemen=elements.item(i);
+function determineAnswerTagNames() {
+    var elements=[].slice.call(document.getElementsByTagName("pre"));
 
-    var tekst=elemen.textContent;
+    elements.forEach(function (elemen,index) {
 
-    if(tekst.indexOf("\n")==-1)
-    {
-        var parent=elemen.parentNode;
-        var content=parent.innerHTML;
 
-        parent.innerHTML=content.replace("pre","p");
+        var tekst=elemen.textContent;
 
-    }
+        if(tekst.indexOf("\n")==-1)
+        {
+            var parent=elemen.parentNode;
+            var content=parent.innerHTML;
+
+            parent.innerHTML=content.replace("pre","p");
+
+        }
+    })
 }

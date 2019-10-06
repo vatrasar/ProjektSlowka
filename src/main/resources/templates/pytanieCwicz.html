@@ -48,7 +48,7 @@
     <h2 class="textPytanie">Pytanie:</h2>
 
     <div id="pytanieDiv" >
-        <p><span th:text="${pyt.question}"></span></p>
+        <p><span id="question" th:text="${pyt.question}"></span></p>
     </div>
 
     <section th:each="a:${mediaImg}">
@@ -64,7 +64,7 @@
         <video th:src="${k.getPath()}" controls></video>
     </section>
 
-    <form class="form-horizontal" th:action="@{/cwiczOdp}" th:method="post" th:object="${odp}">
+    <form id="formQuestion" class="form-horizontal" th:action="@{/cwiczOdp}" th:method="post" th:object="${odp}">
 
         <div class="form-group shadow-textarea">
             <label th:class="control-label" for="odp">Odpowiedz</label>
@@ -74,7 +74,7 @@
         <input type="hidden" th:field="*{id}" />
         <input type="hidden" th:field="*{answer}" />
         <div th:class="row" style="text-align: center;margin-top: 20px">
-            <input th:class="btn-default" type="submit" value="sprawdz odpowiedz"/>
+            <button id="check" class="btn btn-yellow btn-border-rev" type="submit" value="sprawdz odpowiedz">Sprawdz odpowiedz</button>
         </div>
         <div th:class="row" style="text-align: center;margin-top: 20px">
             <a th:href="@{/training}">wyjdz z potworzenia</a>
@@ -85,7 +85,7 @@
 
 <div id="answerPage" class="container" style="text-align: center;font-size: 25px">
     <div>
-        <p id="odpowiedz">poprawna odpowiedz:</p>
+        <p id="propAnswer">poprawna odpowiedz:</p>
         <pre class="Odp" ></pre>
 
 
@@ -106,7 +106,7 @@
 
     <div>
         <p>twoja odpowiedz:</p>
-        <pre class="Odp"></pre>
+        <pre id="userAnswer"></pre>
     </div>
     <form th:action="@{/cwiczPodsumowanie}"   class="form-horizontal" method="post">
 
@@ -119,8 +119,8 @@
                     problemy
                 </label>
             </div>
-            <button type="submit" class="btn btn-green btn-border-rev" th:formaction="@{/cwiczPodsumowanie}"  style="margin-right: 20px" name="zal" value="Umiem">✔</button>
-            <button type="submit" class="btn btn-red btn-border-rev" th:formaction="@{/cwiczPodsumowanie}" style="margin-left: 20px" name="zal" value="Nie Umiem">✖</button>
+            <button type="submit" class="btn btn-green btn-border-rev result" th:formaction="@{/cwiczPodsumowanie}"  style="margin-right: 20px" name="zal" value="Umiem">✔</button>
+            <button type="submit" class="btn btn-red btn-border-rev result" th:formaction="@{/cwiczPodsumowanie}" style="margin-left: 20px" name="zal" value="Nie Umiem">✖</button>
         </div>
     </form>
 </div>

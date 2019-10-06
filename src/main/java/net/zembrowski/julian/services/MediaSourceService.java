@@ -25,9 +25,17 @@ public class MediaSourceService {
         mediaSourceRepository.persistanceMediaSource(newest);
     }
 
-    public List<MediaSource> getMediaForQuestion(Pytanie pytanie) {
+    /**
+     * returns media for questions. It is group by type.
+     * index 0 image
+     * 1 sounds
+     * 2 video
+     * @param pytanie
+     * @return
+     */
+    public List<List<MediaSource>> getMediaForQuestion(Pytanie pytanie) {
 
-        return mediaSourceRepository.getMediaForQuestion(pytanie);
+        return groupByType(mediaSourceRepository.getMediaForQuestion(pytanie));
     }
 
     /**

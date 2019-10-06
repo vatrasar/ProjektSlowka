@@ -63,12 +63,12 @@ table tr td:hover
 {
     color: cadetblue;
 }
-/*.btn-lg*/
-/*{*/
-/*    background-color: darkslategray;*/
+.btn-lg
+{
+    background-color: darkslategray;
 
-/*    border-color: red;*/
-/*}*/
+    border-color: red;
+}
 
 .btn:hover
 {

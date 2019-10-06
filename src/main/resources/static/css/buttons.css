@@ -67,3 +67,15 @@
 .btn-border-rev.btn-red:hover {
     color: darkred;
 }
+
+.btn-border-rev.btn-yellow:before, .btn-border-rev.btn-red:after {
+    border-color: yellow;
+}
+.btn-border-rev.btn-yellow:hover {
+    color: yellow;
+}
+
+#check
+{
+
+}

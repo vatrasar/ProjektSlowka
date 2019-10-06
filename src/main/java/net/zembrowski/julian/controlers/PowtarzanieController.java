@@ -159,9 +159,9 @@ public class PowtarzanieController {
      * @param status
      */
     private void prepareModelForMedia(Model model, Pytanie currentQuestion,final MediaStatus status) {
-        List<MediaSource>mediaForQuestion=mediaSourceService.getMediaForQuestion(currentQuestion);
 
-        List<List<MediaSource>>madiaGroups=mediaSourceService.groupByType(mediaForQuestion);
+
+        List<List<MediaSource>>madiaGroups=mediaSourceService.getMediaForQuestion(currentQuestion);
 
 
         mediaSourceService.filterWithStatus(madiaGroups,status);

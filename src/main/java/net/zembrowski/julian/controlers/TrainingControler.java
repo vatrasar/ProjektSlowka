@@ -133,24 +133,26 @@ public class TrainingControler {
         return "pytanieCwicz";
     }
 
-    @RequestMapping(value = "/cwiczOdp",method = RequestMethod.POST)
-    public String cwiczOdpowiedz(Pytanie odpowiedz, Model model)
+    @RequestMapping(value = "/cwiczOdp",method = RequestMethod.GET)
+    public @ResponseBody QuestionJSON cwiczOdpowiedz(Pytanie odpowiedz, Model model)
     {
-        List<Pytanie>actualQuestionsList=pytania.getActualQuestionsList();
-        odpowiedz.setProblem(actualQuestionsList.get(0).isProblem());
+        return getQuestionJSON();
 
-        //pole pytanie w odpowiedzi zawiera teraz odpowiedz uzytkownika
-        model.addAttribute("pytanie",odpowiedz);
-        model.addAttribute("isTraining",true);
-        model.addAttribute("isProblem",actualQuestionsList.get(0).isProblem());
+
+    }
+
+    private QuestionJSON getQuestionJSON() {
+        Pytanie actualQuestion=pytania.getActualQuestionsList().get(0);
+
+
+        List<List<MediaSource>>mediaGroups=mediaSourceService.getMediaForQuestion(actualQuestion);
+
         //add media
-        if(actualQuestionsList.get(0).getStatus()==Status.UMIEM_JEDNA_STRONE)// test is use for question witch should to be reverse
-            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.QUESTION);
+        if(actualQuestion.getStatus()== Status.UMIEM_JEDNA_STRONE)// test is use for question witch should to be reverse
+           mediaSourceService.filterWithStatus(mediaGroups, MediaStatus.QUESTION);
         else
-            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);
-
-
-        return "odpowiedz";
+            mediaSourceService.filterWithStatus(mediaGroups, MediaStatus.ANSWER);
+        return new QuestionJSON(actualQuestion,mediaGroups.get(0),mediaGroups.get(1),mediaGroups.get(2));
     }
 
 
@@ -188,9 +190,10 @@ public class TrainingControler {
      * @param status
      */
     public void prepareModelForMedia(Model model, Pytanie currentQuestion,final MediaStatus status) {
-        List<MediaSource>mediaForQuestion=mediaSourceService.getMediaForQuestion(currentQuestion);
 
-        List<List<MediaSource>>madiaGroups=mediaSourceService.groupByType(mediaForQuestion);
+
+
+        List<List<MediaSource>>madiaGroups=mediaSourceService.getMediaForQuestion(currentQuestion);
 
 
         mediaSourceService.filterWithStatus(madiaGroups,status);
@@ -210,7 +213,7 @@ public class TrainingControler {
             return false;
     }
 
-    @PostMapping(value = "/cwiczPodsumowanie")
+    @RequestMapping(value = "/cwiczPodsumowanie")
     public String cwiczPodsumowanie(@RequestParam("zal") String zal,Pytanie pytanie, Model model)
     {
 
@@ -287,7 +290,7 @@ public class TrainingControler {
 
 
     @RequestMapping(value = "/cwiczNext")
-    public String workNext(Model model)
+    public @ResponseBody QuestionJSON workNext(Model model)
     {
 
 
@@ -298,7 +301,7 @@ public class TrainingControler {
 
             przygotujModel(model);
             model.addAttribute("powtorzono",true);
-            return "pokarzDoPocwiczenia";
+            return null;
         }
 
 
@@ -307,19 +310,16 @@ public class TrainingControler {
         Pytanie pytanie=actualQuestionsList.get(0);
         prepareModelForQuestion(model,new Pytanie(),pytanie);
 
-        if (pytanie.isNotion())
-        {
-            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);
-            return "notionTrening";
-        }
-        //add media
-        if(pytanie.getStatus()==Status.UMIEM_JEDNA_STRONE)// test is use for question witch should to be reverse
-            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);
-        else
-            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.QUESTION);
+//        if (pytanie.isNotion())
+//        {
+//            prepareModelForMedia(model, actualQuestionsList.get(0), MediaStatus.ANSWER);
+//            return "notionTrening";
+//        }
 
 
-        return "pytanieCwicz";
+        QuestionJSON question=getQuestionJSON();
+        question.setId(actualQuestionsList.size());
+        return question;
     }
 
 
@@ -338,7 +338,13 @@ public class TrainingControler {
 
     }
 
-
+    @RequestMapping(value = "/repetitionDone",method = RequestMethod.GET)
+    public String repetitionDone(Model model)
+    {
+        przygotujModel(model);
+        model.addAttribute("powtorzono",true);
+        return "pokarzDoPocwiczenia";
+    }
 
     @RequestMapping(value = "/zaznacz",method = RequestMethod.GET)
     public @ResponseBody String zaz(@RequestParam("id")String nazwa, @RequestParam("pk") Integer numer,@RequestParam("pow") boolean succesRepete, Model model)
