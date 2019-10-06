@@ -15,14 +15,16 @@ makeQuestionPage();
 
 $("#check").on("click", function (event) {
 
-    makeAnswerPage();
+
     event.preventDefault();
     var controlerAdress=$("#formQuestion").attr("action");
     $.get(controlerAdress,function (data) {
         $("#propAnswer").text(data['answer']);
         $("#userAnswer").text($("odp").text());
         $("#pus").checked=data["problem"];
+        makeAnswerPage();
     });
+
     determineAnswerTagNames();
     betterPreLooks();
 
@@ -30,7 +32,7 @@ $("#check").on("click", function (event) {
 
 $(".result").on("click",function (event) {
     event.preventDefault();
-    makeQuestionPage();
+
     if(this.value==="Umiem")
     {
         $.get(this.formAction+"?zal=Umiem",function (data) {
@@ -38,25 +40,30 @@ $(".result").on("click",function (event) {
 
             if(data==="")
             {
-                open("/repetitionDone");
+                open("/repetitionDone","_self");
             }
             $("#question").text(data['question']);
 
             $("#num").text(data["id"]);
-
+            makeQuestionPage();
         });
     }
     else {
         $.get(this.formAction+"?zal=Nie Umiem",function (data) {
-            if(data===null)
+            if(data==="")
             {
-                open("/repetitionDone");
+                open("/repetitionDone","_self");
             }
             $("#num").text(data["id"]);
             $("#question").text(data['question']);
-
+            makeQuestionPage();
         });
     }
 
+
+
+});
+
+$("#pus").on("click",function () {
 
 });

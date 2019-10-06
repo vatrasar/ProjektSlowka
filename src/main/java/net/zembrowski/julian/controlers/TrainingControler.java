@@ -287,8 +287,12 @@ public class TrainingControler {
                 return true;
         return false;
     }
-
-
+    @RequestMapping(value = "/toggleProb")
+    public void toggleProb(Model model)
+    {
+        Pytanie question=pytania.getActualQuestionsList().get(0);
+        question.setProblem(!question.isProblem());
+    }
     @RequestMapping(value = "/cwiczNext")
     public @ResponseBody QuestionJSON workNext(Model model)
     {

@@ -17,6 +17,7 @@ public class QuestionJSON extends Pytanie {
         this.photos=photos;
         this.sounds=sounds;
         this.videos=videos;
+        this.statistics=new Statistics(0,0,0);
     }
 
     public List<MediaSource> getPhotos() {

@@ -68,14 +68,16 @@
     color: darkred;
 }
 
-.btn-border-rev.btn-yellow:before, .btn-border-rev.btn-red:after {
-    border-color: yellow;
+.btn-border-rev.btn-yellow:before, .btn-border-rev.btn-yellow:after {
+    border-color: cadetblue;
 }
 .btn-border-rev.btn-yellow:hover {
-    color: yellow;
+    color: cadetblue;
 }
 
-#check
+.btn-border-rev.btn-yellow:hover
 {
+    padding:2% 3%;
+    font-size:200;
 
 }

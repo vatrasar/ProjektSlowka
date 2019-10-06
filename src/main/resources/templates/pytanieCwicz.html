@@ -85,8 +85,8 @@
 
 <div id="answerPage" class="container" style="text-align: center;font-size: 25px">
     <div>
-        <p id="propAnswer">poprawna odpowiedz:</p>
-        <pre class="Odp" ></pre>
+        <p style="margin-top: 10%; color: chartreuse">Poprawna odpowiedz:</p>
+        <pre id="propAnswer" class="Odp" ></pre>
 
 
     </div>
@@ -105,7 +105,7 @@
     </section>
 
     <div>
-        <p>twoja odpowiedz:</p>
+        <p style="color:blueviolet;">Twoja odpowiedz:</p>
         <pre id="userAnswer"></pre>
     </div>
     <form th:action="@{/cwiczPodsumowanie}"   class="form-horizontal" method="post">
