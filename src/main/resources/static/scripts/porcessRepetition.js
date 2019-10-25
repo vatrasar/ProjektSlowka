@@ -1,4 +1,4 @@
-
+questionId=null;
 function makeAnswerPage() {
     $("#questionPage").hide();
     $("#answerPage").show();
@@ -32,7 +32,7 @@ $("#check").on("click", function (event) {
 
 $(".result").on("click",function (event) {
     event.preventDefault();
-
+    questionId=true;
     if(this.value==="Umiem")
     {
         $.get(this.formAction+"?zal=Umiem",function (data) {
@@ -64,6 +64,33 @@ $(".result").on("click",function (event) {
 
 });
 
+function workNext()
+{
+    $.get("/cwiczNext",function (data) {
+        if(data==="")
+        {
+            open("/repetitionDone","_self");
+        }
+        $("#num").text(data["id"]);
+        $("#question").text(data['question']);
+        makeQuestionPage();
+    });
+}
+
 $("#pus").on("click",function () {
+    $.get('/toggleProb');
+});
+
+$("#drop").on("click",function (event) {
+    event.preventDefault();
+    if(questionId===null)
+        $.get(this.attr("href"),workNext());
+    else
+    {
+        $.get('/dropPytanie?id=-1',workNext());
+    }
+
 
 });
+
+

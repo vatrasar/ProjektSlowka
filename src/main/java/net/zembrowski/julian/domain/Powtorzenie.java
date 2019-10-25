@@ -35,7 +35,7 @@ public class Powtorzenie {
     @Column(nullable = false, columnDefinition = "bit(1) default 0")
     private boolean problems;
 
-    //when is true you will have to ask for question and then ask for answer (two ways repete)
+    //when is true you will have to answer for question and then answer for answer (two ways repete)
     @Column(nullable = false, columnDefinition = "bit(1) default 0")
     private boolean reverse;
     @Column(nullable = false, columnDefinition = "bit(1) default 0")

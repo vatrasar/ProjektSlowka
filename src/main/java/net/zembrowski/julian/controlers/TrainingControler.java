@@ -177,7 +177,7 @@ public class TrainingControler {
         model.addAttribute("pyt",pytanie);
 
         if(actualQuestionsList!=null)
-            model.addAttribute("questionsNumber",actualQuestionsList.size());
+            model.addAttribute("questionsNumber",powtorzenia.getQuestionsToEnd(actualQuestionsList));
         else
             model.addAttribute("questionsNumber",1);
         return;
@@ -322,7 +322,7 @@ public class TrainingControler {
 
 
         QuestionJSON question=getQuestionJSON();
-        question.setId(actualQuestionsList.size());
+        question.setId(powtorzenia.getQuestionsToEnd(actualQuestionsList));// using id  field to send how many questions remains to end of repetitions
         return question;
     }
 

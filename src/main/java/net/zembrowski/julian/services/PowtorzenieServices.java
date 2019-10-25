@@ -1,9 +1,7 @@
 package net.zembrowski.julian.services;
 
 
-import net.zembrowski.julian.domain.Klucz;
-import net.zembrowski.julian.domain.Powtorzenie;
-import net.zembrowski.julian.domain.Tag;
+import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.repository.PowotrzenieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -16,6 +14,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
+import static net.zembrowski.julian.domain.Status.NIESPRAWDZONE;
+import static net.zembrowski.julian.domain.Status.UMIEM_JEDNA_STRONE;
 
 @Service
 @Scope("session")
@@ -212,5 +214,37 @@ public class PowtorzenieServices {
 
     public void injectActualRepetition(Powtorzenie processed) {
         actualRepetition=processed;
+    }
+
+    public int getQuestionsToEnd(List<Pytanie> actualQuestionsList) {
+        int count=0;
+        int clones=0;//one question can be more than one time in repetition
+        for(Pytanie question : actualQuestionsList)
+        {
+            if(question.getPowtorzenie().isReverse())
+            {
+                if (question.getStatus()== NIESPRAWDZONE)
+                {
+                    List temp=actualQuestionsList.stream().filter((Pytanie a)->a.equals(question)).collect(Collectors.toList());
+                    if(temp.size()>1)
+                    {
+                        clones++;
+                    }
+                    count+=2;
+
+                }
+                if (question.getStatus()== UMIEM_JEDNA_STRONE)
+                {
+                    count++;
+                }
+            }
+
+        }
+        if(clones!=0)
+        {
+            clones/=2;
+            count-=clones;
+        }
+        return count;
     }
 }

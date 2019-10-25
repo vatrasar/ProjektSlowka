@@ -137,6 +137,8 @@ public class PytanieServices {
             return result;
 
         } catch (Exception e) {
+            System.out.println("WWWWWWWWWWWWWWWWWWWWOOO = " +
+                    System.getProperty("user.dir"));
             e.printStackTrace();
         }
 

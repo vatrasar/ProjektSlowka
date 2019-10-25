@@ -10,10 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.NoResultException;
@@ -232,13 +229,17 @@ public class EditionController {
 
 
     @RequestMapping("/dropPytanie")
-    public String dropPytanie(Model model,@RequestParam("id") int id)
+    public @ResponseBody void dropPytanie(Model model, @RequestParam("id") int id)
     {
+        if(id==-1)//when on page no informations about question id it returns -1. mostly condition should be true
+        {
+            id=pytania.getActualQuestionsList().get(0).getId();
+        }
         Powtorzenie pow=pytania.getPytanie(id).getPowtorzenie();
         pytania.deletePytanie(id);
 
         pytania.getActualQuestionsList().remove(0);
-        return "redirect:/cwicz?id="+pow.getNazwa()+"&pk="+pow.getNumer();
+
     }
     @RequestMapping("/dropPytanieLast")
     public String dropPytanieLast(Model model,@RequestParam("id") int id)
