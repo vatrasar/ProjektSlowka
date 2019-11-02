@@ -238,6 +238,9 @@ public class PowtorzenieServices {
                     count++;
                 }
             }
+            else{
+                count=actualQuestionsList.size();
+            }
 
         }
         if(clones!=0)

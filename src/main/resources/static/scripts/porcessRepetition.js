@@ -94,3 +94,17 @@ $("#drop").on("click",function (event) {
 });
 
 
+$("#leave").on("click",function (event) {
+
+   if (confirm("Czy napewno chcesz opuścić?"))
+   {
+
+   }else {
+       event.preventDefault()
+   }
+
+
+
+});
+
+
