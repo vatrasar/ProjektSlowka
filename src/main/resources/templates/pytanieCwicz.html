@@ -11,6 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/pytanieStyle.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/darkMode.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/buttons.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/pre.css}" type="text/css">
     <style>
         #drop
         {
@@ -86,8 +87,9 @@
 <div id="answerPage" class="container" style="text-align: center;font-size: 25px">
     <div>
         <p style="margin-top: 10%; color: chartreuse">Poprawna odpowiedz:</p>
-        <pre id="propAnswer" class="Odp" ></pre>
-
+        <div>
+            <pre id="propAnswer" class="Odp answers" ></pre>
+        </div>
 
     </div>
 
@@ -106,7 +108,9 @@
 
     <div>
         <p style="color:blueviolet;">Twoja odpowiedz:</p>
-        <pre id="userAnswer"></pre>
+        <div>
+            <pre id="userAnswer" class="answers"></pre>
+        </div>
     </div>
     <form th:action="@{/cwiczPodsumowanie}"   class="form-horizontal" method="post">
 

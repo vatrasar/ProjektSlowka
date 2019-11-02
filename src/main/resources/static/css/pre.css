@@ -5,7 +5,7 @@ pre
     margin-right: auto;
     margin-left: auto;
     border: none;
-    background-color: white;
+
     font-size: 90%;
     padding-left: 25%;
 }
@@ -17,7 +17,7 @@ pre
     margin-right: auto;
     margin-left: auto;
     border: none;
-    background-color: white;
+
     font-size: 90%;
     padding-left: unset;
 }

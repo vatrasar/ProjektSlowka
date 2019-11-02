@@ -91,4 +91,9 @@ table tr td:hover
 {
     background-color:cadetblue;
 }
+pre
+{
+    color: darkcyan;
+    background-color: black;
+}
 

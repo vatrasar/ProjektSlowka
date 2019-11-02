@@ -1,7 +1,9 @@
 questionId=null;
 function makeAnswerPage() {
+    determineAnswerTagNames2();
     $("#questionPage").hide();
     $("#answerPage").show();
+
 
 }
 

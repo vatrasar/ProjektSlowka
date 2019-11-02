@@ -49,7 +49,7 @@ public class TrainingControler {
     public String repetsForTomorrow()
     {
         powtorzenia.injectRepetitionsForTomorrow();
-        
+
         return "redirect:/training";
     }
 
@@ -62,6 +62,7 @@ public class TrainingControler {
         Collections.shuffle(actualQuestionsList);
         return "redirect:/cwicz";
     }
+
     @RequestMapping(value = "/training")
    public String training(Model model) throws Exception
     {
@@ -169,7 +170,8 @@ public class TrainingControler {
         Powtorzenie wykonywane=powtorzenia.getPowtorzenie(new Klucz(number,name,users.getActualUserLogin()));
         pytania.injectUnverified(wykonywane);
         powtorzenia.injectActualRepetition(wykonywane);
-
+        List<Pytanie>actualQuestionsList=pytania.getActualQuestionsList();
+        Collections.shuffle(actualQuestionsList);
         return "trainingMenu";
     }
     public void prepareModelForQuestion(Model model, Pytanie odpowiedz, Pytanie pytanie) {
