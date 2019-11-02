@@ -83,12 +83,9 @@ $("#pus").on("click",function () {
 
 $("#drop").on("click",function (event) {
     event.preventDefault();
-    if(questionId===null)
-        $.get(this.attr("href"),workNext());
-    else
-    {
-        $.get('/dropPytanie?id=-1',workNext());
-    }
+
+    $.get('/dropPytanie?id=-1',workNext);
+
 
 
 });

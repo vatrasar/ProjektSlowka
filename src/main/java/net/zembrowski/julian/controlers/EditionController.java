@@ -229,7 +229,7 @@ public class EditionController {
 
 
     @RequestMapping("/dropPytanie")
-    public @ResponseBody void dropPytanie(Model model, @RequestParam("id") int id)
+    public @ResponseBody String dropPytanie(Model model, @RequestParam("id") int id)
     {
         if(id==-1)//when on page no informations about question id it returns -1. mostly condition should be true
         {
@@ -239,6 +239,7 @@ public class EditionController {
         pytania.deletePytanie(id);
 
         pytania.getActualQuestionsList().remove(0);
+        return "";
 
     }
     @RequestMapping("/dropPytanieLast")
