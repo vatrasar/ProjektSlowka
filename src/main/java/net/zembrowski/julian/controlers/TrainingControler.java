@@ -49,6 +49,7 @@ public class TrainingControler {
     public String repetsForTomorrow()
     {
         powtorzenia.injectRepetitionsForTomorrow();
+        
         return "redirect:/training";
     }
 
@@ -57,7 +58,8 @@ public class TrainingControler {
     {
 
         pytania.injectProblematic();
-
+        List<Pytanie>actualQuestionsList=pytania.getActualQuestionsList();
+        Collections.shuffle(actualQuestionsList);
         return "redirect:/cwicz";
     }
     @RequestMapping(value = "/training")
@@ -100,7 +102,7 @@ public class TrainingControler {
 
         //mieszanie pytań
         List<Pytanie>actualQuestionsList=pytania.getActualQuestionsList();
-        Collections.shuffle(actualQuestionsList);
+
 
         //jesli w powtorzeniu nie ma zadnych pytan to nic sie nie dzieje
         if (actualQuestionsList.isEmpty())
@@ -132,6 +134,8 @@ public class TrainingControler {
 
         return "pytanieCwicz";
     }
+
+
 
     @RequestMapping(value = "/cwiczOdp",method = RequestMethod.GET)
     public @ResponseBody QuestionJSON cwiczOdpowiedz(Pytanie odpowiedz, Model model)
@@ -403,6 +407,8 @@ public class TrainingControler {
     {
 
         pytania.injectMarked();
+        List<Pytanie>actualQuestionsList=pytania.getActualQuestionsList();
+        Collections.shuffle(actualQuestionsList);
         return "redirect:/cwicz";
     }
 

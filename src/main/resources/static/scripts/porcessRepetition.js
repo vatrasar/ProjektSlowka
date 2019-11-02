@@ -104,4 +104,9 @@ $("#leave").on("click",function (event) {
 
 });
 
+$("#questionChange").on("click",function (event) {
+    event.preventDefault();
+    open('/zmianaPytania?id=-1',"_self");
+});
+
 

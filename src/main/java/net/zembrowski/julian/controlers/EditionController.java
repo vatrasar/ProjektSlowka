@@ -252,6 +252,10 @@ public class EditionController {
     @RequestMapping("/zmianaPytania")
     public String zmienPytanie(@RequestParam("id") int id, Model model)
     {
+        if(id==-1)//when on page no informations about question id it returns -1. mostly condition should be true
+        {
+            id=pytania.getActualQuestionsList().get(0).getId();
+        }
         Pytanie edytowane=new Pytanie(pytania.getPytanie(id));
 
         String tags=tagService.getQuestionTagsNames(edytowane);
@@ -270,7 +274,7 @@ public class EditionController {
         if (pytania.getActualQuestionsList()==null || pytania.getActualQuestionsList().isEmpty())
             return "redirect:/pokarzMenu";
         else
-           return "redirect:/cwiczNext";
+           return "redirect:/cwicz";
     }
 
     @RequestMapping("/collectMarked")

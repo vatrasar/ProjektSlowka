@@ -34,7 +34,7 @@
     </style>
 </head>
 <body>
-<a th:href="${'/zmianaPytania?id='+pyt.getId() }">zmien pytanie</a>
+<a id="questionChange" th:href="${'/zmianaPytania?id='+pyt.getId() }">zmien pytanie</a>
 <a id="drop" th:href="${'/dropPytanie?id='+pyt.getId() }">usuń pytanie</a>
 <p class="blod">pozaostało:<span id="num" style="color: cornflowerblue" th:text="${questionsNumber}"></span></p>
 <header>

@@ -281,7 +281,9 @@ public class PytanieServices {
         saveFiles(plikiOdp, MediaStatus.ANSWER,nowe);
         saveFiles(plikiQuest, MediaStatus.QUESTION, nowe);
 
-        
+        Pytanie editedQuestion=getActualQuestionsList().get(0);//we have changed question in database but not in current question list
+        editedQuestion.setAnswer(nowe.getAnswer());
+        editedQuestion.setQuestion(nowe.getQuestion());
     }
 
 
