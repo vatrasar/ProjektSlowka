@@ -8,7 +8,7 @@ function makeAnswerPage(data) {
     determineAnswerTagNames2();
     $("#questionPage").hide();
     $("#answerPage").show();
-
+    $("#back").show();
 
 }
 
@@ -63,6 +63,7 @@ function makeQuestionPage(isFirstQuestion,data) {
     $("odp").text("");
     $("#answerPage").hide();
     $("#questionPage").show();
+    $("#back").hide();
 }
 
 makeQuestionPage(true,[]);
@@ -158,4 +159,9 @@ $("#questionChange").on("click",function (event) {
     open('/zmianaPytania?id=-1',"_self");
 });
 
+
+$("#back").on("click",function (event) {
+    event.preventDefault();
+    makeQuestionPage(true,[]);
+});
 

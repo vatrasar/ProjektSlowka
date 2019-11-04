@@ -1,0 +1,36 @@
+#drop
+{
+    position: fixed;
+    margin-right: 1%;
+    color: red;
+    float: right;
+}
+#num
+{
+    color: darkblue;
+    margin-right: 1%;
+    font-weight: normal;
+
+}
+.blod
+{
+    color: greenyellow;
+    font-weight: bold;
+
+}
+.previous:hover {
+    background-color: green;
+    color: black;
+}
+
+.previous {
+    background-color: dodgerblue;
+    color: black;
+    position: fixed;
+    bottom: 0;
+
+}
+.previous:focus{
+    color: black;
+
+}

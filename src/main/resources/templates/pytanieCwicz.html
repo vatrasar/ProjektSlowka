@@ -12,27 +12,7 @@
     <link rel="stylesheet" th:href="@{/css/darkMode.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/buttons.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/pre.css}" type="text/css">
-    <style>
-        #drop
-        {
 
-            margin-right: 1%;
-            color: red;
-            float: right;
-        }
-        #num
-        {
-            color: darkblue;
-            margin-right: 1%;
-            font-weight: normal;
-        }
-        .blod
-        {
-            color: greenyellow;
-            font-weight: bold;
-
-        }
-    </style>
 </head>
 <body>
 <a id="questionChange" th:href="${'/zmianaPytania?id='+pyt.getId() }">zmien pytanie</a>
@@ -130,7 +110,7 @@
         </div>
     </form>
 </div>
-
+<a id="back" href="#" class="previous">&laquo; Pytanie </a>
 <script th:src="@{/scripts/porcessRepetition.js}"></script>
 <script th:src="@{/scripts/deteremineAnswerTagName.js}"></script>
 <script th:src="@{/scripts/betterPreLooks.js}"></script>
