@@ -141,22 +141,30 @@ public class TrainingControler {
     @RequestMapping(value = "/cwiczOdp",method = RequestMethod.GET)
     public @ResponseBody QuestionJSON cwiczOdpowiedz(Pytanie odpowiedz, Model model)
     {
-        return getQuestionJSON();
+        return getQuestionJSON(false);
 
 
     }
 
-    private QuestionJSON getQuestionJSON() {
+    private QuestionJSON getQuestionJSON(boolean isQuestion) {
         Pytanie actualQuestion=pytania.getActualQuestionsList().get(0);
 
 
         List<List<MediaSource>>mediaGroups=mediaSourceService.getMediaForQuestion(actualQuestion);
 
         //add media
-        if(actualQuestion.getStatus()== Status.UMIEM_JEDNA_STRONE)// test is use for question witch should to be reverse
-           mediaSourceService.filterWithStatus(mediaGroups, MediaStatus.QUESTION);
-        else
-            mediaSourceService.filterWithStatus(mediaGroups, MediaStatus.ANSWER);
+        if(isQuestion) {
+            if (actualQuestion.getStatus() == Status.UMIEM_JEDNA_STRONE)// test is use for question witch should to be reverse
+                mediaSourceService.filterWithStatus(mediaGroups, MediaStatus.ANSWER);
+            else
+                mediaSourceService.filterWithStatus(mediaGroups, MediaStatus.QUESTION);
+        }
+        else {
+            if (actualQuestion.getStatus() == Status.UMIEM_JEDNA_STRONE)// test is use for question witch should to be reverse
+                mediaSourceService.filterWithStatus(mediaGroups, MediaStatus.QUESTION);
+            else
+                mediaSourceService.filterWithStatus(mediaGroups, MediaStatus.ANSWER);
+        }
         return new QuestionJSON(actualQuestion,mediaGroups.get(0),mediaGroups.get(1),mediaGroups.get(2));
     }
 
@@ -327,7 +335,7 @@ public class TrainingControler {
 //        }
 
 
-        QuestionJSON question=getQuestionJSON();
+        QuestionJSON question=getQuestionJSON(true);
         question.setId(powtorzenia.getQuestionsToEnd(actualQuestionsList));// using id  field to send how many questions remains to end of repetitions
         return question;
     }

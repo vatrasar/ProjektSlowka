@@ -1,5 +1,10 @@
 questionId=null;
-function makeAnswerPage() {
+function makeAnswerPage(data) {
+    $("#propAnswer").text(data['answer']);
+    $("#userAnswer").text($("odp").text());
+    $("#pus").checked=data["problem"];
+    var newTags=makeMediaTags([data["photos"],data['sounds'],data['videos']]);
+    $("#answerMedia").html(newTags);
     determineAnswerTagNames2();
     $("#questionPage").hide();
     $("#answerPage").show();
@@ -7,13 +12,60 @@ function makeAnswerPage() {
 
 }
 
-function makeQuestionPage() {
+/**
+ * makes tags for media(photos,films etc.). Next it is use in html method
+ * @param data
+ */
+function makeMediaTags(data) {
+    var tags="";
+
+    tags+="<section>";
+    var test=data[0];
+    for (photo in data[0]) {
+        tags += "<img src=\"" + data[0][photo] + "\">\n";
+    }
+    tags+="</section>\n";
+
+
+
+
+    tags+="<section>";
+
+    for (sound in data[1]) {
+        tags += "<audio src=\"" + data[0][sound]+ "\">\n";
+    }
+    tags+="</section>\n";
+
+
+
+    tags+="<section>";
+
+    for (video in data[1]) {
+        tags += "<video src=\"" + data[0][video] + "\">\n";
+    }
+    tags+="</section>\n";
+
+    return tags
+}
+
+
+function makeQuestionPage(isFirstQuestion,data) {
+
+
+
+    if(!isFirstQuestion)
+    {
+        newTags=makeMediaTags([data["photos"],data['sounds'],data['videos']]);
+        $("#questionsMedia").html(newTags);
+        $("#num").text(data["id"]);
+        $("#question").text(data['question']);
+    }
     $("odp").text("");
     $("#answerPage").hide();
     $("#questionPage").show();
 }
 
-makeQuestionPage();
+makeQuestionPage(true,[]);
 
 $("#check").on("click", function (event) {
 
@@ -21,10 +73,8 @@ $("#check").on("click", function (event) {
     event.preventDefault();
     var controlerAdress=$("#formQuestion").attr("action");
     $.get(controlerAdress,function (data) {
-        $("#propAnswer").text(data['answer']);
-        $("#userAnswer").text($("odp").text());
-        $("#pus").checked=data["problem"];
-        makeAnswerPage();
+
+        makeAnswerPage(data);
     });
 
     determineAnswerTagNames();
@@ -44,10 +94,9 @@ $(".result").on("click",function (event) {
             {
                 open("/repetitionDone","_self");
             }
-            $("#question").text(data['question']);
 
-            $("#num").text(data["id"]);
-            makeQuestionPage();
+
+            makeQuestionPage(false,data);
         });
     }
     else {
@@ -56,9 +105,8 @@ $(".result").on("click",function (event) {
             {
                 open("/repetitionDone","_self");
             }
-            $("#num").text(data["id"]);
-            $("#question").text(data['question']);
-            makeQuestionPage();
+
+            makeQuestionPage(false,data);
         });
     }
 
@@ -73,9 +121,8 @@ function workNext()
         {
             open("/repetitionDone","_self");
         }
-        $("#num").text(data["id"]);
-        $("#question").text(data['question']);
-        makeQuestionPage();
+
+        makeQuestionPage(false,data);
     });
 }
 

@@ -18,7 +18,7 @@ function determineAnswerTagNames() {
 }
 
 /**
- * for REST API
+ * for REST API determine whether pre or p tag is use
  */
 function determineAnswerTagNames2() {
     var elements=[].slice.call(document.getElementsByClassName("answers"));

@@ -51,19 +51,20 @@
     <div id="pytanieDiv" >
         <p><span id="question" th:text="${pyt.question}"></span></p>
     </div>
+    <div id="questionsMedia">
+        <section th:each="a:${mediaImg}">
+            <img th:src="${a.getPath()}">
+        </section>
 
-    <section th:each="a:${mediaImg}">
-        <img th:src="${a.getPath()}">
-    </section>
-
-    <section th:each="z:${mediaAudio}">
-        <audio th:src="${z.getPath()}" controls></audio>
-    </section>
+        <section th:each="z:${mediaAudio}">
+            <audio th:src="${z.getPath()}" controls></audio>
+        </section>
 
 
-    <section th:each="k:${mediaVideo}">
-        <video th:src="${k.getPath()}" controls></video>
-    </section>
+        <section th:each="k:${mediaVideo}">
+            <video th:src="${k.getPath()}" controls></video>
+        </section>
+    </div>
 
     <form id="formQuestion" class="form-horizontal" th:action="@{/cwiczOdp}" th:method="post" th:object="${odp}">
 
@@ -92,19 +93,20 @@
         </div>
 
     </div>
+    <div id="answerMedia">
+        <section th:each="a:${mediaImg}">
+            <img th:src="${a.getPath()}">
+        </section>
 
-    <section th:each="a:${mediaImg}">
-        <img th:src="${a.getPath()}">
-    </section>
-
-    <section th:each="z:${mediaAudio}">
-        <audio th:src="${z.getPath()}" controls></audio>
-    </section>
+        <section th:each="z:${mediaAudio}">
+            <audio th:src="${z.getPath()}" controls></audio>
+        </section>
 
 
-    <section th:each="k:${mediaVideo}">
-        <video th:src="${k.getPath()}" controls></video>
-    </section>
+        <section th:each="k:${mediaVideo}">
+            <video th:src="${k.getPath()}" controls></video>
+        </section>
+    </div>
 
     <div>
         <p style="color:blueviolet;">Twoja odpowiedz:</p>
