@@ -12,8 +12,8 @@ public class Statistics {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
-    private int thirty;
-    private int ten;
+    private int thirty;//how many times questions was retake after 30 days
+    private int ten;//how many times questions was retake after 30 days
 
     public Statistics(int id, int thirty,int ten) {
         this.id = id;

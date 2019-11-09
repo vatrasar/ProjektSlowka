@@ -171,16 +171,26 @@ public class PytanieServices {
         //set problem off
         bledy.forEach(a->a.setProblem(false));
         List<Pytanie>hardQuestions=pytania.getHardQuestions(bledy);//question is hard when has bad statistics
+        List<Pytanie>tooHardQuestions=hardQuestions.stream().filter(Pytanie::isTooHard).collect(Collectors.toList());
         //uzyskanie numeru jakie powinno miec powtorzenie z bledami
         int numer = 1 + powtorzenia.getMaxNumer(wykonywane.getNazwa());
         if(!hardQuestions.isEmpty())
         {
 
-            int numberForHard=numer+1;
-            bledy.removeAll(hardQuestions);
-            createRepetitionForFaults(wykonywane, hardQuestions, numberForHard, true);
-        }
 
+            bledy.removeAll(hardQuestions);
+            hardQuestions.removeAll(tooHardQuestions);
+            Powtorzenie forHard=new Powtorzenie(wykonywane);
+            if(!forHard.getNazwa().contains("hard"))
+                forHard.setNazwa(forHard.getNazwa()+"hard");
+            int numberForHard=powtorzenia.getMaxNumer(forHard.getNazwa())+1;
+            createRepetitionForFaults(forHard, hardQuestions, numberForHard, true);
+
+        }
+        if(!tooHardQuestions.isEmpty())
+        {
+            tooHardQuestions.forEach(a->pytania.deletePytanie(a.getId()));
+        }
         if(bledy.size()!=0) {
 
             //tworzymy nowe powtorzenie dla bledów
@@ -199,7 +209,7 @@ public class PytanieServices {
         pytania.upadatePytanie(a);
     }
 
-    private Powtorzenie createRepetitionForFaults(Powtorzenie oldRepetition, List<Pytanie> questions, int idNumber, boolean hard) {
+    private void createRepetitionForFaults(Powtorzenie oldRepetition, List<Pytanie> questions, int idNumber, boolean hard) {
         final int next=oldRepetition.getNastepne();
         questions.forEach(a->pushStatistic(a,next));
         Powtorzenie repetiotionForFaults = new Powtorzenie();
@@ -212,7 +222,7 @@ public class PytanieServices {
 
         }
         pytania.nadajStatusNiesprawdzone(repetiotionForFaults);
-        return repetiotionForFaults;
+
     }
 
     /**

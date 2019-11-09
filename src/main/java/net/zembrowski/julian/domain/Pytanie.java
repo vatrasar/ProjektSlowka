@@ -200,4 +200,11 @@ public class Pytanie {
     public int hashCode() {
         return Objects.hash(id, question, answer, powtorzenie, status, problem, lastAdded, notion, statistics);
     }
+
+    public boolean isTooHard() {
+        if(statistics.getThirty()>=3 || statistics.getTen()>=3)
+            return true;
+        else
+            return false;
+    }
 }

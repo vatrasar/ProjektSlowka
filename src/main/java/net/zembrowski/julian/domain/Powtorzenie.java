@@ -47,6 +47,19 @@ public class Powtorzenie {
         hard=false;
     }
 
+    public Powtorzenie(Powtorzenie other) {
+        this.nazwa = other.nazwa;
+        this.numer = other.numer;
+        this.wlasciciel = other.wlasciciel;
+        this.utworzenie = other.utworzenie;
+        this.dzien = other.dzien;
+        this.nastepne = other.nastepne;
+        this.empty = other.empty;
+        this.problems = other.problems;
+        this.reverse = other.reverse;
+        this.hard = other.hard;
+    }
+
     public boolean isHard() {
         return hard;
     }
