@@ -17,7 +17,7 @@
 <body>
 <a id="questionChange" th:href="${'/zmianaPytania?id='+pyt.getId() }">zmien pytanie</a>
 <a id="drop" th:href="${'/dropPytanie?id='+pyt.getId() }">usuń pytanie</a>
-<p class="blod">pozaostało:<span id="num" style="color: cornflowerblue" th:text="${questionsNumber}"></span></p>
+<p class="blod">pozostało:<span id="num" style="color: cornflowerblue" th:text="${questionsNumber}"></span></p>
 <header>
     <h1 th:text="${pyt.getPowtorzenie().getNazwa()+' '+pyt.getPowtorzenie().getNumer()}"></h1>
     <h5 >Data notatek:<span th:text="${pyt.powtorzenie.getUtworzenie()}"></span></h5>

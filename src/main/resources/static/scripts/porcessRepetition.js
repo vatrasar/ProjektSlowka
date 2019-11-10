@@ -2,7 +2,7 @@ questionId=null;
 function makeAnswerPage(data) {
     $("#propAnswer").text(data['answer']);
     $("#userAnswer").text($("odp").text());
-    $("#pus").checked=data["problem"];
+    $("#pus").prop('checked',data["problem"]);
     var newTags=makeMediaTags([data["photos"],data['sounds'],data['videos']]);
     $("#answerMedia").html(newTags);
     determineAnswerTagNames2();

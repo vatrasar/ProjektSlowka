@@ -237,7 +237,7 @@ public class TrainingControler {
             return "redirect:/pokarzMenu";
         }
 
-        pytania.updatePytanieProblem(pytanie.isProblem(),actualQuestionsList.get(0));
+
         if (zal.equals("Nie Umiem"))//nie umiem
         {
 
@@ -306,6 +306,7 @@ public class TrainingControler {
     {
         Pytanie question=pytania.getActualQuestionsList().get(0);
         question.setProblem(!question.isProblem());
+        pytania.updatePytanieProblem(question.isProblem(),question);
     }
     @RequestMapping(value = "/cwiczNext")
     public @ResponseBody QuestionJSON workNext(Model model)
