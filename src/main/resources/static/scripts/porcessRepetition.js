@@ -1,7 +1,8 @@
 questionId=null;
 function makeAnswerPage(data) {
     $("#propAnswer").text(data['answer']);
-    $("#userAnswer").text($("odp").text());
+
+    $("#userAnswer").text($("#odp").val());
     $("#pus").prop('checked',data["problem"]);
     var newTags=makeMediaTags([data["photos"],data['sounds'],data['videos']]);
     $("#answerMedia").html(newTags);
@@ -9,6 +10,7 @@ function makeAnswerPage(data) {
     $("#questionPage").hide();
     $("#answerPage").show();
     $("#back").show();
+
 
 }
 
@@ -60,7 +62,7 @@ function makeQuestionPage(isFirstQuestion,data) {
         $("#num").text(data["id"]);
         $("#question").text(data['question']);
     }
-    $("odp").text("");
+    $("#odp").val("");
     $("#answerPage").hide();
     $("#questionPage").show();
     $("#back").hide();
