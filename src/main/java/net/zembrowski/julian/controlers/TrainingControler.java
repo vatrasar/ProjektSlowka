@@ -67,7 +67,7 @@ public class TrainingControler {
    public String training(Model model) throws Exception
     {
         Powtorzenie actualRepetition=powtorzenia.getActualRepetition();
-       if(users.updateAktualnyUzytkownik() || actualRepetition==null)
+       if(users.updateAktualnyUzytkownik())
        {
            return "redirect:/pokarzMenu";
        }
@@ -85,7 +85,9 @@ public class TrainingControler {
         }
         if (powtorzenia.getActualRepetitions()==null)
         {
-            throw new Exception("toLearn is Empty!");
+            powtorzenia.injectRepetitionsForTomorrow();
+            if(powtorzenia.getActualRepetitions()==null)
+                throw new Exception("toLearn is Empty!");
         }
         model.addAttribute("lastRepet",actualRepetition);
         model.addAttribute("powtorzenia",powtorzenia.getActualRepetitions());
