@@ -67,7 +67,7 @@ public class TrainingControler {
    public String training(Model model) throws Exception
     {
         Powtorzenie actualRepetition=powtorzenia.getActualRepetition();
-       if(users.updateAktualnyUzytkownik())
+       if(users.updateAktualnyUzytkownik() || actualRepetition==null)
        {
            return "redirect:/pokarzMenu";
        }
