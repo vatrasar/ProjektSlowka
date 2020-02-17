@@ -78,7 +78,7 @@ $("#check").on("click", function (event) {
         makeAnswerPage(data);
     });
 
-    determineAnswerTagNames();
+    determineAnswerTagNames2();
     betterPreLooks();
 
 });
