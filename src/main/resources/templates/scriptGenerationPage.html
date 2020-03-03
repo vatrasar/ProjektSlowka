@@ -14,19 +14,98 @@
 </head>
 <body>
 <a id="back" href="#" class="previous">&laquo; Powrót </a>
-<div id="parentElement"  class="container">
+<div id="firstPage"  class="container">
 
     <div class="btnGroup" id="centralButtons">
 
-        <button id="leftButton" type="submit" class="btn btn-green btn-border-rev result" name="zal"
+        <button id="btnexistingProject" type="submit" class="btn btn-green btn-border-rev result" name="zal"
                 value="">Istniejący projekt
         </button>
-        <button type="submit" class="btn btn-yellow2 btn-border-rev result"  name="zal" value="">
+        <button type="submit" class="btn btn-yellow2 btn-border-rev result" id="btnNewProject"  name="zal" value="">
             Nowy projekt
         </button>
 
     </div>
 </div>
+
+<div id="projectCreationPage"  class="container hidden">
+
+    <h2>Ustawienia projektu</h2>
+    <div class="container">
+        <form class="form-horizontal">
+
+            <div th:class="form-group">
+                <label th:class="control-label">Nazwa projektu</label>
+                <input  accesskey="q" class="form-control question" type="text"/>
+            </div>
+            <div class="form-group">
+                <h3>Rozdziały</h3>
+                <table id="checkboxes" class="table">
+                    <colgroup>
+                        <col span="1" style="width: 70%;">
+                        <col span="1" style="width: 15%;">
+                    </colgroup>
+                    <tr>
+                        <th>nazwa</th>
+                        <th></th>
+
+                    </tr>
+
+                    <tr>
+                        <td>c#</td>
+                        <td class="acceptTd"><input type="checkbox"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div th:class="form-group">
+                <h3>Dodawanie rozdziałów</h3>
+                <label th:class="control-label">Wyszukiwanie rozdziału</label>
+                <input  accesskey="q" class="form-control question" type="text"/>
+            </div>
+            <div th:class="form-group">
+
+                <table id="repetitionsSearch" class="table">
+                    <colgroup>
+                        <col span="1" style="width: 70%;">
+                        <col span="1" style="width: 15%;">
+                    </colgroup>
+                    <tr>
+                        <th>nazwa</th>
+                        <th></th>
+
+                    </tr>
+
+                    <tr>
+                        <td>c#</td>
+                        <td class="acceptTd"><a>dodaj</a></td>
+                    </tr>
+                </table>
+            </div>
+
+
+        </form>
+    </div>
+    <div th:class="form-group"  style="text-align: center;margin-top: 20px">
+        <button id="btnGenerateProject" class="btn btn-yellow btn-border-rev" type="submit" value="sprawdz odpowiedz">Generuj projekt</button>
+    </div>
+</div>
+
+<div id="projectChoosePage"  class="container hidden">
+
+    <h2>Projekty</h2>
+    <table class="table">
+        <colgroup>
+            <col span="1" style="width: 70%;">
+            <col span="1" style="width: 15%;">
+        </colgroup>
+        <tr>
+            <th>Nazwa</th>
+            <th>Wybór</th>
+        </tr>
+    </table>
+</div>
+
 <script th:src="@{/scripts/scriptGeneration.js}"></script>
 </body>
 </html>

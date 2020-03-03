@@ -7,13 +7,17 @@
     height: 30vh;
 
 }
+#projectCreationPage
+{
+    margin-top: 10vh;
+}
 .btnGroup{
 
     width: fit-content;
     display: flex;
     margin: auto;
 }
-#parentElement{
+#firstPage{
     position: absolute;
     width: 100%;
     top:40%;
@@ -42,4 +46,11 @@
 .previous:focus{
     color: black;
 
+}
+
+.hidden{
+    display: none;
+}
+.acceptTd{
+    text-align: center;
 }
