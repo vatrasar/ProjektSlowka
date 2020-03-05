@@ -466,7 +466,7 @@ public class PytanieServices {
         actualQuestionsList=getQuestionsOfMarked(powtorzenia.getActualRepetitions());
     }
 
-    private List<Pytanie> getPytaniaOfRepetitions(List<Powtorzenie> toLearn) {
+    public List<Pytanie> getPytaniaOfRepetitions(List<Powtorzenie> toLearn) {
 
         List<Pytanie>result=new ArrayList<>();
         for(Powtorzenie temp:toLearn)

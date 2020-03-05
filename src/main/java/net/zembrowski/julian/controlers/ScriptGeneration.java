@@ -29,8 +29,8 @@ public class ScriptGeneration {
     public @ResponseBody String makeLatexScript(@RequestBody LatexProject latexProject)
     {
         latexProjectService.addNewProject(latexProject);
+        latexProjectService.generateLatexProject(latexProject);
         return "ok";
-
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="/searchChapters")
