@@ -250,4 +250,9 @@ public class PowtorzenieServices {
         }
         return count;
     }
+
+    public List<String> searchRepetitionsWithPartOfName(String partOfName) {
+        return powtorzenia.getRepetitionsWithPartOfName(partOfName);
+
+    }
 }

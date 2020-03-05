@@ -51,6 +51,9 @@
 .hidden{
     display: none;
 }
-.acceptTd{
+.projectSettingsTd{
     text-align: center;
+}
+.dropLink{
+    color: red;
 }

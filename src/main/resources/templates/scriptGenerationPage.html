@@ -36,7 +36,7 @@
 
             <div th:class="form-group">
                 <label th:class="control-label">Nazwa projektu</label>
-                <input  accesskey="q" class="form-control question" type="text"/>
+                <input id="projectName"  accesskey="q" class="form-control question" type="text"/>
             </div>
             <div class="form-group">
                 <h3>Rozdziały</h3>
@@ -44,42 +44,44 @@
                     <colgroup>
                         <col span="1" style="width: 70%;">
                         <col span="1" style="width: 15%;">
+                        <col span="1" style="width: 15%;">
                     </colgroup>
+
                     <tr>
                         <th>nazwa</th>
                         <th></th>
+                        <th></th>
 
                     </tr>
+                    <tbody id="trInProjectGroup">
 
-                    <tr>
-                        <td>c#</td>
-                        <td class="acceptTd"><input type="checkbox"></td>
-                    </tr>
+                    </tbody>
                 </table>
             </div>
 
             <div th:class="form-group">
                 <h3>Dodawanie rozdziałów</h3>
                 <label th:class="control-label">Wyszukiwanie rozdziału</label>
-                <input  accesskey="q" class="form-control question" type="text"/>
+                <input id="search"  accesskey="q" class="form-control question" type="text"/>
             </div>
             <div th:class="form-group">
 
                 <table id="repetitionsSearch" class="table">
                     <colgroup>
-                        <col span="1" style="width: 70%;">
+                        <col span="1" style="width: 85%;">
                         <col span="1" style="width: 15%;">
                     </colgroup>
                     <tr>
+
                         <th>nazwa</th>
                         <th></th>
 
                     </tr>
+                    <tbody id="trGroup">
 
-                    <tr>
-                        <td>c#</td>
-                        <td class="acceptTd"><a>dodaj</a></td>
-                    </tr>
+
+                    </tbody>
+
                 </table>
             </div>
 

@@ -1,9 +1,7 @@
 package net.zembrowski.julian.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,12 +13,19 @@ public class LatexProject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String projectName;
-    private String chaptersNames;//; is separator
+    private String projectName,userName;
+
+    @ElementCollection()
+    @CollectionTable(name = "projectChapters")
+    private List<String> chaptersNames;//; is separator
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public LatexProject() {
-        projectName="";
-        chaptersNames="";
+//        projectName="";
+//        chaptersNames=new ArrayList<>();
     }
 
     public int getId() {
@@ -39,11 +44,11 @@ public class LatexProject {
         this.projectName = projectName;
     }
 
-    public String getChaptersNames() {
+    public List<String> getChaptersNames() {
         return chaptersNames;
     }
 
-    public void setChaptersNames(String chaptersNames) {
+    public void setChaptersNames(List<String> chaptersNames) {
         this.chaptersNames = chaptersNames;
     }
 }
