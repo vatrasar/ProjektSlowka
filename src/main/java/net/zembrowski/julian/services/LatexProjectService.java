@@ -1,19 +1,21 @@
 package net.zembrowski.julian.services;
 
-import net.zembrowski.julian.domain.LatexProject;
-import net.zembrowski.julian.domain.Powtorzenie;
-import net.zembrowski.julian.domain.Pytanie;
+import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.repository.LatexProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
+import javax.print.attribute.standard.Media;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static net.zembrowski.julian.Utils.LatexGenerationUtils.*;
 
@@ -30,6 +32,8 @@ public class LatexProjectService {
     private PowtorzenieServices powtorzenia;
     @Autowired
     TagService tagService;
+    @Autowired
+    MediaSourceService mediaSourceService;
 
 
     public void addNewProject(LatexProject newLatexProject)
@@ -38,11 +42,12 @@ public class LatexProjectService {
         latexProjectRepository.addNewProject(newLatexProject);
     }
 
-    public void generateLatexProject(LatexProject latexProject) {
+    public void generateLatexProject(LatexProject latexProject){
         //key is repetition name, value repetitions with that name
         Map<String, List<Powtorzenie>>repetitionsByName=powtorzenia.getRepettionsByNameList(latexProject.getChaptersNames());
         StringBuilder document=new StringBuilder();
         document.append("\\maketitle");
+        int figuresCount=0;
         for(Map.Entry<String, List<Powtorzenie>> chapterElements:repetitionsByName.entrySet())
         {
 
@@ -53,6 +58,10 @@ public class LatexProjectService {
             //add questions
             for(Pytanie question:questions)
             {
+                List<MediaSource> images=mediaSourceService.getMediaForQuestion(question).get(0);
+
+                String[]imagesStrings=getImagesStrings(figuresCount, chapter,images);
+                figuresCount +=images.size();
                 //question title
                String questionTitle=tagService.getQuestionTagsNames(question);
                chapter.append(packInLatexTag(SUBSECTION,questionTitle)).append(endl());
@@ -60,6 +69,9 @@ public class LatexProjectService {
                 //question
 
                chapter.append(packInLatexTag(TEXT,question.getQuestion())).append(endl()).append(endl());
+               if(AreImagesfor(images,MediaStatus.QUESTION)) {
+                   chapter.append(packInLatexTag(TEXT, imagesStrings[0])).append(endl()).append(endl());//ref to image
+               }
 
                 //answer
                 if(question.getAnswer().length()>0 && question.getAnswer().charAt(0)=='*')
@@ -71,6 +83,11 @@ public class LatexProjectService {
                 {
                     chapter.append(question.getAnswer()).append(endl());
                 }
+                if(AreImagesfor(images,MediaStatus.ANSWER)) {
+                    chapter.append(endl()).append(imagesStrings[1]).append(endl()).append(endl());
+                    chapter.append(imagesStrings[2]).append(endl()).append(endl());
+                }
+
 
 
             }
@@ -87,7 +104,7 @@ public class LatexProjectService {
 
         String resultDocument=documentHead.toString()+packInBeginBlock("document",document.toString());
         try {
-            PrintStream writer=new PrintStream("out.tex");
+            PrintStream writer=new PrintStream("latexProject/out.tex");
             writer.print(resultDocument);
             writer.close();
         } catch (FileNotFoundException e) {
@@ -96,4 +113,56 @@ public class LatexProjectService {
 
 
     }
+
+    private boolean AreImagesfor(List<MediaSource> images,MediaStatus mediaType) {
+        for(MediaSource mediaSource:images)
+        {
+            if(mediaSource.getStatus()==mediaType)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * add images to question
+     * @param figuresCount
+     * @param chapter
+     * @param images
+     * @return [0] ref to images form question
+     * [1] ref to images form answer
+     * [3] figures block
+     */
+    private String[] getImagesStrings(int figuresCount, StringBuilder chapter,  List<MediaSource> images) {
+
+        StringBuilder refToImagesOfQuestion=new StringBuilder();
+        StringBuilder refToImagesOfAnswer=new StringBuilder();
+        StringBuilder figuresBlock=new StringBuilder();
+        refToImagesOfQuestion.append("Grafiki dla pytania to:");
+        refToImagesOfAnswer.append("Grafiki dla odpowiedzi to:");
+        for(MediaSource image:images)
+        {
+            copyFile(image.getPath());
+            figuresCount+=1;
+            figuresBlock.append("\\begin{figure}\n" +
+                    "\n" +
+                    "\\caption{}\n" +
+                    "\\label{zdj:"+ figuresCount+"}\n"+
+                    "\\centering\n" +
+                    "\\includegraphics[width=\\textwidth]{zdjecia/" +image.getFileName()+"}\n"+
+                    "\\end{figure}");
+            if(image.getStatus()== MediaStatus.ANSWER)
+                refToImagesOfAnswer.append(" ").append(packInLatexTag("ref","zdj:"+figuresCount)).append(" ");
+            else {
+                refToImagesOfAnswer.append(" ").append(packInLatexTag("ref","zdj:"+figuresCount)).append(" ");
+            }
+
+
+        }
+
+        return new String[]{refToImagesOfQuestion.toString(),refToImagesOfAnswer.toString(),figuresBlock.toString()};
+    }
+
+
 }
