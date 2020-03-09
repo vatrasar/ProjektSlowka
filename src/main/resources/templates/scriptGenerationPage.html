@@ -18,7 +18,7 @@
 
     <div class="btnGroup" id="centralButtons">
 
-        <button id="btnexistingProject" type="submit" class="btn btn-green btn-border-rev result" name="zal"
+        <button id="btnExistingProject" type="submit" class="btn btn-green btn-border-rev result" name="zal"
                 value="">Istniejący projekt
         </button>
         <button type="submit" class="btn btn-yellow2 btn-border-rev result" id="btnNewProject"  name="zal" value="">
@@ -89,7 +89,7 @@
         </form>
     </div>
     <div th:class="form-group"  style="text-align: center;margin-top: 20px">
-        <button id="btnGenerateProject" class="btn btn-yellow btn-border-rev" type="submit" value="sprawdz odpowiedz">Generuj projekt</button>
+        <button id="btnGenerateProject" class="btn btn-yellow btn-border-rev" type="submit" name="" value="sprawdz odpowiedz">Generuj projekt</button>
     </div>
 </div>
 
@@ -105,6 +105,9 @@
             <th>Nazwa</th>
             <th>Wybór</th>
         </tr>
+        <tbody id="trProjectListTable">
+
+        </tbody>
     </table>
 </div>
 

@@ -1,6 +1,7 @@
 package net.zembrowski.julian.services;
 
 import net.zembrowski.julian.domain.*;
+import net.zembrowski.julian.dto.LatexProjectInfo;
 import net.zembrowski.julian.repository.LatexProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -42,7 +43,7 @@ public class LatexProjectService {
         latexProjectRepository.addNewProject(newLatexProject);
     }
 
-    public void generateLatexProject(LatexProject latexProject){
+    public void generateLatexProject(LatexProject latexProject) {
         //key is repetition name, value repetitions with that name
         Map<String, List<Powtorzenie>>repetitionsByName=powtorzenia.getRepettionsByNameList(latexProject.getChaptersNames());
         StringBuilder document=new StringBuilder();
@@ -103,13 +104,23 @@ public class LatexProjectService {
         documentHead.append(packInLatexTag("title",latexProject.getProjectName())).append(endl());
 
         String resultDocument=documentHead.toString()+packInBeginBlock("document",document.toString());
-        try {
-            PrintStream writer=new PrintStream("latexProject/out.tex");
-            writer.print(resultDocument);
-            writer.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        while (true)
+        {
+            try {
+                PrintStream writer=new PrintStream("latexProject/out.tex");
+                writer.print(resultDocument);
+                writer.close();
+                break;
+            } catch (FileNotFoundException e) {
+                try {
+                    Files.createDirectories(Paths.get("latexProject/zdjecia"));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+
+            }
         }
+
 
 
     }
@@ -165,4 +176,18 @@ public class LatexProjectService {
     }
 
 
+    public List<LatexProjectInfo> getLatexProjectsInfoList() {
+        List<LatexProject>latexProjectList= latexProjectRepository.getLatexProjectList(users.getActualUserLogin());
+
+        return latexProjectList.stream().map((latexProject)->new LatexProjectInfo(latexProject)).collect(Collectors.toList());
+    }
+
+    public LatexProject getLatexProject(int projectId) {
+        return latexProjectRepository.getLatexProject(projectId);
+    }
+
+    public void updateProject(LatexProject latexProject) {
+        latexProject.setUserName(users.getActualUserLogin());
+        latexProjectRepository.updateProject(latexProject);
+    }
 }
