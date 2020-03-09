@@ -41,14 +41,16 @@ $("#btnExistingProject").on("click",function (event) {
         $('#trProjectListTable').html("");
         for(var project in datas)
         {
-            $('#trProjectListTable').append('<tr><td>'+datas[project].name+'</td><td class="projectSettingsTd"><a class="dropProject" name="'+(datas[project].id)+'">Usuń</a></td><td class="projectSettingsTd"><a class="chooseProject" href="'+(datas[project].id)+'">Wybór</a></td></tr>');
+            $('#trProjectListTable').append('<tr><td>'+datas[project].name+'</td><td class="projectSettingsTd"><a href="#" class="dropProject" name="'+(datas[project].id)+'">Usuń</a></td><td class="projectSettingsTd"><a class="chooseProject" href="'+(datas[project].id)+'">Wybór</a></td></tr>');
         }
 
 
 
-        $('.dropProject').on("click",function () {
+        $('.dropProject').on("click",function (event) {
+            event.preventDefault();
             if(confirm("Czy napewno chcesz usunąć projekt?"))
             {
+
                 $.ajax({
                     url: "/dropProject",
                     type: "PUT",
@@ -75,9 +77,10 @@ $("#btnExistingProject").on("click",function (event) {
                 trNumber=0;
                 for(var chapterName in datas.chaptersNames)
                 {
-                    $('#trInProjectGroup').append('<tr><td>'+datas.chaptersNames[chapterName]+'</td><td class="projectSettingsTd"><a id="'+"drop"+(trNumber+1)+'">Usuń</a></td><td class="projectSettingsTd"><input name="'+datas.chaptersNames[chapterName]+'" type="checkbox"></td></tr>');
+                    $('#trInProjectGroup').append('<tr><td>'+datas.chaptersNames[chapterName]+'</td><td class="projectSettingsTd"><a href="#" id="'+"drop"+(trNumber+1)+'">Usuń</a></td><td class="projectSettingsTd"><input checked name="'+datas.chaptersNames[chapterName]+'" type="checkbox"></td></tr>');
                     $("#drop"+(trNumber+1)).on("click",function dropRow(event)
                     {
+                        event.preventDefault();
                         $(this).parent().parent().remove();
                     });
                     trNumber+=1;
@@ -122,7 +125,7 @@ $("#search").on("input",function (event) {
                 event.preventDefault();
                 trNumber=$("#trInProjectGroup").children().length;
                 var choosedChapter=$(this).attr("href");
-                $('#trInProjectGroup').append('<tr><td>'+choosedChapter+'</td><td class="projectSettingsTd"><a id="'+"drop"+(trNumber+1)+'">Usuń</a></td><td class="projectSettingsTd"><input name="'+choosedChapter+'" type="checkbox"></td></tr>');
+                $('#trInProjectGroup').append('<tr><td>'+choosedChapter+'</td><td class="projectSettingsTd"><a href="#" id="'+"drop"+(trNumber+1)+'">Usuń</a></td><td class="projectSettingsTd"><input checked name="'+choosedChapter+'" type="checkbox"></td></tr>');
                 $("#drop"+(trNumber+1)).on("click",function dropRow(event)
                 {
                     $(this).parent().parent().remove();

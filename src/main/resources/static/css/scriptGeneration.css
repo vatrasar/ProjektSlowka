@@ -62,3 +62,15 @@
 {
     margin-top: 10vh;
 }
+
+.dropProject{
+    color: red;
+}
+.dropProject:visited{
+    color: red;
+}
+
+.chooseProject
+{
+    color: darkgreen;
+}

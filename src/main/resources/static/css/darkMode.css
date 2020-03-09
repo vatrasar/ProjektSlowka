@@ -23,7 +23,7 @@ a:hover
 }
 th
 {
-    background-color:blue;
+    background-color:cornflowerblue;
 }
 td{
     color: black;
@@ -80,7 +80,7 @@ tr:hover
 
 .form-control
 {
-    background-color: darkred;
+    background-color: blueviolet;
     color: white;
     font-size: large;
 
