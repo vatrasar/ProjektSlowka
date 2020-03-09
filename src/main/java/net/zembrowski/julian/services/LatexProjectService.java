@@ -35,7 +35,7 @@ public class LatexProjectService {
     TagService tagService;
     @Autowired
     MediaSourceService mediaSourceService;
-
+    final double IMAGE_SIZE=0.8;
 
     public void addNewProject(LatexProject newLatexProject)
     {
@@ -68,17 +68,18 @@ public class LatexProjectService {
                chapter.append(packInLatexTag(SUBSECTION,questionTitle)).append(endl());
 
                 //question
-
+               chapter.append(packInLatexTag(SUBSUBSECTION,"Pytanie"));
                chapter.append(packInLatexTag(TEXT,question.getQuestion())).append(endl()).append(endl());
+                //ref to image
                if(AreImagesfor(images,MediaStatus.QUESTION)) {
-                   chapter.append(packInLatexTag(TEXT, imagesStrings[0])).append(endl()).append(endl());//ref to image
+                   chapter.append(packInLatexTag(TEXT, imagesStrings[0])).append(endl()).append(endl());
                }
 
+                chapter.append(packInLatexTag(SUBSUBSECTION,"Odpowiedz"));
                 //answer
                 if(question.getAnswer().length()>0 && question.getAnswer().charAt(0)=='*')
                 {
-                    chapter.append(packInBeginBlock("lstlisting",question.getAnswer())).append(endl()).append(endl());
-
+                    chapter.append(packInBeginBlock("lstlisting",mapPolishCharacters(question.getAnswer()))).append(endl()).append(endl());
                 }
                 else
                 {
@@ -113,7 +114,7 @@ public class LatexProjectService {
                 break;
             } catch (FileNotFoundException e) {
                 try {
-                    Files.createDirectories(Paths.get("latexProject/zdjecia"));
+                    Files.createDirectories(Paths.get("latexProject"));
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -161,7 +162,7 @@ public class LatexProjectService {
                     "\\caption{}\n" +
                     "\\label{zdj:"+ figuresCount+"}\n"+
                     "\\centering\n" +
-                    "\\includegraphics[width=\\textwidth]{zdjecia/" +image.getFileName()+"}\n"+
+                    "\\includegraphics[width="+IMAGE_SIZE+"\\textwidth]{zdjecia/" +image.getFileName()+"}\n"+
                     "\\end{figure}");
             if(image.getStatus()== MediaStatus.ANSWER)
                 refToImagesOfAnswer.append(" ").append(packInLatexTag("ref","zdj:"+figuresCount)).append(" ");

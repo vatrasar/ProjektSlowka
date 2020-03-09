@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @Scope("session")
-public class ScriptGeneration {
+public class ScriptGenerationController {
 
     @Autowired
     PowtorzenieServices repetitionsService;
