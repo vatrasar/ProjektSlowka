@@ -34,4 +34,8 @@ public class LatexProjectRepository {
     public void updateProject(LatexProject latexProject) {
         em.merge(latexProject);
     }
+    @Transactional
+    public void dropProject(Integer projectId) {
+        em.remove(getLatexProject(projectId));
+    }
 }

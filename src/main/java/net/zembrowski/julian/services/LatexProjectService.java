@@ -190,4 +190,8 @@ public class LatexProjectService {
         latexProject.setUserName(users.getActualUserLogin());
         latexProjectRepository.updateProject(latexProject);
     }
+
+    public void dropProject(Integer projectId) {
+        latexProjectRepository.dropProject(projectId);
+    }
 }

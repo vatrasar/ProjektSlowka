@@ -60,4 +60,11 @@ public class ScriptGeneration {
         return latexProjectService.getLatexProject(projectId);
     }
 
+    @RequestMapping(method=RequestMethod.PUT, value="/dropProject")
+    public @ResponseBody String dropProject(@RequestBody Integer projectId)
+    {
+        latexProjectService.dropProject(projectId);
+        return "ok";
+    }
+
 }

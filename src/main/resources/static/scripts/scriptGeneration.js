@@ -21,20 +21,51 @@ $("#back").on("click",function (event) {
         $('#trInProjectGroup').html("");
         $("#projectName").val("");
     }
+    if($("#back").attr("href")==="scriptProjectChoosing")
+    {   $("#back").attr("href","#");
+        $("#firstPage").show();
+        $("#projectChoosePage").addClass("hidden");
+        //clean creation page
+        $('#trInProjectGroup').html("");
+        $("#projectName").val("");
+    }
 
 });
 
 $("#btnExistingProject").on("click",function (event) {
     event.preventDefault();
-    $("#back").attr("href","scriptChoosing");
+    $("#back").attr("href","scriptProjectChoosing");
     $("#firstPage").hide();
     $("#projectChoosePage").removeClass("hidden");
     $.get("/getProjectsList",function (datas) {
-
+        $('#trProjectListTable').html("");
         for(var project in datas)
         {
-            $('#trProjectListTable').append('<tr><td>'+datas[project].name+'</td><td class="projectSettingsTd"><a class="chooseProject" href="'+(datas[project].id)+'">Wybór</a></td></tr>');
+            $('#trProjectListTable').append('<tr><td>'+datas[project].name+'</td><td class="projectSettingsTd"><a class="dropProject" name="'+(datas[project].id)+'">Usuń</a></td><td class="projectSettingsTd"><a class="chooseProject" href="'+(datas[project].id)+'">Wybór</a></td></tr>');
         }
+
+
+
+        $('.dropProject').on("click",function () {
+            if(confirm("Czy napewno chcesz usunąć projekt?"))
+            {
+                $.ajax({
+                    url: "/dropProject",
+                    type: "PUT",
+                    data: $(this).attr("name"),
+                    contentType: "application/json",
+                    complete:function () {
+                        
+
+                    }
+
+                });
+
+
+                $(this).parent().parent().remove();
+            }
+
+        });
         $(".chooseProject").on("click",function (event) {
             event.preventDefault();
             var projectId=$(this).attr("href");
