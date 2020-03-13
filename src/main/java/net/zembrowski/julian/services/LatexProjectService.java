@@ -108,7 +108,7 @@ public class LatexProjectService {
         while (true)
         {
             try {
-                PrintStream writer=new PrintStream("latexProject/out.tex");
+                PrintStream writer=new PrintStream("latexProject/out.tex","UTF-8");
                 writer.print(resultDocument);
                 writer.close();
                 break;
@@ -119,6 +119,8 @@ public class LatexProjectService {
                     e1.printStackTrace();
                 }
 
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
         }
 

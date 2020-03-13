@@ -3,6 +3,7 @@ package net.zembrowski.julian.Utils;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.logging.Logger;
 
 public class LatexGenerationUtils {
 
@@ -53,7 +54,11 @@ public class LatexGenerationUtils {
                 File afile = new File(source.substring(1, source.length()));
                 File bfile = new File("latexProject/zdjecia/" + afile.getName());
 
-                inStream = new FileInputStream(afile);
+                try {
+                    inStream = new FileInputStream(afile);
+                } catch (FileNotFoundException e) {
+                    Logger.getGlobal().warning("no file with foto. No courrent data folder?");
+                }
                 outStream = new FileOutputStream(bfile);
 
                 byte[] buffer = new byte[1024];
@@ -75,8 +80,8 @@ public class LatexGenerationUtils {
 
                 try {
                     Files.createDirectories(Paths.get("latexProject/zdjecia"));
-                    FileWriter writer=new FileWriter("latexProject/latexKonf.tex");
-                    writer.write(getLatexKonfString());
+                    PrintStream writer=new PrintStream("latexProject/latexKonf.tex","UTF-8");
+                    writer.print(getLatexKonfString());
                     writer.close();
                 } catch (IOException e1) {
                     e1.printStackTrace();

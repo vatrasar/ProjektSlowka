@@ -17,7 +17,8 @@ pre
     margin-right: auto;
     margin-left: auto;
     border: none;
-
+    background-color: black;
+    color: aliceblue;
     font-size: 90%;
     padding-left: unset;
 }
