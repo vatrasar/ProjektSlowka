@@ -1,6 +1,7 @@
 package net.zembrowski.julian.services;
 
 
+import net.zembrowski.julian.Utils.LatexGenerationUtils;
 import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.repository.PowotrzenieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -248,6 +249,7 @@ public class PowtorzenieServices {
     }
 
     public List<String> searchRepetitionsWithPartOfName(String partOfName) {
+
         return powtorzenia.getRepetitionsWithPartOfName(partOfName);
 
     }

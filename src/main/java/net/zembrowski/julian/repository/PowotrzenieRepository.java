@@ -144,7 +144,7 @@ public class PowotrzenieRepository {
 
     public List<String> getRepetitionsWithPartOfName(String partOfName) {
         String query="SELECT DISTINCT nazwa from Powtorzenie p WHERE p.nazwa LIKE :regex AND p.wlasciciel=:user";
-        List<String>list= em.createQuery(query).setParameter("regex",partOfName+"%").setParameter("user",users.getActualUserLogin()).getResultList();
+        List<String>list= em.createQuery(query).setParameter("regex","%"+partOfName+"%").setParameter("user",users.getActualUserLogin()).getResultList();
         return list;
     }
 }

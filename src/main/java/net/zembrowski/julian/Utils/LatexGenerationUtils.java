@@ -37,10 +37,11 @@ public class LatexGenerationUtils {
      */
     public static String mapPolishCharacters(String textToMap)
     {
-        String result=textToMap.replaceAll("ą","a");
-        result=result.replaceAll("ź|ż","z");
-        result=result.replaceAll("ł","l");
-        result=result.replaceAll("ó","o");
+        String result=textToMap.replaceAll("ą|Ą","a");
+        result=result.replaceAll("ź|ż|Ż|Ź","z");
+        result=result.replaceAll("ę|Ę","e");
+        result=result.replaceAll("ł|Ł","l");
+        result=result.replaceAll("ó|Ó","o");
         return result.replaceAll("ć","c");
 
     }

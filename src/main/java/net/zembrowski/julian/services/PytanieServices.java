@@ -290,10 +290,14 @@ public class PytanieServices {
 
         saveFiles(plikiOdp, MediaStatus.ANSWER,nowe);
         saveFiles(plikiQuest, MediaStatus.QUESTION, nowe);
+        actualQuestionsList=getActualQuestionsList();
+        if(actualQuestionsList!=null && !actualQuestionsList.isEmpty())//(null if we enter here from lat added question)
+        {
+            Pytanie editedQuestion=getActualQuestionsList().get(0);//we have changed question in database but not in current question list
+            editedQuestion.setAnswer(nowe.getAnswer());
+            editedQuestion.setQuestion(nowe.getQuestion());
+        }
 
-        Pytanie editedQuestion=getActualQuestionsList().get(0);//we have changed question in database but not in current question list
-        editedQuestion.setAnswer(nowe.getAnswer());
-        editedQuestion.setQuestion(nowe.getQuestion());
     }
 
 
