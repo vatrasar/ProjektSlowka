@@ -1,6 +1,6 @@
 questionId=null;
 function makeAnswerPage(data) {
-    $("#propAnswer").text(data['answer']);
+    $(".propAnswer").text(data['answer']);
     $("#userAnswer").text($("odp").text());
     $("#pus").prop('checked',data["problem"]);
     var newTags=makeMediaTags([data["photos"],data['sounds'],data['videos']]);
@@ -76,10 +76,11 @@ $("#check").on("click", function (event) {
     $.get(controlerAdress,function (data) {
 
         makeAnswerPage(data);
+        determineAnswerTagNames2();
+        betterPreLooks();
     });
 
-    determineAnswerTagNames2();
-    betterPreLooks();
+
 
 });
 
