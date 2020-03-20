@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -41,6 +42,8 @@ public class Powtorzenie {
     @Column(nullable = false, columnDefinition = "bit(1) default 0")
     private boolean hard;
 
+    private String topicName;
+
   public Powtorzenie()
     {
 
@@ -58,6 +61,15 @@ public class Powtorzenie {
         this.problems = other.problems;
         this.reverse = other.reverse;
         this.hard = other.hard;
+        this.topicName=other.topicName;
+    }
+
+    public String getTopicName() {
+        return topicName;
+    }
+
+    public void setTopicName(String topicName) {
+        this.topicName = topicName;
     }
 
     public boolean isHard() {
@@ -112,7 +124,18 @@ public class Powtorzenie {
 
 
     public String getNazwa() {
-        return nazwa;
+
+      return nazwa;
+
+    }
+    public String getNameWithTopic()
+    {
+        if(topicName!=null)
+        {
+            return topicName+":"+nazwa;
+        }
+        else
+            return nazwa;
     }
 
     public void setNazwa(String nazwa) {

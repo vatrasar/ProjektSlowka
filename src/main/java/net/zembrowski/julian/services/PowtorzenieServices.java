@@ -45,6 +45,7 @@ public class PowtorzenieServices {
 
     @Transactional
     public void persistPowtorzenie(Powtorzenie nowePowtorzenie) {
+
         powtorzenia.persistPowtorzenie(nowePowtorzenie);
     }
     public void ustawJakoAktualne(Powtorzenie noweAktualne)
@@ -262,5 +263,11 @@ public class PowtorzenieServices {
             repetitionsByName.put(chapterName,powtorzenia.getPowtorzeniaByName(chapterName));
         }
         return repetitionsByName;
+    }
+
+    public List<String> getTopcsList() {
+        List<String> result= powtorzenia.getTopcsList();
+        return result;
+
     }
 }

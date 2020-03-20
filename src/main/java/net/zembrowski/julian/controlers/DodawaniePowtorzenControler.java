@@ -52,6 +52,7 @@ public class DodawaniePowtorzenControler {
         nowe.setEmpty(true);
         nowe.setReverse(false);
         model.addAttribute("powtorzenie", nowe);
+        model.addAttribute("topicsList",powtorzenia.getTopcsList());
 
         return "rejestracjaPowtorzenia";
     }
@@ -65,8 +66,8 @@ public class DodawaniePowtorzenControler {
         NowePowtorzenie.setWlasciciel(users.getActualUserLogin());
         NowePowtorzenie.setNumer(powtorzenia.getMaxNumer(NowePowtorzenie.getNazwa())+1);
         LocalDate akutalnaData=LocalDate.now();
-
-
+        if(NowePowtorzenie.getTopicName().length()>0)
+            NowePowtorzenie.setNazwa(NowePowtorzenie.getTopicName()+":"+NowePowtorzenie.getNazwa());
         NowePowtorzenie.setDzien(akutalnaData.plusDays(NowePowtorzenie.getNastepne()));
 
 
