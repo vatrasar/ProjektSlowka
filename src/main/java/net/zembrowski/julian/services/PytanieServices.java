@@ -53,6 +53,8 @@ public class PytanieServices {
     public void createPytanie(Pytanie nowePytanie, MultipartFile[] plikiPyt, MultipartFile[] plikiOdp, String tags)
     {
         try {
+            if(nowePytanie.getSectionName().equals(""))
+                nowePytanie.setSectionName("Ogólnie");
             upadateLastAdded(nowePytanie);
             pytania.createPytanie(nowePytanie);
 

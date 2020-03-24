@@ -13,6 +13,7 @@ public class LatexGenerationUtils {
     public static final String SUBSUBSECTION="subsubsection";
     public static final String TEXT="textit";
     public static final String DOCUMENT="document";
+    public static final String CHAPTER="chapter";
     /**
      *
      * @return
@@ -52,6 +53,9 @@ public class LatexGenerationUtils {
         while(true) {
 
             try {
+                File file = new File("latexProject/latexKonf.tex");
+                Files.deleteIfExists(file.toPath());
+
                 File afile = new File(source.substring(1, source.length()));
                 File bfile = new File("latexProject/zdjecia/" + afile.getName());
 
@@ -81,6 +85,7 @@ public class LatexGenerationUtils {
 
                 try {
                     Files.createDirectories(Paths.get("latexProject/zdjecia"));
+
                     PrintStream writer=new PrintStream("latexProject/latexKonf.tex","UTF-8");
                     writer.print(getLatexKonfString());
                     writer.close();
@@ -91,9 +96,9 @@ public class LatexGenerationUtils {
         }
     }
 
-    private static String getLatexKonfString() {
+    public static String getLatexKonfString() {
 
-        return "\\documentclass[a4paper,polish,12pt]{article}\n" +
+        return "\\documentclass[a4paper,polish,12pt]{report}\n" +
                 "    \\usepackage[utf8]{inputenc}\n" +
                 "    \\usepackage[T1]{fontenc}\n" +
                 "    \\usepackage{lmodern}\n" +

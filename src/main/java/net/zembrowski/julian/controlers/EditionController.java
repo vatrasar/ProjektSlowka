@@ -79,6 +79,8 @@ public class EditionController {
         model.addAttribute("repetitionSize",pytania.getPytaniaPowtorzenia(akutalnePowtorzenie).size());
         model.addAttribute("user",uytkownicy.getActualUserLogin());
 
+
+
         return  "addPytanieEdition";
     }
 

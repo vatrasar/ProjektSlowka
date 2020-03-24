@@ -12,12 +12,10 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.groupingBy;
 import static net.zembrowski.julian.Utils.LatexGenerationUtils.*;
 
 @Service
@@ -45,58 +43,58 @@ public class LatexProjectService {
 
     public void generateLatexProject(LatexProject latexProject) {
         //key is repetition name, value repetitions with that name
+
         Map<String, List<Powtorzenie>>repetitionsByName=powtorzenia.getRepettionsByNameList(latexProject.getChaptersNames());
         StringBuilder document=new StringBuilder();
-        document.append("\\maketitle");
+        document.append("\\maketitle").append(endl());
+        document.append("\\tableofcontents").append(endl());
         int figuresCount=0;
         for(Map.Entry<String, List<Powtorzenie>> chapterElements:repetitionsByName.entrySet())
         {
 
             List<Pytanie>questions=pytanieServices.getPytaniaOfRepetitions(chapterElements.getValue());
+            Map<String,List<Pytanie>>questionsGroupBySections=grupQuestionsBySectionName(questions);
             //add title
-            StringBuilder chapter=new StringBuilder(packInLatexTag(SECTION,chapterElements.getKey())+endl());
+            StringBuilder chapter=new StringBuilder(packInLatexTag(CHAPTER,chapterElements.getKey())+endl());
+            for(Map.Entry<String, List<Pytanie>> section:questionsGroupBySections.entrySet()) {
+                //add questions
+                chapter.append(packInLatexTag(SECTION,section.getKey())).append(endl());
+                for (Pytanie question : questions) {
+                    List<MediaSource> images = mediaSourceService.getMediaForQuestion(question).get(0);
 
-            //add questions
-            for(Pytanie question:questions)
-            {
-                List<MediaSource> images=mediaSourceService.getMediaForQuestion(question).get(0);
+                    String[] imagesStrings = getImagesStrings(figuresCount, chapter, images);
+                    figuresCount += images.size();
+                    //question title
+                    String questionTitle = tagService.getQuestionTagsNames(question);
+                    chapter.append(packInLatexTag(SUBSECTION, questionTitle)).append(endl());
 
-                String[]imagesStrings=getImagesStrings(figuresCount, chapter,images);
-                figuresCount +=images.size();
-                //question title
-               String questionTitle=tagService.getQuestionTagsNames(question);
-               chapter.append(packInLatexTag(SUBSECTION,questionTitle)).append(endl());
+                    //question
+                    chapter.append(packInLatexTag(SUBSUBSECTION, "Pytanie"));
+                    chapter.append(packInLatexTag(TEXT, question.getQuestion())).append(endl()).append(endl());
+                    //ref to image
+                    if (AreImagesfor(images, MediaStatus.QUESTION)) {
+                        chapter.append(packInLatexTag(TEXT, imagesStrings[0])).append(endl()).append(endl());
+                    }
 
-                //question
-               chapter.append(packInLatexTag(SUBSUBSECTION,"Pytanie"));
-               chapter.append(packInLatexTag(TEXT,question.getQuestion())).append(endl()).append(endl());
-                //ref to image
-               if(AreImagesfor(images,MediaStatus.QUESTION)) {
-                   chapter.append(packInLatexTag(TEXT, imagesStrings[0])).append(endl()).append(endl());
-               }
+                    chapter.append(packInLatexTag(SUBSUBSECTION, "Odpowiedz"));
+                    //answer
+                    if (question.getAnswer().length() > 0 && question.getAnswer().charAt(0) == '*') {
+                        chapter.append(packInBeginBlock("lstlisting", mapPolishCharacters(question.getAnswer()))).append(endl()).append(endl());
+                    } else {
+                        chapter.append(question.getAnswer()).append(endl());
+                    }
+                    if (AreImagesfor(images, MediaStatus.ANSWER)) {
+                        chapter.append(endl()).append(imagesStrings[1]).append(endl()).append(endl());
+                        chapter.append(imagesStrings[2]).append(endl()).append(endl());
+                    }
 
-                chapter.append(packInLatexTag(SUBSUBSECTION,"Odpowiedz"));
-                //answer
-                if(question.getAnswer().length()>0 && question.getAnswer().charAt(0)=='*')
-                {
-                    chapter.append(packInBeginBlock("lstlisting",mapPolishCharacters(question.getAnswer()))).append(endl()).append(endl());
+
                 }
-                else
-                {
-                    chapter.append(question.getAnswer()).append(endl());
-                }
-                if(AreImagesfor(images,MediaStatus.ANSWER)) {
-                    chapter.append(endl()).append(imagesStrings[1]).append(endl()).append(endl());
-                    chapter.append(imagesStrings[2]).append(endl()).append(endl());
-                }
-
-
-
             }
-
             document.append(chapter.toString());
 
         }
+
 
         //head
         StringBuilder documentHead=new StringBuilder();
@@ -110,6 +108,9 @@ public class LatexProjectService {
             try {
                 PrintStream writer=new PrintStream("latexProject/out.tex","UTF-8");
                 writer.print(resultDocument);
+                PrintStream writerLatexKonf=new PrintStream("latexProject/latexKonf.tex","UTF-8");
+                writerLatexKonf.print(getLatexKonfString());
+                writerLatexKonf.close();
                 writer.close();
                 break;
             } catch (FileNotFoundException e) {
@@ -126,6 +127,10 @@ public class LatexProjectService {
 
 
 
+    }
+
+    private Map<String, List<Pytanie>> grupQuestionsBySectionName(List<Pytanie> questions) {
+        return questions.stream().collect(groupingBy(Pytanie::getSectionName));
     }
 
     private boolean AreImagesfor(List<MediaSource> images,MediaStatus mediaType) {

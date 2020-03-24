@@ -33,6 +33,16 @@ public class Pytanie {
     boolean notion;
     @OneToOne
     Statistics statistics;
+    String sectionName;
+
+
+    public String getSectionName() {
+        return sectionName;
+    }
+
+    public void setSectionName(String sectionName) {
+        this.sectionName = sectionName;
+    }
 
     public boolean isHard()
     {
@@ -118,6 +128,7 @@ public class Pytanie {
         this.problem=nowe.problem;
         this.notion=nowe.notion;
         this.statistics=nowe.statistics;
+        this.sectionName=nowe.sectionName;
     }
 
 

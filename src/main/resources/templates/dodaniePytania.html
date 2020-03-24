@@ -28,7 +28,10 @@
             <label th:class="control-label">Tagi</label>
             <input accesskey="t" th:class="form-control" type="text" name="tagi"/>
         </div>
-        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{pytanie}" />
+
+
+
 
         <div class="form-check" >
             <input class="form-check-input" type="checkbox" value="true" th:field="*{notion}" id="reversed" checked>

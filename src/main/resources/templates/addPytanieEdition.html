@@ -57,6 +57,12 @@
         </div>
         <input type="hidden" th:field="*{id}" />
 
+        <div th:class="form-group">
+            <label for="sectionName" th:class="control-label">Nazwa sekcji</label>
+            <input accesskey="t" th:field="*{sectionName}" th:class="form-control" type="text" id="sectionName"/>
+        </div>
+
+
         <div class="form-check" >
             <input class="form-check-input" type="checkbox" value="true" th:field="*{notion}" id="reversed" checked>
             <label class="form-check-label" for="reversed" >
