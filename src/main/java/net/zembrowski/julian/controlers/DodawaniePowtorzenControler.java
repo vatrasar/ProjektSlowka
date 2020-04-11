@@ -64,7 +64,7 @@ public class DodawaniePowtorzenControler {
 
         users.updateAktualnyUzytkownik();
         NowePowtorzenie.setWlasciciel(users.getActualUserLogin());
-        NowePowtorzenie.setNumer(powtorzenia.getMaxNumer(NowePowtorzenie.getNazwa())+1);
+        NowePowtorzenie.setNumer(powtorzenia.getMaxNumer(NowePowtorzenie.getTopicName()+":"+NowePowtorzenie.getNazwa())+1);
         LocalDate akutalnaData=LocalDate.now();
         if(NowePowtorzenie.getTopicName().length()>0)
             NowePowtorzenie.setNazwa(NowePowtorzenie.getTopicName()+":"+NowePowtorzenie.getNazwa());
