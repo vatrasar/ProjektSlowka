@@ -49,7 +49,7 @@ public class DodawaniePowtorzenControler {
         Powtorzenie nowe = new Powtorzenie();
 
         nowe.setUtworzenie(LocalDate.now());
-        nowe.setEmpty(true);
+        nowe.setEmpty(false);
         nowe.setReverse(false);
         model.addAttribute("powtorzenie", nowe);
         model.addAttribute("topicsList",powtorzenia.getTopcsList());
