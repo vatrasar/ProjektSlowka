@@ -15,10 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -566,5 +563,14 @@ public class PytanieServices {
         }).distinct().collect(Collectors.toList());
 
         return result;
+    }
+
+    public Map<String, List<Pytanie>> getReptitionQuestionsOrganiseInSections(Powtorzenie repetition) {
+       List<Pytanie> questionsList=getPytaniaPowtorzenia(repetition);
+       for(Pytanie question:questionsList)
+       {
+           question.setAnswer(tagService.getQuestionTagsNames(question));//set tag as answer. Purpose is to deliver it to view without creating new, special data object
+       }
+       return questionsList.stream().collect(Collectors.groupingBy(Pytanie::getSectionName));
     }
 }

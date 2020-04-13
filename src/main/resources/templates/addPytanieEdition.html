@@ -74,7 +74,7 @@
                 </div>
             </datalist>
 
-            <label id="sectionLabel" class="control-label">Nazwa sekcji <input class="form-control" th:step="1" id="movie" list="sectionName" th:field="*{sectionName}" /></label>
+            <label id="sectionLabel" th:value="*{sectionName}" class="control-label">Nazwa sekcji <input class="form-control" th:step="1" id="movie" list="sectionName" th:field="*{sectionName}" /></label>
         </div>
 
         <!--notion-->

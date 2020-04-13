@@ -7,7 +7,14 @@
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" th:href="@{/css/darkMode.css}" type="text/css">
+<style>
+    #sectionLabel
+    {
+        text-align: left;
+        width: 100%;
 
+    }
+</style>
 </head>
 <body>
 <h2 style="text-align: center;margin-bottom: 60px">Edycja Pytania</h2>
@@ -30,6 +37,15 @@
             <input class="form-control" th:value="${tags}" type="text" name="newTags"/>
         </div>
         <input type="hidden" th:field="*{id}" />
+        <div class="form-group" >
+            <datalist   id="sectionName">
+                <div th:each="sec:${sectionsList}">
+                    <option th:text="${sec}"></option>
+                </div>
+            </datalist>
+
+            <label id="sectionLabel" class="control-label">Nazwa sekcji <input  value="5" class="form-control" th:step="1" id="movie" list="sectionName" th:field="*{sectionName}" /></label>
+        </div>
 
         <h3>Audio/img/video</h3>
         <div th:class="form-group">

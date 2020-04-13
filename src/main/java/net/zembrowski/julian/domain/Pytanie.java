@@ -164,6 +164,7 @@ public class Pytanie {
         problem=nowe.problem;
         this.notion=nowe.notion;
         this.statistics=nowe.statistics;
+        this.sectionName=nowe.sectionName;
     }
 
     /**
