@@ -552,4 +552,19 @@ public class PytanieServices {
                 });
 
     }
+
+    public List<String> getSectionsListforRepetition(Powtorzenie repetition) {
+
+        List<Powtorzenie>repetitionsWithSameName= powtorzenia.getPowtorzeniaByName(repetition.getNazwa());
+        List<Pytanie>questionsOfRepetitionsWithSameName=getPytaniaOfRepetitions(repetitionsWithSameName);
+        List<String>result= questionsOfRepetitionsWithSameName.stream().map((x)->{
+
+            if(x.getSectionName().equals("Ogólnie"))//empty section
+                return "";
+            else
+                return x.getSectionName();
+        }).distinct().collect(Collectors.toList());
+
+        return result;
+    }
 }

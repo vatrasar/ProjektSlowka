@@ -31,6 +31,12 @@
         {
             margin-bottom: 60px;
         }
+        #sectionLabel
+        {
+            text-align: left;
+            width: 100%;
+
+        }
 
     </style>
 
@@ -56,13 +62,22 @@
             <input data-toggle="tooltip" autocomplete="off" title="separatorem tagu jest spacja" accesskey="t" th:class="form-control" type="text" name="tagi"/>
         </div>
         <input type="hidden" th:field="*{id}" />
+        <!--section-->
+        <!--<div th:class="form-group">-->
+            <!--<label for="sectionName" th:class="control-label">Nazwa sekcji</label>-->
+            <!--<input accesskey="t" th:field="*{sectionName}" th:class="form-control" type="text" id="sectionName"/>-->
+        <!--</div>-->
+        <div class="form-group" >
+            <datalist   id="sectionName">
+                <div th:each="sec:${sectionsList}">
+                    <option th:text="${sec}"></option>
+                </div>
+            </datalist>
 
-        <div th:class="form-group">
-            <label for="sectionName" th:class="control-label">Nazwa sekcji</label>
-            <input accesskey="t" th:field="*{sectionName}" th:class="form-control" type="text" id="sectionName"/>
+            <label id="sectionLabel" class="control-label">Nazwa sekcji <input class="form-control" th:step="1" id="movie" list="sectionName" th:field="*{sectionName}" /></label>
         </div>
 
-
+        <!--notion-->
         <div class="form-check" >
             <input class="form-check-input" type="checkbox" value="true" th:field="*{notion}" id="reversed" checked>
             <label class="form-check-label" for="reversed" >
