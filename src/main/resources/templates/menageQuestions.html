@@ -28,6 +28,7 @@
     </style>
     <link rel="stylesheet" th:href="@{/css/menuButtons.css}" type="text/css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/colorsRepeteTrainning.css}">
+    <link rel="stylesheet" href="../static/css/pre.css">
 </head>
 <body>
 <div th:class="row" style="text-align: center;margin:5px;float: right">
@@ -37,7 +38,7 @@
 <p style="font-weight: bold">zalogowany jako:<span style="font-weight: normal;color: cornflowerblue;" th:text="${nazwaUzytkownika}"></span></p>
 
 
-<div th:class="container">
+<div id="tablesContainer" th:class="container">
 
     <table th:name="${entry.getKey()}" th:each="entry:${questionsList}" th:class="table" >
         <caption th:text="${entry.getKey()}"></caption>
@@ -49,7 +50,7 @@
 
         </tr>
 
-        <tr th:each="question:${entry.getValue()}">
+        <tr class="questionRow" th:each="question:${entry.getValue()}">
 
             <td th:text="${question.getAnswer()}">Tag</td><!--in backend i saved tags to answer-->
             <td><a th:href="${'/zmianaPytania?id='+question.getId()}">Edytuj<a></td>
@@ -57,11 +58,10 @@
             <td >
 
                 <select class="sectionSelect">
-                    <option name="new">Nowa sekcja</option>
+                    <option th:name="${question.getId()}" name="new">Nowa sekcja</option>
                     <div th:each="section:${sections}" >
-                        <option th th:if="${!section.equals(entry.getKey())}" class="sectionOption" th:name="${question.getId()}" th:text="${section}"></option>
-                        <option selected th:if="${section.equals(entry.getKey())}" class="sectionOption" th:name="${question.getId()}" th:text="${section}"></option>
-
+                        <option th:if="${!section.equals(entry.getKey())}" class="sectionOption" th:name="${question.getId()}" th:text="${section}" th:value="${section}"></option>
+                        <option selected th:if="${section.equals(entry.getKey())}" class="sectionOption" th:name="${question.getId()}" th:text="${section}" th:value="${section}"></option>
                     </div>
 
 
