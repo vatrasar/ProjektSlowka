@@ -17,9 +17,7 @@
             font-size: 180%;
 
         }
-        a{
-            color: blue;
-        }
+
         .dropLink{
             color:red;
         }
@@ -41,7 +39,7 @@
 <div id="tablesContainer" th:class="container">
 
     <table th:name="${entry.getKey()}" th:each="entry:${questionsList}" th:class="table" >
-        <caption th:text="${entry.getKey()}"></caption>
+        <caption class="sectionTableCaption" th:text="${entry.getKey()}"></caption>
         <tr>
             <th>Tag</th>
             <th>Edytuj</th>
@@ -75,6 +73,10 @@
 
     </table>
 </div>
+<div th:class="row" style="text-align: center;margin:5px;position: fixed;right: 0;bottom: 0">
+    <a th:href="@{/pytanieAdd}">Dodaj nowe pytanie</a>
+</div>
+
 <script th:src="@{/scripts/hideStatement.js}"></script>
 <script th:src="@{/scripts/menageQuestions.js}"></script>
 </body>
