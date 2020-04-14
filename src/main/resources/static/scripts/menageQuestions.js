@@ -16,7 +16,10 @@ function afterChangeOption() {
     if(selected.val()==="Nowa sekcja")
     {
         var newSection = prompt("Wprowadź nazwe nowej sekcji:", selected.val());
-
+        if(newSection.length===0)
+        {
+            return;
+        }
         var $newTable=$(this).parent().parent().parent().parent().clone();
 
         $newTable.find(".questionRow").remove();
