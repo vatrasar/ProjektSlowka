@@ -45,9 +45,11 @@ function afterChangeOption() {
         $.get("/updateSection?id=" + selected.attr("name") + "&selected=" + selected.val());
         $("table[name='" + selected.val() + "']").append(row);
         var childrens=$rowParrent.children();
-        if($rowParrent.children().length===1)
-        {
+
+        if($rowParrent.children().length===1)//remove table if no question with secction that type
+        {   removeOptionInAllRows($rowParrent.parent().attr("name"));
             $rowParrent.parent().remove();
+
         }
     }
 
@@ -62,6 +64,13 @@ function addNewOptionToAllRows(newOptionName) {
        newOption.val(newOptionName);
        $(this).append(newOption);
    });
+
+
+}
+
+
+function removeOptionInAllRows(removingOptionName) {
+    $("option[value='"+removingOptionName+"']").remove();
 
 
 }
