@@ -39,7 +39,7 @@
 
 <div th:class="container">
 
-    <table th:each="entry:${questionsList}" th:class="table" >
+    <table th:name="${entry.getKey()}" th:each="entry:${questionsList}" th:class="table" >
         <caption th:text="${entry.getKey()}"></caption>
         <tr>
             <th>Tag</th>
@@ -54,7 +54,19 @@
             <td th:text="${question.getAnswer()}">Tag</td><!--in backend i saved tags to answer-->
             <td><a th:href="${'/zmianaPytania?id='+question.getId()}">Edytuj<a></td>
             <td > <a class="dropLink" th:href="${'/dropPytanie?id='+question.getId()}">Usuń</a></td>
-            <td th:text="${question.getSectionName()}"></td>
+            <td >
+
+                <select class="sectionSelect">
+                    <option name="new">Nowa sekcja</option>
+                    <div th:each="section:${sections}" >
+                        <option th th:if="${!section.equals(entry.getKey())}" class="sectionOption" th:name="${question.getId()}" th:text="${section}"></option>
+                        <option selected th:if="${section.equals(entry.getKey())}" class="sectionOption" th:name="${question.getId()}" th:text="${section}"></option>
+
+                    </div>
+
+
+                </select>
+            </td>
 
 
 

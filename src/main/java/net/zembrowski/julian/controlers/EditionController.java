@@ -296,7 +296,8 @@ public class EditionController {
     @RequestMapping("/organise")
     public String oragniseQuestionsInRepetition(Model model)
     {
-        Set<Map.Entry<String,List<Pytanie>>> questionsList=pytania.getReptitionQuestionsOrganiseInSections(akutalnePowtorzenie).entrySet();
+        Map<String,List<Pytanie>>repetitionQuestionSectionsMap=pytania.getReptitionQuestionsOrganiseInSections(akutalnePowtorzenie);
+        Set<Map.Entry<String,List<Pytanie>>> questionsList=repetitionQuestionSectionsMap.entrySet();
         model.addAttribute("questionsList",questionsList);
         if(uytkownicy.updateAktualnyUzytkownik())
         {
@@ -304,9 +305,14 @@ public class EditionController {
         }
 
         model.addAttribute("nazwaUzytkownika",uytkownicy.getActualUserLogin());
-
+        model.addAttribute("sections",repetitionQuestionSectionsMap.keySet());
 
         return "menageQuestions";
     }
-
+    @RequestMapping("/updateSection")
+    public @ResponseBody String updateSection(@RequestParam("id")int id,@RequestParam("selected")String newSectionName)
+    {
+        pytania.upadateSection(id,newSectionName);
+        return "";
+    }
 }

@@ -573,4 +573,10 @@ public class PytanieServices {
        }
        return questionsList.stream().collect(Collectors.groupingBy(Pytanie::getSectionName));
     }
+
+    public void upadateSection(int id, String newSectionName) {
+        Pytanie questionToUpdate=pytania.getPytanie(id);
+        questionToUpdate.setSectionName(newSectionName);
+        pytania.upadatePytanie(questionToUpdate);
+    }
 }

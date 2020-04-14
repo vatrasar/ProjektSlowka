@@ -8,3 +8,14 @@ function dropQuestion (event) {
 
 }
 $(".dropLink").on("click",dropQuestion);
+
+$(".sectionSelect").on("change",afterChangeOption);
+
+function afterChangeOption() {
+    var selected = $(this).children("option:selected");
+    var row=$(this).parent().parent();
+    $.get("/updateSection?id="+selected.attr("name")+"&selected="+selected.val());
+    $("table[name='"+selected.val()+"']").append(row);
+
+
+}
