@@ -20,6 +20,7 @@
 <p class="blod">pozostało:<span id="num" style="color: cornflowerblue" th:text="${questionsNumber}"></span></p>
 <header>
     <h1 th:text="${pyt.getPowtorzenie().getNazwa()+' '+pyt.getPowtorzenie().getNumer()}"></h1>
+    <h3>Sekcja:<span th:text="${pyt.getSectionName()}"></span></h3>
     <h5 >Data notatek:<span th:text="${pyt.powtorzenie.getUtworzenie()}"></span></h5>
 </header>
 <div id="questionPage" class="container">
