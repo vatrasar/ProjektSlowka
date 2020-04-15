@@ -59,7 +59,7 @@ public class LatexProjectService {
             for(Map.Entry<String, List<Pytanie>> section:questionsGroupBySections.entrySet()) {
                 //add questions
                 chapter.append(packInLatexTag(SECTION,section.getKey())).append(endl());
-                for (Pytanie question : questions) {
+                for (Pytanie question : section.getValue()) {
                     List<MediaSource> images = mediaSourceService.getMediaForQuestion(question).get(0);
 
                     String[] imagesStrings = getImagesStrings(figuresCount, chapter, images);
