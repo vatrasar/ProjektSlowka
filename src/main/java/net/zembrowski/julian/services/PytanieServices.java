@@ -556,7 +556,7 @@ public class PytanieServices {
         List<Pytanie>questionsOfRepetitionsWithSameName=getPytaniaOfRepetitions(repetitionsWithSameName);
         List<String>result= questionsOfRepetitionsWithSameName.stream().map((x)->{
 
-            if(x.getSectionName().equals("Ogólnie"))//empty section
+            if(x.getSectionName()==null || x.getSectionName().equals("Ogólnie"))//empty section
                 return "";
             else
                 return x.getSectionName();
