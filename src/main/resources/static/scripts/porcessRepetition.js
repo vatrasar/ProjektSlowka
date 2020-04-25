@@ -59,6 +59,8 @@ function makeQuestionPage(isFirstQuestion,data) {
         $("#questionsMedia").html(newTags);
         $("#num").text(data["id"]);
         $("#question").text(data['question']);
+        $("#section").text(data["sectionName"]);
+        $("#repetitionName").text(data["powtorzenie"]["nazwa"]);
     }
     $("odp").text("");
     $("#answerPage").hide();
