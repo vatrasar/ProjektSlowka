@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -137,4 +138,6 @@ public class PytanieRepository {
 
         return bledy.stream().filter(Pytanie::isHard).collect(Collectors.toList());
     }
+
+
 }

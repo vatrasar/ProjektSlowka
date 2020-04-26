@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.NoResultException;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 @Controller
@@ -78,6 +80,9 @@ public class EditionController {
         model.addAttribute("pytanie",new Pytanie(akutalnePowtorzenie));
         model.addAttribute("repetitionSize",pytania.getPytaniaPowtorzenia(akutalnePowtorzenie).size());
         model.addAttribute("user",uytkownicy.getActualUserLogin());
+        model.addAttribute("sectionsList",pytania.getSectionsListforRepetition(akutalnePowtorzenie));
+
+
 
         return  "addPytanieEdition";
     }
@@ -238,7 +243,8 @@ public class EditionController {
         Powtorzenie pow=pytania.getPytanie(id).getPowtorzenie();
         pytania.deletePytanie(id);
 
-        pytania.getActualQuestionsList().remove(0);
+        if(pytania.getActualQuestionsList()!=null && !pytania.getActualQuestionsList().isEmpty())
+            pytania.getActualQuestionsList().remove(0);
         return "";
 
     }
@@ -262,6 +268,7 @@ public class EditionController {
         model.addAttribute("pytanie",edytowane);
         model.addAttribute("edition",true);
         model.addAttribute("tags",tags);
+        model.addAttribute("sectionsList",pytania.getSectionsListforRepetition(akutalnePowtorzenie));
         return "pytanieEdition";
     }
 
@@ -277,6 +284,7 @@ public class EditionController {
            return "redirect:/cwicz";
     }
 
+
     @RequestMapping("/collectMarked")
     public String collectMarked()
     {
@@ -285,4 +293,26 @@ public class EditionController {
 
     }
 
+    @RequestMapping("/organise")
+    public String oragniseQuestionsInRepetition(Model model)
+    {
+        Map<String,List<Pytanie>>repetitionQuestionSectionsMap=pytania.getReptitionQuestionsOrganiseInSections(akutalnePowtorzenie);
+        Set<Map.Entry<String,List<Pytanie>>> questionsList=repetitionQuestionSectionsMap.entrySet();
+        model.addAttribute("questionsList",questionsList);
+        if(uytkownicy.updateAktualnyUzytkownik())
+        {
+            return "redirect:/pokarzMenu";
+        }
+
+        model.addAttribute("nazwaUzytkownika",uytkownicy.getActualUserLogin());
+        model.addAttribute("sections",repetitionQuestionSectionsMap.keySet());
+
+        return "menageQuestions";
+    }
+    @RequestMapping("/updateSection")
+    public @ResponseBody String updateSection(@RequestParam("id")int id,@RequestParam("selected")String newSectionName)
+    {
+        pytania.upadateSection(id,newSectionName);
+        return "";
+    }
 }

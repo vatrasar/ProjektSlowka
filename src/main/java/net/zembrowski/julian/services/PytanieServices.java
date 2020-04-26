@@ -15,10 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -53,6 +50,8 @@ public class PytanieServices {
     public void createPytanie(Pytanie nowePytanie, MultipartFile[] plikiPyt, MultipartFile[] plikiOdp, String tags)
     {
         try {
+            if(nowePytanie.getSectionName().equals(""))
+                nowePytanie.setSectionName("Ogólnie");
             upadateLastAdded(nowePytanie);
             pytania.createPytanie(nowePytanie);
 
@@ -290,10 +289,14 @@ public class PytanieServices {
 
         saveFiles(plikiOdp, MediaStatus.ANSWER,nowe);
         saveFiles(plikiQuest, MediaStatus.QUESTION, nowe);
+        actualQuestionsList=getActualQuestionsList();
+        if(actualQuestionsList!=null && !actualQuestionsList.isEmpty())//(null if we enter here from lat added question)
+        {
+            Pytanie editedQuestion=getActualQuestionsList().get(0);//we have changed question in database but not in current question list
+            editedQuestion.setAnswer(nowe.getAnswer());
+            editedQuestion.setQuestion(nowe.getQuestion());
+        }
 
-        Pytanie editedQuestion=getActualQuestionsList().get(0);//we have changed question in database but not in current question list
-        editedQuestion.setAnswer(nowe.getAnswer());
-        editedQuestion.setQuestion(nowe.getQuestion());
     }
 
 
@@ -466,7 +469,7 @@ public class PytanieServices {
         actualQuestionsList=getQuestionsOfMarked(powtorzenia.getActualRepetitions());
     }
 
-    private List<Pytanie> getPytaniaOfRepetitions(List<Powtorzenie> toLearn) {
+    public List<Pytanie> getPytaniaOfRepetitions(List<Powtorzenie> toLearn) {
 
         List<Pytanie>result=new ArrayList<>();
         for(Powtorzenie temp:toLearn)
@@ -545,5 +548,35 @@ public class PytanieServices {
             pytania.createPytanie(newQuestion);
                 });
 
+    }
+
+    public List<String> getSectionsListforRepetition(Powtorzenie repetition) {
+
+        List<Powtorzenie>repetitionsWithSameName= powtorzenia.getPowtorzeniaByName(repetition.getNazwa());
+        List<Pytanie>questionsOfRepetitionsWithSameName=getPytaniaOfRepetitions(repetitionsWithSameName);
+        List<String>result= questionsOfRepetitionsWithSameName.stream().map((x)->{
+
+            if(x.getSectionName()==null || x.getSectionName().equals("Ogólnie"))//empty section
+                return "";
+            else
+                return x.getSectionName();
+        }).distinct().collect(Collectors.toList());
+
+        return result;
+    }
+
+    public Map<String, List<Pytanie>> getReptitionQuestionsOrganiseInSections(Powtorzenie repetition) {
+       List<Pytanie> questionsList=getPytaniaPowtorzenia(repetition);
+       for(Pytanie question:questionsList)
+       {
+           question.setAnswer(tagService.getQuestionTagsNames(question));//set tag as answer. Purpose is to deliver it to view without creating new, special data object
+       }
+       return questionsList.stream().collect(Collectors.groupingBy(Pytanie::getSectionName));
+    }
+
+    public void upadateSection(int id, String newSectionName) {
+        Pytanie questionToUpdate=pytania.getPytanie(id);
+        questionToUpdate.setSectionName(newSectionName);
+        pytania.upadatePytanie(questionToUpdate);
     }
 }

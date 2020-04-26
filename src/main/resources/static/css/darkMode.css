@@ -8,14 +8,20 @@ body
 /*{*/
 /*    background-color: darkcyan;*/
 /*}*/
-
+.menuA{
+    color: black;
+}
+.menuA:visited{
+    color: black;
+    text-decoration: none;
+}
 caption
 {
-    color: brown;
+    color: aliceblue;
 }
 
 a{
-    color: darkgray;
+    color: yellowgreen;
 }
 a:hover
 {
@@ -23,10 +29,13 @@ a:hover
 }
 th
 {
-    background-color:blue;
+    background-color:cornflowerblue;
 }
 td{
     color: black;
+
+}
+tr{
     background-color: cornsilk;
 }
 
@@ -51,7 +60,7 @@ table a:visited
     text-decoration: none;
 }
 
-table tr td:hover
+tr:hover
 {
     background-color: brown;
 }
@@ -77,7 +86,7 @@ table tr td:hover
 
 .form-control
 {
-    background-color: darkred;
+    background-color: blueviolet;
     color: white;
     font-size: large;
 
@@ -95,5 +104,11 @@ pre
 {
     color: darkcyan;
     background-color: black;
+}
+.sectionTableCaption
+{
+    color: ivory;
+    font-size: 160%;
+    font-family: cursive;
 }
 

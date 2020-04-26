@@ -16,6 +16,7 @@
 <div class="container">
 <header>
     <h1 th:text="${pyt.getPowtorzenie().getNazwa()+' '+pyt.getPowtorzenie().getNumer()}"></h1>
+    <h3>Sekcja:<span th:text="${pyt.getSectionName()}"></span></h3>
     <h5 >Data notatek:<span th:text="${pyt.powtorzenie.getUtworzenie()}"></span></h5>
 </header>
 <h2 class="textPytanie" >Pytanie:</h2>

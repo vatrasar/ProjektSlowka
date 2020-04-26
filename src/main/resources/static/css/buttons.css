@@ -69,6 +69,13 @@
     color: darkred;
 }
 
+.btn-border-rev.btn-yellow2:before, .btn-border-rev.btn-yellow2:after {
+    border-color: yellow;
+}
+.btn-border-rev.btn-yellow2:hover {
+    color: yellow;
+}
+
 .btn-border-rev.btn-yellow:before, .btn-border-rev.btn-yellow:after {
     border-color: cadetblue;
 }

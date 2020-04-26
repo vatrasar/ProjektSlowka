@@ -1,5 +1,5 @@
 function betterPreLooks() {
-    var preList=document.getElementsByTagName("pre");
+    var preList=document.querySelectorAll("pre.propAnswer");
     if(preList.length!=null)
     {
         for(var p=0;p<preList.length;p++) {
@@ -12,7 +12,9 @@ function betterPreLooks() {
                 }
             }
             if (maxLineSize > 40) {
-                preList[p].className = "preLeft"
+                preList[p].className = preList[p].className+" preLeft";
+            }else {
+                preList[p].className.replace(" preLeft","");
             }
 
 

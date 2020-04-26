@@ -1,8 +1,7 @@
 questionId=null;
 function makeAnswerPage(data) {
-    $("#propAnswer").text(data['answer']);
-
-    $("#userAnswer").text($("#odp").val());
+    $(".propAnswer").text(data['answer']);
+    $("#userAnswer").text($("odp").text());
     $("#pus").prop('checked',data["problem"]);
     var newTags=makeMediaTags([data["photos"],data['sounds'],data['videos']]);
     $("#answerMedia").html(newTags);
@@ -61,6 +60,8 @@ function makeQuestionPage(isFirstQuestion,data) {
         $("#questionsMedia").html(newTags);
         $("#num").text(data["id"]);
         $("#question").text(data['question']);
+        $("#section").text(data["sectionName"]);
+        $("#repetitionName").text(data["powtorzenie"]["nazwa"]);
     }
     $("#odp").val("");
     $("#answerPage").hide();
@@ -78,10 +79,11 @@ $("#check").on("click", function (event) {
     $.get(controlerAdress,function (data) {
 
         makeAnswerPage(data);
+        determineAnswerTagNames2();
+        betterPreLooks();
     });
 
-    determineAnswerTagNames();
-    betterPreLooks();
+
 
 });
 
@@ -166,4 +168,7 @@ $("#back").on("click",function (event) {
     event.preventDefault();
     makeQuestionPage(true,[]);
 });
+
+
+
 

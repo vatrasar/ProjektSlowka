@@ -5,6 +5,8 @@ package net.zembrowski.julian.domain;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.nio.file.Paths;
+
 
 @Entity
 public class MediaSource {
@@ -29,7 +31,9 @@ public class MediaSource {
         this.status = status;
         this.path=path;
     }
-
+    public String getFileName() {
+        return Paths.get(path).getFileName().toString();
+    }
     public String getPath() {
         return path;
     }

@@ -85,6 +85,11 @@
 			<artifactId>jquery-ui</artifactId>
 			<version>1.9.2</version>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13-beta-3</version>
+		</dependency>
 
 
 	</dependencies>

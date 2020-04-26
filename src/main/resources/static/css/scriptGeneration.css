@@ -1,0 +1,76 @@
+
+.btnGroup button{
+    float: left;
+    white-space: normal;
+    line-height: 4vw;
+    width: 30vw;
+    height: 30vh;
+
+}
+#projectCreationPage
+{
+    margin-top: 10vh;
+}
+.btnGroup{
+
+    width: fit-content;
+    display: flex;
+    margin: auto;
+}
+#firstPage{
+    position: absolute;
+    width: 100%;
+    top:40%;
+}
+.btn{
+    font-size: 3vw;
+
+}
+#leftButton{
+    margin-right: 2vw;
+}
+.previous:hover {
+    background-color: aqua;
+    color: black;
+    transition: 1s;
+
+}
+
+.previous {
+    background-color: dodgerblue;
+    color: black;
+    position: fixed;
+    top: 0;
+
+}
+.previous:focus{
+    color: black;
+
+}
+
+.hidden{
+    display: none;
+}
+.projectSettingsTd{
+    text-align: center;
+}
+.dropLink{
+    color: red;
+}
+
+#projectChoosePage
+{
+    margin-top: 10vh;
+}
+
+.dropProject{
+    color: red;
+}
+.dropProject:visited{
+    color: red;
+}
+
+.chooseProject
+{
+    color: darkgreen;
+}

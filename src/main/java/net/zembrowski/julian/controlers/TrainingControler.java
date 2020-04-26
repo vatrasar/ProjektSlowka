@@ -85,7 +85,9 @@ public class TrainingControler {
         }
         if (powtorzenia.getActualRepetitions()==null)
         {
-            throw new Exception("toLearn is Empty!");
+            powtorzenia.injectRepetitionsForTomorrow();
+            if(powtorzenia.getActualRepetitions()==null)
+                throw new Exception("toLearn is Empty!");
         }
         model.addAttribute("lastRepet",actualRepetition);
         model.addAttribute("powtorzenia",powtorzenia.getActualRepetitions());

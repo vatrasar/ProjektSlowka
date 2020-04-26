@@ -6,22 +6,22 @@ function determineAnswerTagNames() {
 
         var tekst=elemen.textContent;
 
-        if(tekst.indexOf("\n")==-1)
+        if(tekst.indexOf("\n")===-1)
         {
             var parent=elemen.parentNode;
             var content=parent.innerHTML;
-
+            parent.innerHTML=content.replace("pre","p");
             parent.innerHTML=content.replace("pre","p");
 
         }
     })
 }
-
+determineAnswerTagNames2();
 /**
  * for REST API determine whether pre or p tag is use
  */
 function determineAnswerTagNames2() {
-    var elements=[].slice.call(document.getElementsByClassName("answers"));
+    var elements=[].slice.call(document.getElementsByClassName("propAnswer"));
 
     elements.forEach(function (elemen,index) {
 
@@ -30,17 +30,15 @@ function determineAnswerTagNames2() {
 
         if(tekst.indexOf("\n")===-1)
         {
-            var parent=elemen.parentNode;
-            var content=parent.innerHTML;
+            $("pre.propAnswer").addClass("hidden");
 
-            parent.innerHTML=content.replace("pre","p");
+            $("p.propAnswer").removeClass("hidden");
 
         }
         else
         {
-            var parent=elemen.parentNode;
-            var content=parent.innerHTML;
-            parent.innerHTML=content.replace("p","pre");
+            $("p.propAnswer").addClass("hidden");
+            $("pre.propAnswer").removeClass("hidden");
             betterPreLooks();
         }
     })

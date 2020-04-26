@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <title>Julian</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/darkMode.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/menuButtons.css}" type="text/css">
+    <style>
+
+        .pozostalePow
+        {
+            color: cornflowerblue;
+            font-weight: bold;
+            font-size: 180%;
+
+        }
+
+        .dropLink{
+            color:red;
+        }
+
+
+    </style>
+    <link rel="stylesheet" th:href="@{/css/menuButtons.css}" type="text/css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/colorsRepeteTrainning.css}">
+    <link rel="stylesheet" href="../static/css/pre.css">
+</head>
+<body>
+<div th:class="row" style="text-align: center;margin:5px;float: right">
+    <a th:href="@{/pokarzMenu}">wroć do menu głównego</a>
+</div>
+
+<p style="font-weight: bold">zalogowany jako:<span style="font-weight: normal;color: cornflowerblue;" th:text="${nazwaUzytkownika}"></span></p>
+
+
+<div id="tablesContainer" th:class="container">
+
+    <table th:name="${entry.getKey()}" th:each="entry:${questionsList}" th:class="table" >
+        <caption class="sectionTableCaption" th:text="${entry.getKey()}"></caption>
+        <tr>
+            <th>Tag</th>
+            <th>Edytuj</th>
+            <th>Usuń</th>
+            <th>Sekcja</th>
+
+        </tr>
+
+        <tr class="questionRow" th:each="question:${entry.getValue()}">
+
+            <td th:text="${question.getAnswer()}">Tag</td><!--in backend i saved tags to answer-->
+            <td><a th:href="${'/zmianaPytania?id='+question.getId()}">Edytuj<a></td>
+            <td > <a class="dropLink" th:href="${'/dropPytanie?id='+question.getId()}">Usuń</a></td>
+            <td >
+
+                <select class="sectionSelect">
+                    <option th:name="${question.getId()}" name="new">Nowa sekcja</option>
+                    <div th:each="section:${sections}" >
+                        <option th:if="${!section.equals(entry.getKey())}" class="sectionOption" th:name="${question.getId()}" th:text="${section}" th:value="${section}"></option>
+                        <option selected th:if="${section.equals(entry.getKey())}" class="sectionOption" th:name="${question.getId()}" th:text="${section}" th:value="${section}"></option>
+                    </div>
+
+
+                </select>
+            </td>
+
+
+
+
+        </tr>
+
+    </table>
+</div>
+<div th:class="row" style="text-align: center;margin:5px;position: fixed;right: 0;bottom: 0">
+    <a th:href="@{/pytanieAdd}">Dodaj nowe pytanie</a>
+</div>
+
+<script th:src="@{/scripts/hideStatement.js}"></script>
+<script th:src="@{/scripts/menageQuestions.js}"></script>
+</body>
+</html>

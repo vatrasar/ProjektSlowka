@@ -1,6 +1,7 @@
 package net.zembrowski.julian.services;
 
 
+import net.zembrowski.julian.Utils.LatexGenerationUtils;
 import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.repository.PowotrzenieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.logging.Logger;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static net.zembrowski.julian.domain.Status.NIESPRAWDZONE;
@@ -48,6 +45,7 @@ public class PowtorzenieServices {
 
     @Transactional
     public void persistPowtorzenie(Powtorzenie nowePowtorzenie) {
+
         powtorzenia.persistPowtorzenie(nowePowtorzenie);
     }
     public void ustawJakoAktualne(Powtorzenie noweAktualne)
@@ -249,5 +247,27 @@ public class PowtorzenieServices {
             count-=clones;
         }
         return count;
+    }
+
+    public List<String> searchRepetitionsWithPartOfName(String partOfName) {
+
+        return powtorzenia.getRepetitionsWithPartOfName(partOfName);
+
+    }
+
+    public Map<String, List<Powtorzenie>> getRepettionsByNameList(List<String> chaptersNames) {
+        Map<String, List<Powtorzenie>> repetitionsByName=new HashMap<>();//key is repetition name, value is  repetitions with that name
+        //put repetitions to map
+        for(String chapterName:chaptersNames)
+        {
+            repetitionsByName.put(chapterName,powtorzenia.getPowtorzeniaByName(chapterName));
+        }
+        return repetitionsByName;
+    }
+
+    public List<String> getTopcsList() {
+        List<String> result= powtorzenia.getTopcsList();
+        return result;
+
     }
 }

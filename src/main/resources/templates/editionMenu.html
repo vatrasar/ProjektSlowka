@@ -22,22 +22,27 @@
     <caption style="text-align: center;font-weight: bold;font-size: 25px;margin-bottom: 10%">MENU EDYCJI</caption>
     <tr th:if="${puste==false}">
         <td>
-            <a  th:href="@{/addMenu}">DODAJ PYTANIA</a>
+            <a class="menuA"  th:href="@{/addMenu}">DODAJ PYTANIA</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a th:href="@{/edit}">EDYTUJ POWTÓRZENIE</a>
+            <a class="menuA" th:href="@{/edit}">EDYTUJ POWTÓRZENIE</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a  th:href="@{/dropPow}" id="toDelete">USUŃ POWTÓRZENIE</a>
+            <a class="menuA" th:href="@{/organise}">EDYCJA PYTAŃ</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a  th:href="@{/archPow}">ARCHIWIZUJ</a>
+            <a class="menuA"  th:href="@{/dropPow}" id="toDelete">USUŃ POWTÓRZENIE</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a class="menuA"  th:href="@{/archPow}">ARCHIWIZUJ</a>
         </td>
     </tr>
 

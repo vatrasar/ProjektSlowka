@@ -31,6 +31,12 @@
         {
             margin-bottom: 60px;
         }
+        #sectionLabel
+        {
+            text-align: left;
+            width: 100%;
+
+        }
 
     </style>
 
@@ -56,7 +62,22 @@
             <input data-toggle="tooltip" autocomplete="off" title="separatorem tagu jest spacja" accesskey="t" th:class="form-control" type="text" name="tagi"/>
         </div>
         <input type="hidden" th:field="*{id}" />
+        <!--section-->
+        <!--<div th:class="form-group">-->
+            <!--<label for="sectionName" th:class="control-label">Nazwa sekcji</label>-->
+            <!--<input accesskey="t" th:field="*{sectionName}" th:class="form-control" type="text" id="sectionName"/>-->
+        <!--</div>-->
+        <div class="form-group" >
+            <datalist   id="sectionName">
+                <div th:each="sec:${sectionsList}">
+                    <option th:text="${sec}"></option>
+                </div>
+            </datalist>
 
+            <label id="sectionLabel" th:value="*{sectionName}" class="control-label">Nazwa sekcji <input class="form-control" th:step="1" id="movie" list="sectionName" th:field="*{sectionName}" /></label>
+        </div>
+
+        <!--notion-->
         <div class="form-check" >
             <input class="form-check-input" type="checkbox" value="true" th:field="*{notion}" id="reversed" checked>
             <label class="form-check-label" for="reversed" >
@@ -68,16 +89,18 @@
         </div>
 
 
+        <div th:class="form-group">
+            <label for="mediaPytania">pytanie</label>
+            <input class="question" type="file" id="mediaPytania" name="ans" multiple>
+        </div>
+
+
         <h3>Audio/img/video</h3>
         <div th:class="form-group">
             <label for="mediaOdpowiedz">odpowiedz</label>
             <input type="file" id="mediaOdpowiedz" name="odp" multiple>
         </div>
 
-        <div th:class="form-group">
-            <label for="mediaPytania">pytanie</label>
-            <input class="question" type="file" id="mediaPytania" name="ans" multiple>
-        </div>
 
 
         <div th:class="row" style="text-align: center;margin-top: 20px">
@@ -90,6 +113,9 @@
     </form>
     <div th:class="row" style="text-align: center;margin-top: 20px">
         <a th:href="@{/training}">wróć do wyboru powtórzeń</a>
+    </div>
+    <div th:class="row" style="text-align: center;margin:5px;position: fixed;right: 0;bottom: 0">
+        <a th:href="@{/organise}">Zarządzaj pytaniami</a>
     </div>
 </div>
 <script th:src="@{/scripts/questionScript.js}"></script>
