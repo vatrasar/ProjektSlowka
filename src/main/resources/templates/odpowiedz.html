@@ -23,11 +23,15 @@
         {
             color: darkgoldenrod;
         }
+        #arch{
+            color: gold;
+        }
 
     </style>
 
 </head>
 <body>
+<a id="arch" th:href="${'/robPowtorzeniePodsumowanie?zal=arch'}">Archiwizuj</a>
 <h1 style="text-align: center;margin-top:25%">Podsumowanie:</h1>
 <div class="container" style="text-align: center;font-size: 25px">
     <div>
@@ -75,5 +79,6 @@
 </div>
 <script th:src="@{/scripts/deteremineAnswerTagName.js}"></script>
 <script th:src="@{/scripts/betterPreLooks.js}"></script>
+
 </body>
 </html>

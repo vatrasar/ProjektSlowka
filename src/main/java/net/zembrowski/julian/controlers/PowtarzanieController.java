@@ -239,6 +239,23 @@ public class PowtarzanieController {
 
         return "redirect:/proceseRepetition";
     }
+    @RequestMapping(value = "/robPowtorzeniePodsumowanie")
+    public String robPowtorzeniePodsumowanieForArch(@RequestParam("zal") String zal, Model model)
+    {
+        if(users.updateAktualnyUzytkownik())
+        {
+            return "redirect:/pokarzPowtorzenia";
+        }
+        if (isNotSameSession())
+        {
+            return "redirect:/pokarzPowtorzenia";
+        }
+        Status status=pytania.determineStatus(zal,aktualnePytanie);
+
+        pytania.zmienStatusPytania(aktualnePytanie.getId(),status);
+
+        return "redirect:/proceseRepetition";
+    }
 
     @RequestMapping(value = "/robPowtorzeniePodsumowaniePustego")
     public String robPowtorzeniePodsumowaniePustego(@RequestParam("zal") Integer zal, Model model)

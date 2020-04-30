@@ -169,10 +169,18 @@ public class PytanieServices {
         List<Pytanie>bledy=pytania.getBledy(wykonywane);
         //set problem off
         bledy.forEach(a->a.setProblem(false));
+
+
         List<Pytanie>hardQuestions=pytania.getHardQuestions(bledy);//question is hard when has bad statistics
         List<Pytanie>tooHardQuestions=hardQuestions.stream().filter(Pytanie::isTooHard).collect(Collectors.toList());
+
+
+
+        List<Pytanie>questionsToArchive=getQuestionsToArchive(wykonywane);
+        questionsToArchive.addAll(tooHardQuestions);
+
         //uzyskanie numeru jakie powinno miec powtorzenie z bledami
-        int numer = 1 + powtorzenia.getMaxNumer(wykonywane.getNazwa());
+
         if(!hardQuestions.isEmpty())
         {
 
@@ -183,17 +191,23 @@ public class PytanieServices {
             if(!forHard.getNazwa().contains("hard"))
                 forHard.setNazwa(forHard.getNazwa()+"hard");
             int numberForHard=powtorzenia.getMaxNumer(forHard.getNazwa())+1;
-            createRepetitionForFaults(forHard, hardQuestions, numberForHard, true);
+            createRepetitionForFaults(forHard, hardQuestions, numberForHard, true,false);
 
         }
-        if(!tooHardQuestions.isEmpty())
+
+
+        if(!questionsToArchive.isEmpty())
         {
-            tooHardQuestions.forEach(a->pytania.deletePytanie(a.getId()));
+            Powtorzenie forArchivization=new Powtorzenie(wykonywane);
+            int numberForArchivizationRepetition=powtorzenia.getMaxNumer(forArchivization.getNazwa())+1;
+            createRepetitionForFaults(forArchivization,questionsToArchive, numberForArchivizationRepetition, false,true);
+            forArchivization.setNumer(numberForArchivizationRepetition);
+            powtorzenia.archPow(forArchivization);
         }
         if(bledy.size()!=0) {
 
             //tworzymy nowe powtorzenie dla bledów
-            createRepetitionForFaults(wykonywane, bledy, numer, false);
+            createRepetitionForFaults(wykonywane, bledy, 1 + powtorzenia.getMaxNumer(wykonywane.getNazwa()), false,false);
 
         }
         wykonywane.refaktoryzujPowtorzenie();
@@ -203,14 +217,21 @@ public class PytanieServices {
 
     }
 
+    private List<Pytanie> getQuestionsToArchive(Powtorzenie wykonywane) {
+        List<Pytanie>repetitionQuestions= pytania.getPytaniaOfPowtorzenie(wykonywane);
+        return repetitionQuestions.stream().filter(x->x.getStatus()==Status.TO_ARCHIVIZATION).collect(Collectors.toList());
+    }
+
     private void pushStatistic(Pytanie a, int next) {
         a.pushStatistic(next);
         pytania.upadatePytanie(a);
     }
 
-    private void createRepetitionForFaults(Powtorzenie oldRepetition, List<Pytanie> questions, int idNumber, boolean hard) {
-        final int next=oldRepetition.getNastepne();
-        questions.forEach(a->pushStatistic(a,next));
+    private void createRepetitionForFaults(Powtorzenie oldRepetition, List<Pytanie> questions, int idNumber, boolean hard,boolean isToArchive) {
+        if(!isToArchive) {
+            final int next = oldRepetition.getNastepne();
+            questions.forEach(a -> pushStatistic(a, next));
+        }
         Powtorzenie repetiotionForFaults = new Powtorzenie();
         repetiotionForFaults.utworzPowDlaBledow(oldRepetition, idNumber, hard);
         powtorzenia.persistPowtorzenie(repetiotionForFaults);
@@ -345,6 +366,10 @@ public class PytanieServices {
         if (zal.equals("Nie Umiem"))
         {
            return Status.NIEUMIEM;
+        }
+        else if(zal.equals("arch"))
+        {
+            return Status.TO_ARCHIVIZATION;
         }
         if(aktualne.getPowtorzenie().isReverse())
         {
