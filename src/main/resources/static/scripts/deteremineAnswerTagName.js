@@ -26,20 +26,40 @@ function determineAnswerTagNames2() {
     elements.forEach(function (elemen,index) {
 
 
-        var tekst=elemen.textContent;
+        var tekst=elemen.innerHTML;
+        elemen.innerHTML=soroundStar(tekst);
 
-        if(tekst.indexOf("\n")===-1)
-        {
-            $("pre.propAnswer").addClass("hidden");
-
-            $("p.propAnswer").removeClass("hidden");
-
-        }
-        else
-        {
-            $("p.propAnswer").addClass("hidden");
-            $("pre.propAnswer").removeClass("hidden");
-            betterPreLooks();
-        }
     })
+}
+
+
+function soroundStar(text) {
+    var linesList=text.split("\n");
+    var isInCode=false;
+    var outStr=text.split("\n");
+    for(i=0;i<linesList.length;i++)
+    {
+        var line=linesList[i];
+        if(!isInCode)
+        {
+            if(line.length===3 && line.substring(0,3)==="*sc")
+            {
+                isInCode=true;
+                outStr[i]="<pre>"
+            }
+        }
+        else {
+            if(line.length===3 && line.substring(0,3)==="*ec")
+            {
+                isInCode=false;
+                outStr[i]="</pre>"
+            }
+        }
+
+    }
+    if(isInCode)
+    {
+        outStr.push("</pre>")
+    }
+    return outStr.join("\n")
 }
