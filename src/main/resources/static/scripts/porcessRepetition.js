@@ -6,6 +6,7 @@ function makeAnswerPage(data) {
     var newTags=makeMediaTags([data["photos"],data['sounds'],data['videos']]);
     $("#answerMedia").html(newTags);
     determineAnswerTagNames2();
+    listFormating()
     $("#questionPage").hide();
     $("#answerPage").show();
     $("#back").show();
@@ -80,6 +81,7 @@ $("#check").on("click", function (event) {
 
         makeAnswerPage(data);
         determineAnswerTagNames2();
+        listFormating()
         betterPreLooks();
     });
 
