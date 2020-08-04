@@ -37,6 +37,9 @@
             width: 100%;
 
         }
+        #btnSurroundWithCode{
+            color: black;
+        }
 
     </style>
 
@@ -53,8 +56,10 @@
             <label th:class="control-label">Pytanie</label>
             <input  accesskey="q" class="form-control question" type="text" th:field="*{question}"/>
         </div>
+
         <div class="form-group shadow-textarea">
             <label for="odp">Odpowiedz</label>
+            <button  type='button'  id="btnSurroundWithCode">{}</button>
             <textarea accesskey="a" th:field="*{answer}" class="form-control z-depth-1" id="odp"  rows="4"></textarea>
         </div>
         <div th:class="form-group">
@@ -119,6 +124,7 @@
     </div>
 </div>
 <script th:src="@{/scripts/questionScript.js}"></script>
+<script th:src="@{/scripts/surroundingTools.js}"></script>
 <script>
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
