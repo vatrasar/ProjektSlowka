@@ -1,5 +1,6 @@
 package net.zembrowski.julian.services;
 
+import net.zembrowski.julian.Utils.LatexGenerationUtils;
 import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.dto.LatexProjectInfo;
 import net.zembrowski.julian.repository.LatexProjectRepository;
@@ -7,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import javax.print.attribute.standard.Media;
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -76,13 +75,16 @@ public class LatexProjectService {
                         chapter.append(packInLatexTag(TEXT, imagesStrings[0])).append(endl()).append(endl());
                     }
 
+
                     chapter.append(packInLatexTag(SUBSUBSECTION, "Odpowiedz"));
                     //answer
-                    if (question.getAnswer().length() > 0 && question.getAnswer().charAt(0) == '*') {
-                        chapter.append(packInBeginBlock("lstlisting", mapPolishCharacters(question.getAnswer()))).append(endl()).append(endl());
-                    } else {
-                        chapter.append(question.getAnswer()).append(endl());
-                    }
+                    //pakc in code block
+                    String answer=question.getAnswer();
+                    //pack code
+                    answer=LatexGenerationUtils.packPairOfTags(answer,"*sc","*ec","code");
+                    //pack list
+                    answer=LatexGenerationUtils.packPairOfTags(answer,"*sl","*el","list");
+                    chapter.append(answer);
                     if (AreImagesfor(images, MediaStatus.ANSWER)) {
                         chapter.append(endl()).append(imagesStrings[1]).append(endl()).append(endl());
                         chapter.append(imagesStrings[2]).append(endl()).append(endl());

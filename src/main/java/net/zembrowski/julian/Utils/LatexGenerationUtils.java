@@ -3,6 +3,7 @@ package net.zembrowski.julian.Utils;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.function.Function;
 import java.util.logging.Logger;
 
 public class LatexGenerationUtils {
@@ -217,4 +218,80 @@ public class LatexGenerationUtils {
 
     }
 
+    public static String packPairOfTags(String answer, String startTag, String endTag, String type) {
+        int index=0;
+        int startTagIndex=0;
+        StringBuilder resultBulider = new StringBuilder();
+        while(index<answer.length())
+        {
+            //search startTag
+            if(isTagAtThatPosition(answer, startTag, index))
+            {
+                startTagIndex=index;
+                //search for end tag
+                while (index<answer.length())
+                {
+
+                    if(isTagAtThatPosition(answer,endTag,index))
+                    {
+                        index=index+endTag.length();
+                        String textToPack=answer.substring(startTagIndex,index);
+                        textToPack=textToPack.replace(startTag,"");
+                        textToPack=textToPack.replace(endTag,"");
+                        if(type.equals("list"))
+                        {
+                            StringBuilder listBulider=new StringBuilder();
+                            //pack to list
+
+                            String[] items=textToPack.split("\n");
+
+                            for(String item:items)
+                            {
+                                if(item.length()>2) {
+                                    listBulider.append("\\item ");
+                                    listBulider.append(item);
+                                    listBulider.append(endl());
+                                }
+                            }
+                            resultBulider.append(packInBeginBlock("itemize",listBulider.toString())).append(endl());
+
+
+                        }else if(type.equals("code"))
+                        {
+                            resultBulider.append(packInBeginBlock("lstlisting",textToPack)).append(endl());
+                        }
+                        break;
+
+                    }
+
+                    index++;
+                }
+
+
+            }
+            else {
+
+                resultBulider.append(answer.charAt(index));
+            }
+            index++;
+
+        }
+        return resultBulider.toString();
+    }
+
+    private static boolean isTagAtThatPosition(String text, String tagName, int index) {
+//        boolean part1=text.charAt(index) == tagName.charAt(0);
+//        if (part1)
+//        {
+//            boolean part2=index + tagName.length() - 1 < text.length();
+//            String jeden=text.substring(index, index + tagName.length());
+//
+//            boolean part3=text.substring(index, index + tagName.length()).equals(tagName);
+//            int a=2+2;
+//        }
+//
+
+
+        return text.charAt(index) == tagName.charAt(0) && index + tagName.length()-1 < text.length() && text.substring(index, index + tagName.length()).equals(tagName);
+    }
 }

@@ -10,13 +10,10 @@
 //    @Test
 //   public void ConstructorTest()
 //    {
+//        String a="".substring(0,153);
+//        System.out.println(a);
 //
-//        Pytanie stare=new Pytanie();
-//        stare.setStatus(Status.UMIEM_JEDNA_STRONE);
-//        stare.setAnswer("odp");
-//        stare.setQuestion("pyt");
-//        stare.setPowtorzenie(new Powtorzenie());
-//        Pytanie nowe=new Pytanie(stare);
+//
 //
 //    }
 //}
