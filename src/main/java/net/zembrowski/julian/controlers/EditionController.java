@@ -299,6 +299,7 @@ public class EditionController {
         Map<String,List<Pytanie>>repetitionQuestionSectionsMap=pytania.getReptitionQuestionsOrganiseInSections(akutalnePowtorzenie);
         Set<Map.Entry<String,List<Pytanie>>> questionsList=repetitionQuestionSectionsMap.entrySet();
         model.addAttribute("questionsList",questionsList);
+        model.addAttribute("isRepetitionReverse",akutalnePowtorzenie.isReverse());
         if(uytkownicy.updateAktualnyUzytkownik())
         {
             return "redirect:/pokarzMenu";

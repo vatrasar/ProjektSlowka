@@ -37,6 +37,8 @@ public class Pytanie {
 
 
     public String getSectionName() {
+        if(sectionName==null)
+            return "Ogólne";
         return sectionName;
     }
 

@@ -41,7 +41,8 @@
     <table th:name="${entry.getKey()}" th:each="entry:${questionsList}" th:class="table" >
         <caption class="sectionTableCaption" th:text="${entry.getKey()}"></caption>
         <tr>
-            <th>Tag</th>
+            <th th:if="${!isRepetitionReverse}">Tag</th>
+            <th th:if="${isRepetitionReverse}">Pytanie</th>
             <th>Edytuj</th>
             <th>Usuń</th>
             <th>Sekcja</th>
@@ -50,7 +51,8 @@
 
         <tr class="questionRow" th:each="question:${entry.getValue()}">
 
-            <td th:text="${question.getAnswer()}">Tag</td><!--in backend i saved tags to answer-->
+            <td th:if="${!isRepetitionReverse}" th:text="${question.getAnswer()}">Tag</td><!--in backend i saved tags to answer-->
+            <td th:if="${isRepetitionReverse}" th:text="${question.getQuestion()}">Tag</td><!--in backend i saved tags to answer-->
             <td><a th:href="${'/zmianaPytania?id='+question.getId()}">Edytuj<a></td>
             <td > <a class="dropLink" th:href="${'/dropPytanie?id='+question.getId()}">Usuń</a></td>
             <td >
