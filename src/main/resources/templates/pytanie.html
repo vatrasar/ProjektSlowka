@@ -42,7 +42,7 @@
         <video th:src="${k.getPath()}" controls></video>
     </section>
 
-    <form class="form-horizontal" th:action="@{/robPowtorzenie}" th:method="post" th:object="${odp}">
+    <form id="submitForm" class="form-horizontal" th:action="@{/robPowtorzenie}" th:method="post" th:object="${odp}">
 
 
         <div class="form-group shadow-textarea">
@@ -60,6 +60,16 @@
         </div>
     </form>
 </div>
+<script>
+    $(document).keypress(function(e) {
+        if(e.which == 32) {//space
+            console.log("dziala")
+            $("#submitForm").submit();
+        }
 
+    });
+
+
+</script>
 </body>
 </html>

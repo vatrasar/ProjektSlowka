@@ -1,4 +1,6 @@
 questionId=null;
+var isQuestionPage=true
+
 function makeAnswerPage(data) {
     $(".propAnswer").text(data['answer']);
 
@@ -11,6 +13,7 @@ function makeAnswerPage(data) {
     $("#questionPage").hide();
     $("#answerPage").show();
     $("#back").show();
+    isQuestionPage=false;
 
 
 }
@@ -69,53 +72,86 @@ function makeQuestionPage(isFirstQuestion,data) {
     $("#answerPage").hide();
     $("#questionPage").show();
     $("#back").hide();
+    isQuestionPage=true;
 }
 
 makeQuestionPage(true,[]);
 
-$("#check").on("click", function (event) {
-
-
-    event.preventDefault();
-    var controlerAdress=$("#formQuestion").attr("action");
-    $.get(controlerAdress,function (data) {
+function checkAnswer() {
+    var controlerAdress = $("#formQuestion").attr("action");
+    $.get(controlerAdress, function (data) {
 
         makeAnswerPage(data);
         determineAnswerTagNames2();
         listFormating()
         betterPreLooks();
     });
+}
 
+$("#check").on("click", function (event) {
+
+
+    event.preventDefault();
+    checkAnswer();
 
 
 });
+
+$(document).keypress(function(e) {
+    if(!isQuestionPage)
+    {
+        if(e.which == 121) {//y
+            know.call(this);
+
+        }else if(e.which == 110)//n
+        {
+            dontKnow.call(this)
+        }
+    }
+    else
+    {
+        if(e.which == 32) {//space
+            checkAnswer()
+
+        }
+    }
+
+
+});
+
+
+function know() {
+    $.get("/cwiczPodsumowanie" + "?zal=Umiem", function (data) {
+
+
+        if (data === "") {
+            open("/repetitionDone", "_self");
+        }
+
+
+        makeQuestionPage(false, data);
+    });
+}
+
+function dontKnow() {
+    $.get("/cwiczPodsumowanie" + "?zal=Nie Umiem", function (data) {
+        if (data === "") {
+            open("/repetitionDone", "_self");
+        }
+
+        makeQuestionPage(false, data);
+    });
+}
 
 $(".result").on("click",function (event) {
     event.preventDefault();
     questionId=true;
     if(this.value==="Umiem")
     {
-        $.get(this.formAction+"?zal=Umiem",function (data) {
-
-
-            if(data==="")
-            {
-                open("/repetitionDone","_self");
-            }
-
-
-            makeQuestionPage(false,data);
-        });
+        know.call(this);
     }
     else {
-        $.get(this.formAction+"?zal=Nie Umiem",function (data) {
-            if(data==="")
-            {
-                open("/repetitionDone","_self");
-            }
-
-            makeQuestionPage(false,data);
-        });
+        dontKnow.call(this);
     }
 
 
