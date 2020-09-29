@@ -19,11 +19,14 @@ import java.util.Objects;
 public class Powtorzenie {
 
     @Id
+    @Column(length = 128)
     private String nazwa;
     @Id
+    @Column(length = 128)
     private int numer;
     //uzytkownik
     @Id
+    @Column(length = 128)
     private String wlasciciel;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate utworzenie;
