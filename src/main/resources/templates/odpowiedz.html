@@ -26,13 +26,23 @@
         #arch{
             color: gold;
         }
+        #btnKnow
+        {
+            background-color: forestgreen;
+            width: 15%;
+        }
+        #btnDontKnow
+        {
+            background-color: forestgreen;
+            width: 15%;
+        }
 
     </style>
 
 </head>
 <body>
 <a id="arch" th:href="${'/robPowtorzeniePodsumowanie?zal=arch'}">Archiwizuj</a>
-<h1 style="text-align: center;margin-top:25%">Podsumowanie:</h1>
+<h1 style="text-align: center;margin-top:10%">Podsumowanie:</h1>
 <div class="container" style="text-align: center;font-size: 25px">
     <div>
         <p id="odpowiedz">poprawna odpowiedz:</p>
@@ -60,8 +70,8 @@
     </div>
 <form th:action="@{/cwiczPodsumowanie}" th:object="${pytanie}"  class="form-horizontal" method="post">
     <div th:if="${isTraining}==false" th:class="form-group">
-        <input th:formaction="@{/robPowtorzeniePodsumowanie}"  style="margin-right: 20px" type="submit" name="zal" value="Umiem">
-        <input th:formaction="@{/robPowtorzeniePodsumowanie}" type="submit"  name="zal" value="Nie Umiem">
+        <input id="btnKnow" th:formaction="@{/robPowtorzeniePodsumowanie}"  style="margin-right: 20px" type="submit" name="zal" value="Umiem">
+        <input id="btnDontKnow" th:formaction="@{/robPowtorzeniePodsumowanie}" type="submit"  name="zal" value="Nie Umiem">
     </div>
 
     <div th:if="${isTraining}" th:class="form-group">
