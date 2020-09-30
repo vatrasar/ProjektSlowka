@@ -117,5 +117,13 @@
 <script th:src="@{/scripts/deteremineAnswerTagName.js}"></script>
 <script th:src="@{/scripts/betterPreLooks.js}"></script>
 <script th:src="@{/scripts/listFormat.js}"></script>
+<script th:src="@{/scripts/accentsConverter.js}"></script>
+<script>
+    $(document).keyup(function(e) {
+
+        convertInput($("#odp"))
+
+    });
+</script>
 </body>
 </html>

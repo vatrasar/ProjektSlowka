@@ -36,5 +36,13 @@
 <script>
     $('#sucessAdd').delay(5000).fadeOut();
 </script>
+<script th:src="@{/scripts/accentsConverter.js}"></script>
+<script>
+    $(document).keyup(function(e) {
+
+        convertInput($("#odp"))
+
+    });
+</script>
 </body>
 </html>

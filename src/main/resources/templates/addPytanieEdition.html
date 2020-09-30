@@ -54,7 +54,7 @@
 
         <div th:class="form-group">
             <label th:class="control-label">Pytanie</label>
-            <input  accesskey="q" class="form-control question" type="text" th:field="*{question}"/>
+            <input id="inputForQuestion"  accesskey="q" class="form-control question" type="text" th:field="*{question}"/>
         </div>
 
         <div class="form-group shadow-textarea">
@@ -125,9 +125,18 @@
 </div>
 <script th:src="@{/scripts/questionScript.js}"></script>
 <script th:src="@{/scripts/surroundingTools.js}"></script>
+<script th:src="@{/scripts/accentsConverter.js}"></script>
 <script>
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<script>
+    $(document).keyup(function(e) {
+
+        convertInput($("#inputForQuestion"))
+        convertInput($("#odp"))
+
     });
 </script>
 </body>
