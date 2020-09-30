@@ -108,13 +108,22 @@ $(document).keypress(function(e) {
             dontKnow.call(this)
         }
     }
-    else
+
+
+
+});
+
+
+$(document).keydown(function(e) {
+
+    if(isQuestionPage)
     {
-        if(e.which == 32) {//space
+        if(e.which == 39) {//right arrow
             checkAnswer()
 
         }
     }
+    
 
 
 });
