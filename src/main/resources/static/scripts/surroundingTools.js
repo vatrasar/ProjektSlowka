@@ -1,7 +1,7 @@
 $("#btnSurroundWithCode").on("click",function () {
-    var textInTextArea=$("#odp").text();
+    var textInTextArea=$("#odp").val();
     surrondingCode="*sc\n" +
         "*ec";
-    $("#odp").text(textInTextArea+surrondingCode);
+    $("#odp").val(textInTextArea+surrondingCode);
 
 })

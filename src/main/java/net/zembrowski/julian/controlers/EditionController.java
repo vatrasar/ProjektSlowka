@@ -77,7 +77,9 @@ public class EditionController {
     {
         uytkownicy.updateAktualnyUzytkownik();
         model.addAttribute("edition",true);
-        model.addAttribute("pytanie",new Pytanie(akutalnePowtorzenie));
+        Pytanie newQuestion=new Pytanie(akutalnePowtorzenie);
+        newQuestion.setSectionName("");
+        model.addAttribute("pytanie",newQuestion);
         model.addAttribute("repetitionSize",pytania.getPytaniaPowtorzenia(akutalnePowtorzenie).size());
         model.addAttribute("user",uytkownicy.getActualUserLogin());
         model.addAttribute("sectionsList",pytania.getSectionsListforRepetition(akutalnePowtorzenie));

@@ -4,7 +4,9 @@ package net.zembrowski.julian.controlers;
 
 import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.services.PowtorzenieServices;
+import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.UzytkownikService;
+import org.aspectj.weaver.patterns.TypePatternQuestions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ public class MenuController {
 
     @Autowired
     PowtorzenieServices powtorzenia;
+
+    @Autowired
+    PytanieServices pytania;
 
     @RequestMapping(value = {"/pokarzMenu", "/"})
    public String wyswietlMenu(Model model)
@@ -52,9 +57,18 @@ public class MenuController {
 
         for (int i=1;i<=liczbaDni;i++) {
             liczby[i-1]=new Para();
-            List<Powtorzenie> powtorzeniaNaTydzien = powtorzenia.getPowtorzeniaNaDzien(dzis.plusDays(i));
-            liczby[i-1].setLiczba(powtorzeniaNaTydzien.size());
-            powtorzeniaNaTydzien.clear();
+            List<Powtorzenie> repetitionsForDay = powtorzenia.getPowtorzeniaNaDzien(dzis.plusDays(i));
+
+            int questionNumber=0;
+            for(Powtorzenie repetition:repetitionsForDay)//count number of questions for day
+            {
+                List<Pytanie>repetitionQuestionsList=pytania.getPytaniaPowtorzenia(repetition);
+                questionNumber+=repetitionQuestionsList.size();
+            }
+
+
+            liczby[i-1].setLiczba(questionNumber);
+            repetitionsForDay.clear();
             liczby[i-1].setNazwa(dzis.plusDays(i).getDayOfWeek().name());
         }
         model.addAttribute("liczbaPow",liczby);

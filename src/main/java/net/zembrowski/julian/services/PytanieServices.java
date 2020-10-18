@@ -4,6 +4,7 @@ import net.zembrowski.julian.domain.*;
 import net.zembrowski.julian.repository.PytanieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -81,8 +82,25 @@ public class PytanieServices {
     }
 
     public Pytanie getLastAdded(Powtorzenie powtorzenie)throws javax.persistence.NoResultException {
+        Pytanie result=null;
+       try {
+        result= pytania.getLastAdded(powtorzenie);
 
-        return pytania.getLastAdded(powtorzenie);
+    }catch (IncorrectResultSizeDataAccessException e)
+    {
+        List<Pytanie>resultList=pytania.getLastAddedList(powtorzenie);
+        for(Pytanie question:resultList)
+        {
+            question.setLastAdded(false);
+            pytania.upadatePytanie(question);
+
+        }
+        resultList.get(0).setLastAdded(true);
+        pytania.upadatePytanie(resultList.get(0));
+        result=pytania.getLastAdded(powtorzenie);
+    }
+
+        return result;
     }
 
     /**

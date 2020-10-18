@@ -25,7 +25,7 @@
         <caption style="text-align: center;font-weight: bold;font-size: 200%">Plan na najbliższe 7 dni</caption>
         <tr>
             <th >dzień</th>
-            <th >liczba powtórzeń</th>
+            <th >liczba pytań</th>
         </tr>
         <tr th:each="numer:${liczbaPow}">
             <td th:class="${classResolver.resolveClass(numer.getLiczba())}" style="text-align: center" th:text="${numer.translateDay()}"></td>

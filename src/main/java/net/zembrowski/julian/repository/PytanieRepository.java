@@ -140,5 +140,7 @@ public class PytanieRepository {
     }
 
 
-
+    public List<Pytanie> getLastAddedList(Powtorzenie powtorzenie) {
+        return em.createQuery("SELECT p FROM Pytanie p where p.powtorzenie=:pow AND lastAdded=TRUE",Pytanie.class).setParameter("pow",powtorzenie).getResultList();
+    }
 }

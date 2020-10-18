@@ -2,7 +2,7 @@ package net.zembrowski.julian.domain;
 
 public enum PowClassResolver implements HtmlClassResolver {
 
-    veryEasy("veryEasy",0,10),easy("easy",10,20),medium("medium",20,30),hard("hard",30,40),dark("dark",40,1000);
+    veryEasy("veryEasy",0,20),easy("easy",20,50),medium("medium",50,100),hard("hard",100,150),dark("dark",150,5000);
 
     private String name;
     private int min,max;
