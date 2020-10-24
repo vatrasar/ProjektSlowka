@@ -622,4 +622,15 @@ public class PytanieServices {
         questionToUpdate.setSectionName(newSectionName);
         pytania.upadatePytanie(questionToUpdate);
     }
+
+    public int getQuestionsNumberForDay(List<Powtorzenie> repetitionsForDay) {
+        int questionNumber=0;
+        for(Powtorzenie repetition:repetitionsForDay)//count number of questions for day
+        {
+
+            List<Pytanie>repetitionQuestionsList=getPytaniaPowtorzenia(repetition);
+            questionNumber+=repetitionQuestionsList.size();
+        }
+        return questionNumber;
+    }
 }

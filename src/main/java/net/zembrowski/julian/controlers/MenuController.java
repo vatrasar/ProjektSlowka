@@ -59,12 +59,9 @@ public class MenuController {
             liczby[i-1]=new Para();
             List<Powtorzenie> repetitionsForDay = powtorzenia.getPowtorzeniaNaDzien(dzis.plusDays(i));
 
-            int questionNumber=0;
-            for(Powtorzenie repetition:repetitionsForDay)//count number of questions for day
-            {
-                List<Pytanie>repetitionQuestionsList=pytania.getPytaniaPowtorzenia(repetition);
-                questionNumber+=repetitionQuestionsList.size();
-            }
+
+            int questionNumber=pytania.getQuestionsNumberForDay(repetitionsForDay);
+
 
 
             liczby[i-1].setLiczba(questionNumber);

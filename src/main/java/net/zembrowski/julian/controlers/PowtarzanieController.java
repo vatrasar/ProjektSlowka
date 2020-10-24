@@ -53,6 +53,7 @@ public class PowtarzanieController {
                 e.printStackTrace();
             }
         }
+        model.addAttribute("numberOfQuestions",pytania.getQuestionsNumberForDay(powtorzeniaNaDzis));
         model.addAttribute("powtorzenia",powtorzeniaNaDzis);
         model.addAttribute("nazwaUzytkownika",users.getActualUserLogin());
         model.addAttribute("classResolver", PowClassResolver.dark);
@@ -183,6 +184,7 @@ public class PowtarzanieController {
         model.addAttribute("powtorzono", true);
         //nizej to samo co w pokarz powtorzenia
         List<Powtorzenie> powtorzeniaNaDzis = powtorzenia.getPowtorzeniaNaDzis();
+        model.addAttribute("numberOfQuestions",pytania.getQuestionsNumberForDay(powtorzeniaNaDzis));
         model.addAttribute("powtorzenia", powtorzeniaNaDzis);
         model.addAttribute("nazwaUzytkownika", users.getActualUserLogin());
         model.addAttribute("classResolver", PowClassResolver.dark);

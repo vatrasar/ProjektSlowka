@@ -91,6 +91,7 @@ public class TrainingControler {
         }
         model.addAttribute("lastRepet",actualRepetition);
         model.addAttribute("powtorzenia",powtorzenia.getActualRepetitions());
+        model.addAttribute("numberOfQuestions",pytania.getQuestionsNumberForDay(powtorzenia.getActualRepetitions()));
         return "pokarzDoPocwiczenia";
     }
     @RequestMapping(value = "/cwicz")
