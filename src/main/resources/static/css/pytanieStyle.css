@@ -75,3 +75,14 @@ h1
 
 }
 
+
+#bindButton
+{
+    position: fixed;
+    margin-right: 1%;
+    color: chocolate;
+    right: 0;
+    bottom: 0;
+
+}
+

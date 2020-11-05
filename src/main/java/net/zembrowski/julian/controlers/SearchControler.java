@@ -4,17 +4,18 @@ package net.zembrowski.julian.controlers;
 
 import net.zembrowski.julian.domain.Powtorzenie;
 import net.zembrowski.julian.domain.Pytanie;
+import net.zembrowski.julian.domain.QuestionJSON;
+import net.zembrowski.julian.dto.QuestionDto;
 import net.zembrowski.julian.services.PowtorzenieServices;
 import net.zembrowski.julian.services.PytanieServices;
 import net.zembrowski.julian.services.UzytkownikService;
 import org.apache.catalina.util.ResourceSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.time.LocalDate;
@@ -138,6 +139,16 @@ public class SearchControler {
         questionsseServices.setActualQuestionsList(questionsseServices.getQuestionsByTagName(tags,questionsseServices.getActualQuestionsList()));
 
         return "redirect:/cwicz";
+    }
+
+
+
+
+    @RequestMapping(method =RequestMethod.GET, value="/searchQuestions")
+    public @ResponseBody List<QuestionDto> searchQuestions(@RequestParam("textContent") String textContent)
+    {
+        List<QuestionDto>result= questionsseServices.searchQuestionsWithPartOfText(textContent);
+        return result;
     }
 }
 

@@ -143,4 +143,11 @@ public class PytanieRepository {
     public List<Pytanie> getLastAddedList(Powtorzenie powtorzenie) {
         return em.createQuery("SELECT p FROM Pytanie p where p.powtorzenie=:pow AND lastAdded=TRUE",Pytanie.class).setParameter("pow",powtorzenie).getResultList();
     }
+
+    public List<Pytanie> getQuestionsWithPartOfText(String part,String user) {
+
+        String query="SELECT q from Pytanie q WHERE (q.question LIKE :regex OR q.answer LIKE :regex) AND q.powtorzenie.wlasciciel=:user";
+        List<Pytanie>list= em.createQuery(query).setParameter("regex",part+"%").setParameter("user",user).getResultList();
+        return list;
+    }
 }

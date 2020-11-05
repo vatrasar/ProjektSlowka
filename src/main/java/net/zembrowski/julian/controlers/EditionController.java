@@ -318,4 +318,12 @@ public class EditionController {
         pytania.upadateSection(id,newSectionName);
         return "";
     }
+
+
+    @RequestMapping("/showBindPage")
+    public String showBindPage(Model model)
+    {
+
+        return "bindPage";
+    }
 }

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <title>Wiązanie pytań</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/css/darkMode.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/buttons.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/scriptGeneration.css}" type="text/css">
+
+</head>
+<body>
+<a id="back" href="#" class="previous">&laquo; Powrót </a>
+
+
+<div id="projectCreationPage"  class="container">
+
+    <h2>Ustawienia projektu</h2>
+    <div class="container">
+        <form class="form-horizontal">
+
+            <div class="form-group">
+                <h3>Powiązane pytania</h3>
+                <table id="checkboxes" class="table">
+                    <colgroup>
+                        <col span="1" style="width: 70%;">
+                        <col span="1" style="width: 15%;">
+                        <col span="1" style="width: 15%;">
+                    </colgroup>
+
+                    <tr>
+                        <th>pytanie</th>
+                        <th></th>
+                        <th></th>
+
+                    </tr>
+                    <tbody id="trInProjectGroup">
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div th:class="form-group">
+                <h3>Dodawanie wiązań</h3>
+                <label th:class="control-label">Wyszukiwanie pytania</label>
+                <input id="search"  accesskey="q" class="form-control question" type="text"/>
+            </div>
+            <div th:class="form-group">
+
+                <table id="repetitionsSearch" class="table">
+                    <colgroup>
+                        <col span="1" style="width: 40%;">
+                        <col span="1" style="width: 40%;">
+                        <col span="1" style="width: 20%;">
+                    </colgroup>
+                    <tr>
+
+                        <th>pytanie</th>
+                        <th>odpowiedź</th>
+                        <th></th>
+
+                    </tr>
+                    <tbody id="trGroup">
+
+
+                    </tbody>
+
+                </table>
+            </div>
+
+
+        </form>
+    </div>
+
+</div>
+
+
+
+<script th:src="@{/scripts/bindCreation.js}"></script>
+</body>
+</html>

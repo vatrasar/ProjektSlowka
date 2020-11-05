@@ -1,6 +1,7 @@
 package net.zembrowski.julian.services;
 
 import net.zembrowski.julian.domain.*;
+import net.zembrowski.julian.dto.QuestionDto;
 import net.zembrowski.julian.repository.PytanieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -632,5 +633,16 @@ public class PytanieServices {
             questionNumber+=repetitionQuestionsList.size();
         }
         return questionNumber;
+    }
+
+    public List<QuestionDto> searchQuestionsWithPartOfText(String textContent) {
+        List<Pytanie>listoOfQuestions=pytania.getQuestionsWithPartOfText(textContent,users.getActualUserLogin());
+        List<QuestionDto>resultlist=new ArrayList<>();
+        for(Pytanie pytanie:listoOfQuestions)
+        {
+            resultlist.add(new QuestionDto(pytanie));
+        }
+
+        return resultlist;
     }
 }
