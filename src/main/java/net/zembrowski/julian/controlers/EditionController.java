@@ -354,8 +354,10 @@ public class EditionController {
     }
 
     @RequestMapping("/dropBind")
-    public void dropQuestion(@RequestParam int id)
+    public @ResponseBody String dropQuestion(@RequestParam int id)
     {
         bindQuestiService.dropBind(id,trainingControler.aktualnePytanie.getId());
+        return "";
+
     }
 }

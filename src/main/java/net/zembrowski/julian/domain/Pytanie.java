@@ -200,19 +200,14 @@ public class Pytanie {
         if (o == null || getClass() != o.getClass()) return false;
         Pytanie pytanie = (Pytanie) o;
         return id == pytanie.id &&
-                problem == pytanie.problem &&
-                lastAdded == pytanie.lastAdded &&
-                notion == pytanie.notion &&
                 Objects.equals(question, pytanie.question) &&
                 Objects.equals(answer, pytanie.answer) &&
-                Objects.equals(powtorzenie, pytanie.powtorzenie) &&
-                status == pytanie.status &&
-                Objects.equals(statistics, pytanie.statistics);
+                Objects.equals(powtorzenie, pytanie.powtorzenie);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, question, answer, powtorzenie, status, problem, lastAdded, notion, statistics);
+        return Objects.hash(id, question, answer, powtorzenie);
     }
 
     public boolean isTooHard() {

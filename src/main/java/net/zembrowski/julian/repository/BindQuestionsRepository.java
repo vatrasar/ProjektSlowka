@@ -32,15 +32,21 @@ public class BindQuestionsRepository {
 
         String query="SELECT b from BindQuestions b where (b.idQuestion1=:id and b.idQuestion2=:id1) OR (b.idQuestion1=:id1 AND b.idQuestion2=:id)";
         List<BindQuestions> list1= em.createQuery(query).setParameter("id",id).setParameter("id1",id1).getResultList();
+
+
+    }
+
+    @Transactional
+    public void dropBind(int id, int id1) {
+
+        String query="SELECT b from BindQuestions b where (b.idQuestion1=:id and b.idQuestion2=:id1) OR (b.idQuestion1=:id1 AND b.idQuestion2=:id)";
+        List<BindQuestions> list1= em.createQuery(query).setParameter("id",id).setParameter("id1",id1).getResultList();
+
+
         for(BindQuestions bind:list1)
         {
             em.remove(bind);
         }
-
-    }
-
-
-    public void dropBind(int id, int id1) {
 
 
     }

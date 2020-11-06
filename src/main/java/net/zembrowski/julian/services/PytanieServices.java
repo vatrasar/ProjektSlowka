@@ -38,10 +38,14 @@ public class PytanieServices {
     @Autowired
     TagService tagService;
 
+
+    @Autowired
+    BindQuestiService bindQuestiService;
     private  List<Pytanie>actualQuestionsList;
     private static String path="programDane/";//path to folder with video and img data in src(to save data)
     //on google Drive
     private static String pathBackup=null;
+
 
 
    public PytanieServices()
@@ -166,6 +170,7 @@ public class PytanieServices {
 
     public List<Pytanie> getPytaniaPowtorzeniaNiesprawdzone(Powtorzenie wykonywane) {
 
+
        return pytania.getPytaniaPowtorzeniaNiesprawdzone(wykonywane);
 
 
@@ -177,7 +182,17 @@ public class PytanieServices {
      */
     public void injectUnverified(Powtorzenie processed) {
 
-        actualQuestionsList=pytania.getPytaniaPowtorzeniaNiesprawdzone(processed);
+        List<Pytanie>questionsList=pytania.getPytaniaPowtorzeniaNiesprawdzone(processed);
+        Set<Pytanie>questionsSet=new HashSet<>();
+        questionsSet.addAll(questionsList);
+
+        //add bind questions
+        for(Pytanie question:questionsList)
+        {
+
+            questionsSet.addAll(pytania.getBindQuestions(question.getId()));
+        }
+        actualQuestionsList=new ArrayList<>(questionsSet);
 
 
     }
