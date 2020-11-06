@@ -29,4 +29,12 @@ public class QuestionDto {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

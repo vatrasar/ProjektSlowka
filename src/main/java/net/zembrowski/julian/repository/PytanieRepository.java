@@ -1,9 +1,7 @@
 package net.zembrowski.julian.repository;
 
-import net.zembrowski.julian.domain.Powtorzenie;
-import net.zembrowski.julian.domain.Pytanie;
-import net.zembrowski.julian.domain.Statistics;
-import net.zembrowski.julian.domain.Status;
+import net.zembrowski.julian.domain.*;
+import net.zembrowski.julian.dto.QuestionDto;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
@@ -149,5 +147,15 @@ public class PytanieRepository {
         String query="SELECT q from Pytanie q WHERE (q.question LIKE :regex OR q.answer LIKE :regex) AND q.powtorzenie.wlasciciel=:user";
         List<Pytanie>list= em.createQuery(query).setParameter("regex",part+"%").setParameter("user",user).getResultList();
         return list;
+    }
+
+    public List<Pytanie> getBindQuestions(int id) {
+        String query1="SELECT p from Pytanie p inner join BindQuestions bind ON p.id=bind.idQuestion1 WHERE bind.idQuestion2=:id";
+        String query2="SELECT p from Pytanie p inner join BindQuestions bind ON p.id=bind.idQuestion2 WHERE bind.idQuestion1=:id";
+        List<Pytanie>list1= em.createQuery(query1).setParameter("id",id).getResultList();
+        List<Pytanie>list2= em.createQuery(query2).setParameter("id",id).getResultList();
+        list1.addAll(list2);
+        return list1;
+
     }
 }

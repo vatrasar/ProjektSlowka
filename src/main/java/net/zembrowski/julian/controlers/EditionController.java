@@ -1,10 +1,8 @@
 package net.zembrowski.julian.controlers;
 
 import net.zembrowski.julian.domain.*;
-import net.zembrowski.julian.services.PowtorzenieServices;
-import net.zembrowski.julian.services.PytanieServices;
-import net.zembrowski.julian.services.TagService;
-import net.zembrowski.julian.services.UzytkownikService;
+import net.zembrowski.julian.dto.QuestionDto;
+import net.zembrowski.julian.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -34,8 +32,13 @@ public class EditionController {
     @Autowired
     TrainingControler trainingControler;
 
+
     @Autowired
     TagService tagService;
+    Pytanie currentQuestion;
+
+    @Autowired
+    BindQuestiService bindQuestiService;
 
 
 
@@ -324,6 +327,35 @@ public class EditionController {
     public String showBindPage(Model model)
     {
 
+
+
         return "bindPage";
+    }
+
+    @RequestMapping("/bindQuestions")
+    public @ResponseBody String bindQuestions(@RequestParam("targetQuestionId") int targetquestionId)
+    {
+            bindQuestiService.bindQuestions(trainingControler.aktualnePytanie.getId(),targetquestionId);
+            return "";
+
+    }
+    @RequestMapping("/getQuestion")
+    public @ResponseBody QuestionDto getQuestion(@RequestParam("targetQuestionId") int targetquestionId)
+    {
+
+        return new QuestionDto(pytania.getQuestion(targetquestionId));
+    }
+
+    @RequestMapping("/getBindQuestionsForCurrentQuestion")
+    public @ResponseBody List<QuestionDto> getQuestion()
+    {
+        List<QuestionDto>questionsList=pytania.getBindQuestion(trainingControler.aktualnePytanie);
+        return questionsList;
+    }
+
+    @RequestMapping("/dropBind")
+    public void dropQuestion(@RequestParam int id)
+    {
+        bindQuestiService.dropBind(id,trainingControler.aktualnePytanie.getId());
     }
 }

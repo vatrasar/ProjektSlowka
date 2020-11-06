@@ -645,4 +645,19 @@ public class PytanieServices {
 
         return resultlist;
     }
+
+    public Pytanie getQuestion(int id) {
+        return pytania.getPytanie(id);
+    }
+
+    public List<QuestionDto> getBindQuestion(Pytanie aktualnePytanie) {
+        List<Pytanie>questionslist=pytania.getBindQuestions(aktualnePytanie.getId());
+        List<QuestionDto>questionDtoList=new ArrayList<>();
+        for(Pytanie question:questionslist)
+        {
+            questionDtoList.add(new QuestionDto(question));
+        }
+
+        return questionDtoList;
+    }
 }
