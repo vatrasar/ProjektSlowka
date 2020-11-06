@@ -517,6 +517,7 @@ public class PytanieServices {
     public List<Pytanie> getQuestionsOfMarked(List<Powtorzenie> toLearn) {
 
         toLearn=toLearn.stream().filter(Powtorzenie::isProblems).collect(Collectors.toList());
+
         return getPytaniaOfRepetitions(toLearn);
 
     }
@@ -525,7 +526,18 @@ public class PytanieServices {
      * inject marked questions to actualQuestionsList
      */
     public void injectMarked() {
-        actualQuestionsList=getQuestionsOfMarked(powtorzenia.getActualRepetitions());
+
+        List<Pytanie>questionsList=getQuestionsOfMarked(powtorzenia.getActualRepetitions());
+        Set<Pytanie>questionsSet=new HashSet<>();
+        questionsSet.addAll(questionsList);
+
+        //add bind questions
+        for(Pytanie question:questionsList)
+        {
+
+            questionsSet.addAll(pytania.getBindQuestions(question.getId()));
+        }
+        actualQuestionsList=new ArrayList<>(questionsSet);
     }
 
     public List<Pytanie> getPytaniaOfRepetitions(List<Powtorzenie> toLearn) {

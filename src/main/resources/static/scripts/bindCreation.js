@@ -5,7 +5,7 @@ $("#back").on("click",function (event) {
     event.preventDefault();
     if($("#back").attr("href")==="#")
     {
-        window.open("/pokarzMenu","_self");
+        window.open("/cwicz","_self");
     }
 
 
