@@ -614,7 +614,7 @@ public class PytanieServices {
         }
 
         elementsList.stream().forEach((String element)->{
-            String[]questionAndAnswer=element.split(",");
+            String[]questionAndAnswer=element.split(";");
             Pytanie newQuestion=new Pytanie(akutalnePowtorzenie,questionAndAnswer[1],questionAndAnswer[0]);
             pytania.createPytanie(newQuestion);
                 });
